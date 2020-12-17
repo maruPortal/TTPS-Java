@@ -1,24 +1,48 @@
-<div class="row justify-content-md-center">
-  <form #login="ngForm" (ngSubmit)="onSubmit(login)">
-    <div class="form-group">
-      <label for="">Usuario</label>
-      <input type="text" name="usuario" ngModel required class="form-control" />
+<div style="width: max; height: 100%;">
+  <center>
+    <div style=" display: inline-block;">
+      <div>
+        <img src="../assets/images/logo_app.png">
+      </div>
+      <div>
+        <p style="position: absolute;
+          width: 270px;
+          height: 92px;
+          left: 662px;
+          top: 142px;
+          
+          font-family: Red Hat Text;
+          font-style: normal;
+          font-weight: 500;
+          font-size: 35px;
+          line-height: 46px;
+          
+          color: #CFCFCF;">CENTRAL DE FOOD-TRUCKS</p>
+      </div>
     </div>
-    <div class="form-group">
-      <label for=""> Contraseña</label>
-      <input
-        type="password"
-        name="clave"
-        ngModel
-        required
-        class="form-control"
-      />
-    </div>
-    <button type="submit" class="btn btn-primary">INICIAR SESION</button>
-
-    <div class="form-group">
-      <br />
-      <a routerLink="/register">¿No tenes cuenta? Registrate ingresando aquí</a>
-    </div>
-  </form>
+  </center>
+  <div class="row justify-content-md-center" >
+    <form #login="ngForm" (ngSubmit)="onSubmit(login)">
+      <div class="form-group">
+        <label for="">Usuario</label>
+        <input type="text" name="usuario" ngModel required class="form-control" />
+      </div>
+      <div class="form-group">
+        <label for=""> Contraseña</label>
+        <input
+          type="password"
+          name="clave"
+          ngModel
+          required
+          class="form-control"
+        />
+      </div>
+      <button type="submit" class="btn btn-primary">INICIAR SESION</button>
+  
+      <div class="form-group">
+        <br />
+        <a routerLink="/register">¿No tenes cuenta? Registrate ingresando aquí</a>
+      </div>
+    </form>
+  </div>  
 </div>
