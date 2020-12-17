@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { UsuarioserviceService } from 'src/app/services/usuarioservice.service';
 
 @Component({
   selector: 'app-edituser',
@@ -7,9 +8,12 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./edituser.component.css'],
 })
 export class EdituserComponent implements OnInit {
-  constructor() {}
+  constructor(private userService: UsuarioserviceService) {}
 
   ngOnInit(): void {}
 
-  onSubmit(usuario: NgForm) {}
+  onSubmit(usuario: NgForm) {
+    this.userService.editUser(usuario);
+    console.log('conmponente', usuario.value);
+  }
 }

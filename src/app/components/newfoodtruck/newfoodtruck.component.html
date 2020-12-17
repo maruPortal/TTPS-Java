@@ -1,0 +1,79 @@
+<div style="text-align: center">
+  <h4>CARGAR NUEVO FOOD-TRUCK</h4>
+</div>
+
+<div class="row justify-content-md-center">
+  <form #ft="ngForm" (ngSubmit)="onSubmit(ft)">
+    <div class="form-group">
+      <label for="">Nombre</label>
+      <input
+        type="text"
+        name="nombre"
+        ngModel
+        required
+        class="form-control"
+        placeholder="Ingrese un nombre"
+      />
+    </div>
+    <div class="form-group">
+      <label for="">Descripción</label>
+      <textarea
+        cols="15"
+        rows="3"
+        name="descripcion"
+        ngModel
+        required
+        class="form-control"
+        placeholder="Ingrese una breve descripción"
+      ></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="">Tipo de servicio</label>
+      <input
+        type="text"
+        name="tipo_servicio"
+        ngModel
+        required
+        class="form-control"
+        placeholder="Ingrese un tipo de servicio"
+      />
+    </div>
+    <div class="form-group">
+      <label for="">URL Web</label>
+      <input
+        type="text"
+        name="url"
+        ngModel
+        required
+        class="form-control"
+        placeholder="Ingrese la dirección URL de su web "
+      />
+    </div>
+    <div class="form-group">
+      <label for="">Redes</label>
+      <input
+        type="text"
+        name="instagram"
+        ngModel
+        required
+        class="form-control"
+      />
+      <input
+        type="text"
+        name="facebook"
+        ngModel
+        required
+        class="form-control"
+      />
+      <input
+        type="text"
+        name="whatsapp"
+        ngModel
+        required
+        class="form-control"
+      />
+    </div>
+    <button type="submit" class="btn btn-primary">ENVIAR</button>
+  </form>
+</div>

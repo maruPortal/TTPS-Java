@@ -11,10 +11,18 @@ export class UsuarioserviceService {
   constructor(private http: HttpClient, private router: Router) {}
 
   autenticacion(login: NgForm) {
+    // pasan cosas y "pierde" los datos en el camino :/
+    // problema el map ¿?
+    let header = JSON.stringify(login.value);
     this.http
-      .post<any>(`${environment.url}/usuario/autenticacion`, login.value)
-      .subscribe();
-    this.router.navigateByUrl('home');
+      .post<any>(`${environment.url}/usuario/autenticacion`, {
+        usuario: 'maruca',
+        clave: 'maruca123',
+      })
+      .subscribe((response) => {
+        console.log('respuesta: ', response);
+      });
+    this.router.navigateByUrl('home-foodtrucker');
   }
 
   createFoodtrucker(register: NgForm) {
@@ -23,7 +31,7 @@ export class UsuarioserviceService {
       .subscribe((response) => {
         console.log(response);
       });
-    this.router.navigateByUrl('home'); // si todo ok => homeFoodTrucker
+    this.router.navigateByUrl('home-foodtrucker');
   }
 
   createOrganizador(register: NgForm) {
@@ -32,6 +40,15 @@ export class UsuarioserviceService {
       .subscribe((response) => {
         console.log(response);
       });
-    this.router.navigateByUrl('home'); // si todo ok => homeOrganizador
+    this.router.navigateByUrl('home-organizador');
+  }
+
+  // me falta conseguir el ID de usuario logueado
+  editUser(usuario: NgForm) {
+    this.http
+      .put<any>(`${environment.url}/usuario/8`, usuario.value, {
+        headers: { token: '1123456' },
+      })
+      .subscribe();
   }
 }
