@@ -1,5 +1,7 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { UsuarioserviceService } from 'src/app/services/usuarioservice.service';
 
 @Component({
@@ -8,11 +10,25 @@ import { UsuarioserviceService } from 'src/app/services/usuarioservice.service';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  constructor(private userService: UsuarioserviceService) {}
+  constructor(
+    private userService: UsuarioserviceService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {}
 
   onSubmit(login: NgForm) {
-    this.userService.autenticacion(login);
+    this.userService.autenticacion(login).subscribe(
+      (usuario) => {
+        //almacenamiento en sesion
+        sessionStorage.setItem('id', usuario.id);
+        // en header tengo tipo_usuario - falta obtenerlo
+
+        this.router.navigateByUrl('home-foodtrucker');
+      },
+      (err: HttpErrorResponse) => {
+        console.log('estado de error: ', err.status, typeof err.status);
+      }
+    );
   }
 }

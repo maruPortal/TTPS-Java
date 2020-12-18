@@ -6,6 +6,7 @@ import {
 import { Injectable } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Usuario } from '../model/usuario';
 
@@ -26,14 +27,15 @@ export class UsuarioserviceService {
         (response) => {
           //actualiza los datos
           this.usuario = response;
+          return response;
         },
         (err: HttpErrorResponse) => {
           console.log('estado de error: ', err.status, typeof err.status);
+          return null;
         }
       );
-    return this.usuario;
   }
-  autenticacion(login: NgForm) {
+  autenticacion(login: NgForm): Observable<Usuario> {
     const headerDict = {
       usuario: `${login.value.usuario}`,
       clave: `${login.value.clave}`,
@@ -44,25 +46,11 @@ export class UsuarioserviceService {
     const requestOptions = {
       headers: new HttpHeaders(headerDict),
     };
-    this.http
-      .post<Usuario>(
-        `${environment.url}/usuario/autenticacion`,
-        '',
-        requestOptions
-      )
-      .subscribe(
-        (response) => {
-          this.usuario = response;
-          //almacenamiento en sesion
-          sessionStorage.setItem('id', this.usuario.id);
-          // en header tengo tipo_usuario - falta obtenerlo
-
-          this.router.navigateByUrl('home-foodtrucker');
-        },
-        (err: HttpErrorResponse) => {
-          console.log('estado de error: ', err.status, typeof err.status);
-        }
-      );
+    return this.http.post<Usuario>(
+      `${environment.url}/usuario/autenticacion`,
+      '',
+      requestOptions
+    );
   }
 
   createFoodtrucker(register: NgForm) {
@@ -84,21 +72,14 @@ export class UsuarioserviceService {
   }
 
   // me falta conseguir el ID de usuario logueado
-  editUser(usuario: NgForm) {
+  editUser(usuario: NgForm): Observable<Usuario> {
     let id = sessionStorage.getItem('id');
-    this.http
-      .put<Usuario>(`${environment.url}/usuario/${id}`, usuario.value, {
+    return this.http.put<Usuario>(
+      `${environment.url}/usuario/${id}`,
+      usuario.value,
+      {
         headers: { token: '1123456' },
-      })
-      .subscribe(
-        (response) => {
-          //actualiza los datos
-          this.usuario = response;
-          this.router.navigateByUrl('home-foodtrucker');
-        },
-        (err: HttpErrorResponse) => {
-          console.log('estado de error: ', err.status, typeof err.status);
-        }
-      );
+      }
+    );
   }
 }
