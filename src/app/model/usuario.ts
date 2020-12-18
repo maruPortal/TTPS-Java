@@ -5,7 +5,7 @@ export class Usuario {
   password: string;
   email: string;
   username: string;
-  tipo: string;
+  tipo_usuario: string;
 
   constructor(
     id?: string,
@@ -14,7 +14,7 @@ export class Usuario {
     password?: string,
     email?: string,
     username?: string,
-    tipo?: string
+    tipo_usuario?: string
   ) {
     this.id = id;
     this.apellido = apellido;
@@ -22,6 +22,6 @@ export class Usuario {
     this.password = password;
     this.email = email;
     this.username = username;
-    this.tipo = tipo;
+    this.tipo_usuario = tipo_usuario;
   }
 }

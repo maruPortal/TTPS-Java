@@ -1,4 +1,21 @@
-<p>homeorganizador works!</p>
-
-<!--repetido en Homefoodtrucker  -->
-<a routerLink="/edit-user">Editar Perfil</a>
+<div style="justify-content: center; display: flex; background-color: #ffffff77;">
+    <div *ngIf="user_tipo == 'FoodTrucker'" style="margin-top: 50px; width: fit-content; text-align: center;" class="justify-content-md-center">
+        <h1>¿Te perdiste?</h1>
+        <br>
+        <a routerLink="/home-foodtrucker" class="btn btn-primary btn-lg" style="margin-right: 15px;" href="#" role="button">Volver a mi Home</a>
+    </div>
+</div>
+<div *ngIf="user_tipo == 'Organizador'" class="jumbotron" style="margin-top: 50px; background-color: #fefefebb;">
+    <div>
+        <h1 class="display-4">¡Bienvenido <b> {{ user_username }} </b>!</h1>
+        <p class="lead">Este es el home para los usuarios <b>Organizadores</b>.</p>
+        <hr class="my-4">
+        <p>Todavia esta en desarrollo, por lo que por el momento solo podes realizar las siguientes acciones.</p>
+        <p class="lead">
+            <a routerLink="/edit-user" class="btn btn-primary btn-lg" style="margin-right: 15px;" href="#" role="button">Modificar Perfil</a>
+            <br>
+            <br>
+            <a routerLink="/login" class="btn btn-secondary btn-lg" style="margin-right: 15px;" href="#" role="button">Logout</a>
+        </p>
+    </div>
+</div>
