@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
 export class FoodtruckService {
   constructor(private http: HttpClient, private router: Router) {}
 
-  createFoodtruck(ft: NgForm) {
+  createFoodtruck(ft: NgForm){
     let dueñoID = { id: 7 };
     let ftruck = {
       nombre: ft.value.nombre,

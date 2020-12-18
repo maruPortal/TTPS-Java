@@ -1,79 +1,89 @@
-<div style="text-align: center">
-  <h4>CARGAR NUEVO FOOD-TRUCK</h4>
-</div>
+<div style="background-color: #fefefe77; margin-top: 30px;">
+  <div style="text-align: center">
+    <h4><b>CARGAR NUEVO FOOD-TRUCK</b></h4>
+  </div>
+  <div style="justify-content: center; display: flex;">
+    <div class="justify-content-md-center col-md-3">
+    <form #ft="ngForm" (ngSubmit)="onSubmit(ft)">
+      <div class="form-group">
+        <label for=""><b>Nombre</b></label>
+        <input
+          type="text"
+          name="nombre"
+          ngModel
+          required
+          class="form-control"
+          placeholder="Ingrese un nombre"
+        />
+      </div>
+      <div class="form-group">
+        <label for=""><b>Descripción</b></label>
+        <textarea
+          cols="15"
+          rows="3"
+          name="descripcion"
+          ngModel
+          required
+          class="form-control"
+          placeholder="Ingrese una breve descripción"
+        ></textarea>
+      </div>
 
-<div class="row justify-content-md-center">
-  <form #ft="ngForm" (ngSubmit)="onSubmit(ft)">
-    <div class="form-group">
-      <label for="">Nombre</label>
-      <input
-        type="text"
-        name="nombre"
-        ngModel
-        required
-        class="form-control"
-        placeholder="Ingrese un nombre"
-      />
-    </div>
-    <div class="form-group">
-      <label for="">Descripción</label>
-      <textarea
-        cols="15"
-        rows="3"
-        name="descripcion"
-        ngModel
-        required
-        class="form-control"
-        placeholder="Ingrese una breve descripción"
-      ></textarea>
-    </div>
-
-    <div class="form-group">
-      <label for="">Tipo de servicio</label>
-      <input
-        type="text"
-        name="tipo_servicio"
-        ngModel
-        required
-        class="form-control"
-        placeholder="Ingrese un tipo de servicio"
-      />
-    </div>
-    <div class="form-group">
-      <label for="">URL Web</label>
-      <input
-        type="text"
-        name="url"
-        ngModel
-        required
-        class="form-control"
-        placeholder="Ingrese la dirección URL de su web "
-      />
-    </div>
-    <div class="form-group">
-      <label for="">Redes</label>
-      <input
-        type="text"
-        name="instagram"
-        ngModel
-        required
-        class="form-control"
-      />
-      <input
-        type="text"
-        name="facebook"
-        ngModel
-        required
-        class="form-control"
-      />
-      <input
-        type="text"
-        name="whatsapp"
-        ngModel
-        required
-        class="form-control"
-      />
-    </div>
-    <button type="submit" class="btn btn-primary">ENVIAR</button>
-  </form>
+      <div class="form-group">
+        <label for=""><b>Tipo de Servicio</b></label>
+        <input
+          type="text"
+          name="tipo_servicio"
+          ngModel
+          required
+          class="form-control"
+          placeholder="Ingrese un tipo de servicio"
+        />
+      </div>
+      <div class="form-group">
+        <label for=""><b>URL Web</b></label>
+        <input
+          type="text"
+          name="url"
+          ngModel
+          required
+          class="form-control"
+          placeholder="Ingrese la dirección URL de su web "
+        />
+      </div>
+      <div class="form-group">
+        <label for=""><b>Redes</b></label>
+        <input
+          type="text"
+          name="instagram"
+          placeholder="@instagram"
+          ngModel
+          required
+          class="form-control"
+        />
+        <input
+          type="text"
+          name="facebook"
+          placeholder="@facebook"
+          ngModel
+          required
+          class="form-control"
+        />
+        <input
+          type="text"
+          name="whatsapp"
+          placeholder="whatsapp"
+          ngModel
+          required
+          class="form-control"
+        />
+      </div>
+      <div style="text-align: center;">
+        <button type="submit" class="btn btn-primary">ENVIAR</button>
+      </div>
+      
+    </form>
+   
+    </div> 
+  </div>
 </div>

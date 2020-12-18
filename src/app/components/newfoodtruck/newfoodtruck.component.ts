@@ -8,6 +8,8 @@ import { FoodtruckService } from 'src/app/services/foodtruck.service';
   styleUrls: ['./newfoodtruck.component.css'],
 })
 export class NewfoodtruckComponent implements OnInit {
+  enviado: Boolean;
+  error: Boolean;
   constructor(private ftservice: FoodtruckService) {}
 
   ngOnInit(): void {}
