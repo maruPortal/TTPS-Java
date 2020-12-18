@@ -16,8 +16,8 @@ export class UsuarioserviceService {
 
     //LOGRE QUE SALGAN POR HEADER, PERO NO SE PORQUE SIGUE TIRANDO 403
     const headerDict = {
-      'usuario': 'juanperez',
-      'clave': 'password',
+      'usuario': 'felipeornella',
+      'clave': 'fefe',
       'Content-Type': 'application/json',
       'Accept': 'application/json',
       'Access-Control-Allow-Headers': 'Content-Type',
