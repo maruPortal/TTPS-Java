@@ -2,7 +2,9 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Foodtruck } from '../model/foodtruck';
 
 @Injectable({
   providedIn: 'root',
@@ -40,5 +42,10 @@ export class FoodtruckService {
         console.log('estado de error: ', err.status);
       }
     );
+  }
+
+  getFoodtrucks(): Observable<Foodtruck[]> {
+    let id = sessionStorage.getItem('id');
+    return this.http.get<Foodtruck[]>(`${environment.url}/foodtruck/${id}`);
   }
 }

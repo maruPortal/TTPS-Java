@@ -35,7 +35,9 @@ export class UsuarioserviceService {
         }
       );
   }
-
+  isLogin() {
+    return !(sessionStorage.getItem('id') == null);
+  }
   logOut() {
     sessionStorage.clear();
     this.router.navigateByUrl('login');

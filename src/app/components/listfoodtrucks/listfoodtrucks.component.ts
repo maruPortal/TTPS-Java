@@ -1,6 +1,8 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Foodtruck } from 'src/app/model/foodtruck';
+import { FoodtruckService } from 'src/app/services/foodtruck.service';
 import { UsuarioserviceService } from 'src/app/services/usuarioservice.service';
 
 @Component({
@@ -11,10 +13,16 @@ import { UsuarioserviceService } from 'src/app/services/usuarioservice.service';
 export class ListfoodtrucksComponent implements OnInit {
   foodtrucks: Foodtruck[];
 
-  constructor(
-    private userService: UsuarioserviceService,
-    private router: Router
-  ) {}
+  constructor(private ftService: FoodtruckService, private router: Router) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.ftService.getFoodtrucks().subscribe(
+      (listaFTrucks) => {
+        console.log(listaFTrucks);
+      },
+      (err: HttpErrorResponse) => {
+        console.log('estado de error: ', err.status);
+      }
+    );
+  }
 }
