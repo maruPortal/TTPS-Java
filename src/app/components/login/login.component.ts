@@ -12,7 +12,7 @@ import { UsuarioserviceService } from 'src/app/services/usuarioservice.service';
 export class LoginComponent implements OnInit {
   constructor(
     private userService: UsuarioserviceService,
-    private router: Router
+    private router: Router,
   ) {}
 
   ngOnInit(): void {}
@@ -22,9 +22,14 @@ export class LoginComponent implements OnInit {
       (usuario) => {
         //almacenamiento en sesion
         sessionStorage.setItem('id', usuario.id);
-        // en header tengo tipo_usuario - falta obtenerlo
-
-        this.router.navigateByUrl('home-foodtrucker');
+        sessionStorage.setItem('username', usuario.username);
+        sessionStorage.setItem('tipoUsuario',usuario.tipo_usuario)
+        
+        if (usuario.tipo_usuario == "Organizador"){
+          this.router.navigateByUrl('home-organizador');
+        }else{
+          this.router.navigateByUrl('home-foodtrucker');
+        }
       },
       (err: HttpErrorResponse) => {
         console.log('estado de error: ', err.status, typeof err.status);
