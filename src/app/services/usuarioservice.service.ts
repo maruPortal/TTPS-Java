@@ -36,24 +36,12 @@ export class UsuarioserviceService {
       );
   }
 
-  recuperarData(): String[] {
-    let arreglo = String[5];
+  recuperarData(): Observable<Usuario> {
     let id = sessionStorage.getItem('id');
-    this.http
+    return this.http
       .get<Usuario>(`${environment.url}/usuario/${id}`, {
         headers: { token: '1123456' },
-      })
-      .subscribe((response) => {
-        //actualiza los datos
-        console.log(response.apellido);
-        arreglo[0] = response.apellido;
-        arreglo[1] = response.nombre;
-        arreglo[2] = response.password;
-        arreglo[3] = response.email;
-        arreglo[4] = response.username;
       });
-    console.log(arreglo);
-    return arreglo;
   }
 
   isLogin() {
@@ -101,9 +89,14 @@ export class UsuarioserviceService {
     this.router.navigateByUrl('home-organizador');
   }
 
-  // me falta conseguir el ID de usuario logueado
   editUser(usuario: NgForm): Observable<Usuario> {
     let id = sessionStorage.getItem('id');
+    let usu = new Usuario;
+    usu.apellido = `${usuario.value.apellido}`;
+    usu.nombre = `${usuario.value.nombre}`;
+    usu.username = `${usuario.value.username}`;
+    usu.password = `${usuario.value.password}`;
+    usu.email = `${usuario.value.email}`;
     return this.http.put<Usuario>(
       `${environment.url}/usuario/${id}`,
       usuario.value,

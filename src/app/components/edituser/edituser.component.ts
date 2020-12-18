@@ -12,8 +12,11 @@ import { UsuarioserviceService } from 'src/app/services/usuarioservice.service';
 })
 export class EdituserComponent implements OnInit {
   enviado:Boolean;
-  me: Usuario;
-  datos: String[];
+  nombre: String;
+  apellido: String;
+  username: String;
+  password: String;
+  email: String;
   constructor(
     private userService: UsuarioserviceService,
     private router: Router
@@ -21,12 +24,22 @@ export class EdituserComponent implements OnInit {
 
   ngOnInit(): void {
     this.enviado=false;
-    this.datos = this.userService.recuperarData();
-    console.log(this.datos);
+    this.userService.recuperarData()
+    .subscribe(
+      (usuario) => {
+        this.apellido= usuario.apellido;
+        this.nombre= usuario.nombre;
+        this.username= usuario.username;
+        this.password= usuario.password;
+        this.email= usuario.email;
+      }
+    );
   }
 
   onSubmit(usuario: NgForm) {
-    this.userService.editUser(usuario).subscribe(
+    let envio= this.comprobarCampos(usuario);
+
+    this.userService.editUser(envio).subscribe(
       () => {
         //actualiza los datos
         this.enviado=true;
@@ -35,5 +48,24 @@ export class EdituserComponent implements OnInit {
         console.log('estado de error: ', err.status, typeof err.status);
       }
     );
+  }
+
+  comprobarCampos(data: NgForm): NgForm{
+    if (data.value.apellido==""){
+      data.value.apellido= this.apellido;
+    }
+    if (data.value.nombre==""){
+      data.value.nombre= this.nombre;
+    }
+    if (data.value.username==""){
+      data.value.username= this.username;
+    }
+    if (data.value.password==""){
+      data.value.password= this.password;
+    }
+    if (data.value.email==""){
+      data.value.email= this.email;
+    }
+    return data;
   }
 }
