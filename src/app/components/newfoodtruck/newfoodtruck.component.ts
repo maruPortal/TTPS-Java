@@ -12,10 +12,21 @@ export class NewfoodtruckComponent implements OnInit {
   error: Boolean;
   constructor(private ftservice: FoodtruckService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.enviado=false;
+    this.error=false;
+  }
 
   // {"dueño":{ "id":1} }
   onSubmit(ft: NgForm) {
-    this.ftservice.createFoodtruck(ft);
+    let estado= this.ftservice.createFoodtruck(ft);
+    console.log(estado);
+    if (estado == "Fallido"){
+      this.enviado=false;
+      this.error=true;
+    }else{
+      this.enviado=true;
+      this.error=false;
+    }
   }
 }

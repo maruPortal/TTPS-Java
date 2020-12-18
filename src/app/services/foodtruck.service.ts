@@ -3,14 +3,16 @@ import { Injectable } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
+import { NewfoodtruckComponent } from '../components/newfoodtruck/newfoodtruck.component';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FoodtruckService {
+  elEstado: String;
   constructor(private http: HttpClient, private router: Router) {}
 
-  createFoodtruck(ft: NgForm) {
+  createFoodtruck(ft: NgForm): String {
     let id = sessionStorage.getItem('id');
     let dueñoID = { id: `${id}` };
     let ftruck = {
@@ -26,9 +28,12 @@ export class FoodtruckService {
     this.http
       .post<any>(`${environment.url}/foodtruck`, ftruck)
       .subscribe((response) => {
-        console.log(response);
-      });
-    this.router.navigateByUrl('home-foodtrucker');
+        this.elEstado = "Exito"},
+        (err: HttpErrorResponse) => {
+          console.log('estado de error: ', err.status);
+          this.elEstado= "Fallido"
+        });
+    return this.elEstado;
   }
 
   deleteFoodtruck(id: string) {

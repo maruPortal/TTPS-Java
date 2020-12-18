@@ -2,9 +2,19 @@
   <div style="text-align: center">
     <h4><b>CARGAR NUEVO FOOD-TRUCK</b></h4>
   </div>
+  <div *ngIf="error" class="row justify-content-md-center" style="text-align: center;">
+    <div class="alert alert-danger col-md-3" role="alert">
+      ¡Alguno de los datos ingresados no son correctos!
+    </div>  
+  </div>
+  <div *ngIf="enviado" class="row justify-content-md-center" style="text-align: center;">
+    <div class="alert alert-success col-md-3" role="alert">
+      ¡FoodTruck cargado con exito!
+    </div>  
+  </div>
   <div style="justify-content: center; display: flex;">
     <div class="justify-content-md-center col-md-3">
-    <form #ft="ngForm" (ngSubmit)="onSubmit(ft)">
+    <form *ngIf="!enviado" #ft="ngForm" (ngSubmit)="onSubmit(ft)">
       <div class="form-group">
         <label for=""><b>Nombre</b></label>
         <input
@@ -83,7 +93,9 @@
       </div>
       
     </form>
-   
+    <div *ngIf="enviado" style="text-align: center;">
+      <a routerLink="/home-foodtrucker" class="btn btn-success btn-lg" style="margin-right: 15px;" href="#" role="button">Volver al Home</a>
+    </div>
     </div> 
   </div>
 </div>
