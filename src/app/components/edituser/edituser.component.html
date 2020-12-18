@@ -4,7 +4,7 @@
 <!-- despues borrar  -->
 
 <div class="row justify-content-md-center">
-  <form #edit="ngForm" (ngSubmit)="onSubmit(edit)">
+  <form #edit="ngForm" ngNativeValidate (ngSubmit)="onSubmit(edit)">
     <div class="form-group">
       <label for="">Apellido</label>
       <input
