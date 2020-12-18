@@ -14,6 +14,5 @@ export class LoginComponent implements OnInit {
 
   onSubmit(login: NgForm) {
     this.userService.autenticacion(login);
-    console.log(login.value);
   }
 }

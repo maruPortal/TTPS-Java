@@ -1,5 +1,5 @@
 <div class="row justify-content-md-center">
-  <form #register="ngForm" (ngSubmit)="onSubmit(register)">
+  <form #register="ngForm" ngNativeValidate (ngSubmit)="onSubmit(register)">
     <div class="form-group">
       <label for="">Nombre</label>
       <input type="text" name="nombre" ngModel required class="form-control" />

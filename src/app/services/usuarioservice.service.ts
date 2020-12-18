@@ -1,36 +1,68 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
+import { Usuario } from '../model/usuario';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UsuarioserviceService {
+  usuario: Usuario;
   constructor(private http: HttpClient, private router: Router) {}
 
+  getUsuario() {
+    let id = sessionStorage.getItem('id');
+    this.http
+      .get<Usuario>(`${environment.url}/usuario/${id}`, {
+        headers: { token: '1123456' },
+      })
+      .subscribe(
+        (response) => {
+          //actualiza los datos
+          this.usuario = response;
+        },
+        (err: HttpErrorResponse) => {
+          console.log('estado de error: ', err.status, typeof err.status);
+        }
+      );
+    return this.usuario;
+  }
   autenticacion(login: NgForm) {
-    // pasan cosas y "pierde" los datos en el camino :/
-    // problema el map ¿?
-
-    //LOGRE QUE SALGAN POR HEADER, PERO NO SE PORQUE SIGUE TIRANDO 403
     const headerDict = {
-      'usuario': 'felipeornella',
-      'clave': 'fefe',
+      usuario: `${login.value.usuario}`,
+      clave: `${login.value.clave}`,
       'Content-Type': 'application/json',
-      'Accept': 'application/json',
+      Accept: 'application/json',
       'Access-Control-Allow-Headers': 'Content-Type',
-    }   
-    const requestOptions = {                                                                                                                                                                                 
-      headers: new HttpHeaders(headerDict), 
+    };
+    const requestOptions = {
+      headers: new HttpHeaders(headerDict),
     };
     this.http
-      .post<any>(`${environment.url}/usuario/autenticacion`,"",requestOptions)
-      .subscribe((response) => {
-        console.log('respuesta: ', response);  
-      });
-    //this.router.navigateByUrl('home-foodtrucker');
+      .post<Usuario>(
+        `${environment.url}/usuario/autenticacion`,
+        '',
+        requestOptions
+      )
+      .subscribe(
+        (response) => {
+          this.usuario = response;
+          //almacenamiento en sesion
+          sessionStorage.setItem('id', this.usuario.id);
+          // en header tengo tipo_usuario - falta obtenerlo
+
+          this.router.navigateByUrl('home-foodtrucker');
+        },
+        (err: HttpErrorResponse) => {
+          console.log('estado de error: ', err.status, typeof err.status);
+        }
+      );
   }
 
   createFoodtrucker(register: NgForm) {
@@ -53,10 +85,20 @@ export class UsuarioserviceService {
 
   // me falta conseguir el ID de usuario logueado
   editUser(usuario: NgForm) {
+    let id = sessionStorage.getItem('id');
     this.http
-      .put<any>(`${environment.url}/usuario/8`, usuario.value, {
+      .put<Usuario>(`${environment.url}/usuario/${id}`, usuario.value, {
         headers: { token: '1123456' },
       })
-      .subscribe();
+      .subscribe(
+        (response) => {
+          //actualiza los datos
+          this.usuario = response;
+          this.router.navigateByUrl('home-foodtrucker');
+        },
+        (err: HttpErrorResponse) => {
+          console.log('estado de error: ', err.status, typeof err.status);
+        }
+      );
   }
 }
