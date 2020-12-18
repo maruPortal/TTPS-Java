@@ -10,9 +10,10 @@ import { UsuarioserviceService } from 'src/app/services/usuarioservice.service';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
+  error: Boolean;
   constructor(
     private userService: UsuarioserviceService,
-    private router: Router,
+    private router: Router
   ) {}
 
   ngOnInit(): void {}
@@ -21,18 +22,20 @@ export class LoginComponent implements OnInit {
     this.userService.autenticacion(login).subscribe(
       (usuario) => {
         //almacenamiento en sesion
+        this.error = false;
         sessionStorage.setItem('id', usuario.id);
         sessionStorage.setItem('username', usuario.username);
-        sessionStorage.setItem('tipoUsuario',usuario.tipo_usuario)
-        
-        if (usuario.tipo_usuario == "Organizador"){
+        sessionStorage.setItem('tipoUsuario', usuario.tipo_usuario);
+
+        if (usuario.tipo_usuario == 'Organizador') {
           this.router.navigateByUrl('home-organizador');
-        }else{
+        } else {
           this.router.navigateByUrl('home-foodtrucker');
         }
       },
       (err: HttpErrorResponse) => {
         console.log('estado de error: ', err.status, typeof err.status);
+        this.error = true;
       }
     );
   }

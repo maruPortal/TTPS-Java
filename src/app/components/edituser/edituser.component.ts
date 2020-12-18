@@ -11,18 +11,25 @@ import { UsuarioserviceService } from 'src/app/services/usuarioservice.service';
   styleUrls: ['./edituser.component.css'],
 })
 export class EdituserComponent implements OnInit {
+  enviado:Boolean;
+  me: Usuario;
+  datos: String[];
   constructor(
     private userService: UsuarioserviceService,
     private router: Router
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.enviado=false;
+    this.datos = this.userService.recuperarData();
+    console.log(this.datos);
+  }
 
   onSubmit(usuario: NgForm) {
     this.userService.editUser(usuario).subscribe(
       () => {
         //actualiza los datos
-        this.router.navigateByUrl('home-foodtrucker');
+        this.enviado=true;
       },
       (err: HttpErrorResponse) => {
         console.log('estado de error: ', err.status, typeof err.status);

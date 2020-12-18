@@ -35,9 +35,31 @@ export class UsuarioserviceService {
         }
       );
   }
+
+  recuperarData(): String[] {
+    let arreglo = String[5];
+    let id = sessionStorage.getItem('id');
+    this.http
+      .get<Usuario>(`${environment.url}/usuario/${id}`, {
+        headers: { token: '1123456' },
+      })
+      .subscribe((response) => {
+        //actualiza los datos
+        console.log(response.apellido);
+        arreglo[0] = response.apellido;
+        arreglo[1] = response.nombre;
+        arreglo[2] = response.password;
+        arreglo[3] = response.email;
+        arreglo[4] = response.username;
+      });
+    console.log(arreglo);
+    return arreglo;
+  }
+
   isLogin() {
     return !(sessionStorage.getItem('id') == null);
   }
+
   logOut() {
     sessionStorage.clear();
     this.router.navigateByUrl('login');
