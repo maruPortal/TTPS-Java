@@ -13,6 +13,7 @@ import { HomefoodtruckerComponent } from './components/homefoodtrucker/homefoodt
 import { HomeorganizadorComponent } from './components/homeorganizador/homeorganizador.component';
 import { NewfoodtruckComponent } from './components/newfoodtruck/newfoodtruck.component';
 import { FoodtruckService } from './services/foodtruck.service';
+import { ListfoodtrucksComponent } from './components/listfoodtrucks/listfoodtrucks.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { FoodtruckService } from './services/foodtruck.service';
     HomefoodtruckerComponent,
     HomeorganizadorComponent,
     NewfoodtruckComponent,
+    ListfoodtrucksComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
   providers: [UsuarioserviceService, FoodtruckService],

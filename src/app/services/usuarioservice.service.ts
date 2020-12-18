@@ -35,6 +35,12 @@ export class UsuarioserviceService {
         }
       );
   }
+
+  logOut() {
+    sessionStorage.clear();
+    this.router.navigateByUrl('login');
+  }
+
   autenticacion(login: NgForm): Observable<Usuario> {
     const headerDict = {
       usuario: `${login.value.usuario}`,

@@ -1,2 +1,1 @@
-export class Foodtruck {
-}
+export class Foodtruck {}

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -10,8 +10,9 @@ import { environment } from 'src/environments/environment';
 export class FoodtruckService {
   constructor(private http: HttpClient, private router: Router) {}
 
-  createFoodtruck(ft: NgForm){
-    let dueñoID = { id: 7 };
+  createFoodtruck(ft: NgForm) {
+    let id = sessionStorage.getItem('id');
+    let dueñoID = { id: `${id}` };
     let ftruck = {
       nombre: ft.value.nombre,
       tipo_servicio: ft.value.tipo_servicio,
@@ -22,12 +23,22 @@ export class FoodtruckService {
       whatsapp: ft.value.whatsapp,
       dueño: dueñoID,
     };
-    console.log('datos del form: ', ftruck);
     this.http
       .post<any>(`${environment.url}/foodtruck`, ftruck)
       .subscribe((response) => {
         console.log(response);
       });
     this.router.navigateByUrl('home-foodtrucker');
+  }
+
+  deleteFoodtruck(id: string) {
+    this.http.delete(`${environment.url}/foodtruck/1`).subscribe(
+      (response) => {
+        console.log(response);
+      },
+      (err: HttpErrorResponse) => {
+        console.log('estado de error: ', err.status);
+      }
+    );
   }
 }

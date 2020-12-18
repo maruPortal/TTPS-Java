@@ -1,10 +1,23 @@
 <!-- repetido en Homeorganizador -->
-<div style="justify-content: center; display: flex; background-color: #ffffff77;">
-    <div *ngIf="user_tipo == 'Organizador'" style="margin-top: 50px; width: fit-content; text-align: center;" class="justify-content-md-center">
-        <h1>¿Te perdiste?</h1>
-        <br>
-        <a routerLink="/home-organizador" class="btn btn-primary btn-lg" style="margin-right: 15px;" href="#" role="button">Volver a mi Home</a>
-    </div>
+<div
+  style="justify-content: center; display: flex; background-color: #ffffff77"
+>
+  <div
+    *ngIf="user_tipo == 'Organizador'"
+    style="margin-top: 50px; width: fit-content; text-align: center"
+    class="justify-content-md-center"
+  >
+    <h1>¿Te perdiste?</h1>
+    <br />
+    <a
+      routerLink="/home-organizador"
+      class="btn btn-primary btn-lg"
+      style="margin-right: 15px"
+      href="#"
+      role="button"
+      >Volver a mi Home</a
+    >
+  </div>
 </div>
 <div *ngIf="user_tipo == 'FoodTrucker'" class="jumbotron" style="margin-top: 50px; background-color: #fefefebb;">
     <div>
