@@ -47,4 +47,23 @@ export class FoodtruckService {
     let id = sessionStorage.getItem('id');
     return this.http.get<Foodtruck[]>(`${environment.url}/foodtruck/${id}`);
   }
+
+  recuperarData(): Observable<Foodtruck> {
+    let id = sessionStorage.getItem('idFt');
+    return this.http
+      .get<Foodtruck>(`${environment.url}/foodtruck/recuperarIndividual/${id}`);
+  }
+  
+  updateFt(ft: NgForm): Observable<Foodtruck>{
+    let id = sessionStorage.getItem('idFt');
+    return this.http.put<Foodtruck>(
+        `${environment.url}/foodtruck/${id}`,
+        ft.value,
+        {
+          headers: { token: '1123456' },
+        }
+      );
+  }
+
+
 }

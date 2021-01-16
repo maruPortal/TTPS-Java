@@ -5,6 +5,7 @@ import { Foodtruck } from 'src/app/model/foodtruck';
 import { FoodtruckService } from 'src/app/services/foodtruck.service';
 import { UsuarioserviceService } from 'src/app/services/usuarioservice.service';
 
+
 @Component({
   selector: 'app-listfoodtrucks',
   templateUrl: './listfoodtrucks.component.html',
@@ -17,11 +18,21 @@ export class ListfoodtrucksComponent implements OnInit {
   errorDel: Boolean;
   eliminado: Boolean;
   sinCambios: Boolean;
+  modificandoFt:Boolean;
+
+  nombre: String;
+  descripcion: String;
+  tipo_servicio: String;
+  url: String;
+  instagram: String;
+  facebook: String;
+  whatsapp: String;
 
   constructor(private ftService: FoodtruckService, private router: Router) {}
 
   ngOnInit(): void {
     this.getFoodTrucks();
+    this.modificandoFt=false;
   }
 
   getFoodTrucks(){
@@ -36,8 +47,11 @@ export class ListfoodtrucksComponent implements OnInit {
     );
   }
 
-  modificarFoodTruck(idFt: string): void{
+  modificarFoodTruck(idFt: string){
     console.log("Foodtruck: " + idFt);
+    sessionStorage.setItem('idFt', idFt);
+    this.router.navigateByUrl('edit-foodtruck');
+
   }
   
   borrarFoodTruck(idFt: string): void{

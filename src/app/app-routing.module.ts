@@ -7,6 +7,7 @@ import { ListfoodtrucksComponent } from './components/listfoodtrucks/listfoodtru
 import { LoginComponent } from './components/login/login.component';
 import { NewfoodtruckComponent } from './components/newfoodtruck/newfoodtruck.component';
 import { RegisterComponent } from './components/register/register.component';
+import { EditFoodTruckComponent } from './edit-food-truck/edit-food-truck.component';
 // import { CanActivateGuard } from './guarda/can-activate.guard';
 
 const routes: Routes = [
@@ -35,6 +36,11 @@ const routes: Routes = [
   {
     path: 'list-foodtrucks',
     component: ListfoodtrucksComponent,
+    // canActivate: [CanActivateGuard],
+  },
+  {
+    path: 'edit-foodtruck',
+    component: EditFoodTruckComponent,
     // canActivate: [CanActivateGuard],
   },
   { path: '', component: LoginComponent }, //provisorio

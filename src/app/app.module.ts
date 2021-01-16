@@ -14,6 +14,7 @@ import { HomeorganizadorComponent } from './components/homeorganizador/homeorgan
 import { NewfoodtruckComponent } from './components/newfoodtruck/newfoodtruck.component';
 import { FoodtruckService } from './services/foodtruck.service';
 import { ListfoodtrucksComponent } from './components/listfoodtrucks/listfoodtrucks.component';
+import { EditFoodTruckComponent } from './edit-food-truck/edit-food-truck.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { ListfoodtrucksComponent } from './components/listfoodtrucks/listfoodtru
     HomeorganizadorComponent,
     NewfoodtruckComponent,
     ListfoodtrucksComponent,
+    EditFoodTruckComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
   providers: [UsuarioserviceService, FoodtruckService],

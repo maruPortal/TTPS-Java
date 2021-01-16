@@ -21,7 +21,7 @@ export class UsuarioserviceService {
     let id = sessionStorage.getItem('id');
     this.http
       .get<Usuario>(`${environment.url}/usuario/${id}`, {
-        headers: { token: '1123456' },
+        headers: { token: id + '123456' },
       })
       .subscribe(
         (response) => {
@@ -40,7 +40,7 @@ export class UsuarioserviceService {
     let id = sessionStorage.getItem('id');
     return this.http
       .get<Usuario>(`${environment.url}/usuario/${id}`, {
-        headers: { token: '1123456' },
+        headers: { token: id + '123456' },
       });
   }
 
