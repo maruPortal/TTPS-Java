@@ -11,7 +11,7 @@ import { NewfoodtruckComponent } from '../components/newfoodtruck/newfoodtruck.c
   providedIn: 'root',
 })
 export class FoodtruckService {
-  elEstado: String;
+  elEstado: string;
   constructor(private http: HttpClient, private router: Router) {}
 
   createFoodtruck(ft: NgForm): String {
@@ -25,7 +25,7 @@ export class FoodtruckService {
       instagram: ft.value.instagram,
       facebook: ft.value.facebook,
       whatsapp: ft.value.whatsapp,
-      dueño: dueñoID,
+      dueno: dueñoID,
     };
     this.http.post<any>(`${environment.url}/foodtruck`, ftruck).subscribe(
       (response) => {
@@ -39,15 +39,8 @@ export class FoodtruckService {
     return this.elEstado;
   }
 
-  deleteFoodtruck(id: string) {
-    this.http.delete(`${environment.url}/foodtruck/1`).subscribe(
-      (response) => {
-        console.log(response);
-      },
-      (err: HttpErrorResponse) => {
-        console.log('estado de error: ', err.status);
-      }
-    );
+  deleteFoodtruck(idFt: string): Observable<Object> {
+    return this.http.delete(`${environment.url}/foodtruck/${idFt}`);
   }
 
   getFoodtrucks(): Observable<Foodtruck[]> {
