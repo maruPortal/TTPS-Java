@@ -56,9 +56,22 @@ export class FoodtruckService {
   
   updateFt(ft: NgForm): Observable<Foodtruck>{
     let id = sessionStorage.getItem('idFt');
+
+    let idO = sessionStorage.getItem('id');
+    let dueñoID = { id: `${idO}` };
+    let ftruck = {
+      nombre: ft.value.nombre,
+      tipo_servicio: ft.value.tipo_servicio,
+      descripcion: ft.value.descripcion,
+      url: ft.value.url,
+      instagram: ft.value.instagram,
+      facebook: ft.value.facebook,
+      whatsapp: ft.value.whatsapp,
+      dueno: dueñoID,
+    };
     return this.http.put<Foodtruck>(
         `${environment.url}/foodtruck/${id}`,
-        ft.value,
+        ftruck,
         {
           headers: { token: '1123456' },
         }

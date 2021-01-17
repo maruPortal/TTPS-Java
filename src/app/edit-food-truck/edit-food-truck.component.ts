@@ -19,7 +19,8 @@ export class EditFoodTruckComponent implements OnInit {
   instagram: String;
   facebook: String;
   whatsapp: String;
-  enviado: Boolean;
+  error: Boolean;
+  sinCambios: Boolean;
   constructor(private ftService: FoodtruckService, private router: Router) { }
 
   ngOnInit(): void {
@@ -38,16 +39,25 @@ export class EditFoodTruckComponent implements OnInit {
   }
 
   onSubmit(ft: NgForm) {
+    this.sinCambios = this.verCambios(ft);
+    
     let envio= this.comprobarCampos(ft);
 
     this.ftService.updateFt(envio).subscribe(
       () => {
-        this.enviado=true;
+        if (this.sinCambios){
+          console.log("No hubo cambios");
+          sessionStorage.setItem('estadoModificacion', "SinCambios");
+        }else{
+          sessionStorage.setItem('estadoModificacion', "ModificadoExitosamente");
+        }
+        this.router.navigateByUrl('list-foodtrucks');
       },
       (err: HttpErrorResponse) => {
         console.log('estado de error: ', err.status, typeof err.status);
+        this.error=true;
       }
-    );
+    ); 
   }
 
   comprobarCampos(data: NgForm): NgForm{
@@ -69,11 +79,22 @@ export class EditFoodTruckComponent implements OnInit {
 
     if (data.value.facebook==""){
       data.value.facebook= this.facebook
+    }
 
     if (data.value.whatsapp==""){
       data.value.whatsapp= this.whatsapp;
     }
+
     return data;
   }
+
+  verCambios(ft:NgForm): Boolean{
+    return ft.value.descripcion=="" && 
+    ft.value.nombre=="" && 
+    ft.value.url=="" && 
+    ft.value.tipo_servicio=="" && 
+    ft.value.instagram=="" &&
+    ft.value.facebook=="" &&
+    ft.value.whatsapp=="";
   }
 }

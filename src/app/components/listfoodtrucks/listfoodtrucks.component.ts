@@ -13,12 +13,10 @@ import { UsuarioserviceService } from 'src/app/services/usuarioservice.service';
 })
 export class ListfoodtrucksComponent implements OnInit {
   foodtrucks: Foodtruck[];
-  errorMod: Boolean;
   modificado: Boolean;
   errorDel: Boolean;
   eliminado: Boolean;
   sinCambios: Boolean;
-  modificandoFt:Boolean;
 
   nombre: String;
   descripcion: String;
@@ -32,7 +30,18 @@ export class ListfoodtrucksComponent implements OnInit {
 
   ngOnInit(): void {
     this.getFoodTrucks();
-    this.modificandoFt=false;
+    let estadoModif = sessionStorage.getItem('estadoModificacion');
+    if (estadoModif == "ModificadoExitosamente"){
+      this.modificado= true;
+    }else{
+      if (estadoModif == "SinCambios"){
+        this.sinCambios = true;
+      }else{
+        this.sinCambios = false;
+        this.modificado = false;
+      }
+    }
+    sessionStorage.setItem('estadoModificacion',"");
   }
 
   getFoodTrucks(){
