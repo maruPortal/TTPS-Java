@@ -71,22 +71,15 @@ export class UsuarioserviceService {
     );
   }
 
-  createFoodtrucker(register: NgForm) {
-    this.http
-      .post<any>(`${environment.url}/usuario/foodtrucker`, register.value)
-      .subscribe((response) => {
-        console.log(response);
-      });
-    this.router.navigateByUrl('home-foodtrucker');
+  createFoodtrucker(register: NgForm): Observable<Usuario> {
+    return this.http
+      .post<Usuario>(`${environment.url}/usuario/foodtrucker`, register.value);
+    
   }
 
-  createOrganizador(register: NgForm) {
-    this.http
-      .post<any>(`${environment.url}/usuario/organizador`, register.value)
-      .subscribe((response) => {
-        console.log(response);
-      });
-    this.router.navigateByUrl('home-organizador');
+  createOrganizador(register: NgForm): Observable<Usuario> {
+    return this.http
+      .post<Usuario>(`${environment.url}/usuario/organizador`, register.value);
   }
 
   editUser(usuario: NgForm): Observable<Usuario> {

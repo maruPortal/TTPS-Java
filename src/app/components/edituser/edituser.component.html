@@ -1,13 +1,13 @@
 <!-- despues borrar  -->
-<div style="color:white; margin-top: 105px;">   
+<div style="color: #000000cc; margin-top: 105px;">   
   <div *ngIf="enviado" class="row justify-content-md-center" style="text-align: center;">
     <div class="alert alert-success col-md-3" role="alert">
       ¡Perfil editado con exito!
     </div>  
   </div>
   <div style="justify-content: center; display: flex;">
-    <div class="justify-content-md-center col-md-3">
-      <div>
+    <div style="background-color: #ffffffbb; padding-top: 20px; padding-left: 20px; padding-right: 20px; padding-bottom: 20px; border-radius: 10px;" class="justify-content-md-center col-md-3">
+      <div style="text-align: center;">
         <h1><b>EDITAR PERFIL</b></h1>
       </div>
       <form #edit="ngForm" ngNativeValidate (ngSubmit)="onSubmit(edit)">

@@ -97,4 +97,8 @@ export class EditFoodTruckComponent implements OnInit {
     ft.value.facebook=="" &&
     ft.value.whatsapp=="";
   }
+
+  cancelar(){
+    this.router.navigateByUrl('list-foodtrucks');
+  }
 }
