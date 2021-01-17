@@ -68,4 +68,13 @@ export class EdituserComponent implements OnInit {
     }
     return data;
   }
+
+  redireccionar(){
+    let tipo = sessionStorage.getItem('tipoUsuario');
+    if (tipo=="FoodTrucker"){
+      this.router.navigateByUrl('home-foodtrucker');
+    }else{
+      this.router.navigateByUrl('home-organizador');
+    }
+  }
 }
