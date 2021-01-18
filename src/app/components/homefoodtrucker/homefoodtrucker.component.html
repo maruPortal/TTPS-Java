@@ -1,10 +1,17 @@
 <!-- repetido en Homeorganizador -->
+<div style="text-align: center">
+  <div style="background: linear-gradient(180deg, rgba(255,130,0,0.7637255585828081) 22%, rgba(0,7,8,0.3575630935968137) 100%); width:100%;display: inline-block">
+    <div>
+      <img src="../assets/images/logo_app_final.png" />
+    </div>
+  </div>
+</div><br>
 <div
   style="justify-content: center; display: flex; background-color: #ffffff77"
 >
   <div
     *ngIf="user_tipo == 'Organizador'"
-    style="margin-top: 50px; width: fit-content; text-align: center"
+    style="width: fit-content; text-align: center"
     class="justify-content-md-center"
   >
     <h1>¿Te perdiste?</h1>
@@ -22,7 +29,7 @@
 <div
   *ngIf="user_tipo == 'FoodTrucker'"
   class="jumbotron"
-  style="margin-top: 50px; background-color: #fefefebb"
+  style="background-color: #fefefebb"
 >
   <div>
     <h1 class="display-4">

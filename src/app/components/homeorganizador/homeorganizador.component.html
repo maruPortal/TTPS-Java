@@ -1,11 +1,19 @@
+<div style="text-align: center">
+    <div style="background: linear-gradient(180deg, rgba(255,130,0,0.7637255585828081) 22%, rgba(0,7,8,0.3575630935968137) 100%); width:100%;display: inline-block">
+      <div>
+        <img src="../assets/images/logo_app_final.png" />
+      </div>
+    </div>
+  </div>
+  <br>
 <div style="justify-content: center; display: flex; background-color: #ffffff77;">
-    <div *ngIf="user_tipo == 'FoodTrucker'" style="margin-top: 50px; width: fit-content; text-align: center;" class="justify-content-md-center">
+    <div *ngIf="user_tipo == 'FoodTrucker'" style="width: fit-content; text-align: center;" class="justify-content-md-center">
         <h1>¿Te perdiste?</h1>
         <br>
         <a routerLink="/home-foodtrucker" class="btn btn-primary btn-lg" style="margin-right: 15px;" href="#" role="button">Volver a mi Home</a>
     </div>
 </div>
-<div *ngIf="user_tipo == 'Organizador'" class="jumbotron" style="margin-top: 50px; background-color: #fefefebb;">
+<div *ngIf="user_tipo == 'Organizador'" class="jumbotron" style="background-color: #fefefebb;">
     <div>
         <h1 class="display-4">¡Bienvenido <b> {{ user_username }} </b>!</h1>
         <p class="lead">Este es el home para los usuarios <b>Organizadores</b>.</p>

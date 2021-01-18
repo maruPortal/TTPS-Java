@@ -17,6 +17,7 @@ export class EdituserComponent implements OnInit {
   username: String;
   password: String;
   email: String;
+  tipoPass:String;
   constructor(
     private userService: UsuarioserviceService,
     private router: Router
@@ -24,6 +25,7 @@ export class EdituserComponent implements OnInit {
 
   ngOnInit(): void {
     this.enviado=false;
+    this.tipoPass="password";
     this.userService.recuperarData()
     .subscribe(
       (usuario) => {
@@ -75,6 +77,14 @@ export class EdituserComponent implements OnInit {
       this.router.navigateByUrl('home-foodtrucker');
     }else{
       this.router.navigateByUrl('home-organizador');
+    }
+  }
+  
+  changePass(){
+    if(this.tipoPass=="password"){
+      this.tipoPass="text";
+    }else{
+      this.tipoPass="password";
     }
   }
 }

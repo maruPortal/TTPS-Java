@@ -64,6 +64,7 @@ export class ListfoodtrucksComponent implements OnInit {
   }
   
   borrarFoodTruck(idFt: string): void{
+    this.sinCambios=false;
     console.log("Foodtruck: " + idFt);
     this.ftService.deleteFoodtruck(idFt).subscribe(
       (response) => {
