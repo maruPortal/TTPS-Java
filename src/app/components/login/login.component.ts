@@ -16,7 +16,15 @@ export class LoginComponent implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.userService.isLogin()) {
+      if (sessionStorage.getItem('tipoUsuario') == 'Organizador') {
+        this.router.navigateByUrl('home-organizador');
+      } else {
+        this.router.navigateByUrl('home-foodtrucker');
+      }
+    }
+  }
 
   onSubmit(login: NgForm) {
     this.userService.autenticacion(login).subscribe(

@@ -26,6 +26,7 @@ export class CanActivateGuard implements CanActivate {
     | boolean
     | UrlTree {
     if (!this.userService.isLogin()) {
+      this.router.navigate(['/login']);
       return false;
     }
     return true;

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { FoodtruckService } from 'src/app/services/foodtruck.service';
+import { UsuarioserviceService } from 'src/app/services/usuarioservice.service';
 
 @Component({
   selector: 'app-newfoodtruck',
@@ -10,23 +11,28 @@ import { FoodtruckService } from 'src/app/services/foodtruck.service';
 export class NewfoodtruckComponent implements OnInit {
   enviado: Boolean;
   error: Boolean;
-  constructor(private ftservice: FoodtruckService) {}
+  constructor(
+    private ftservice: FoodtruckService,
+    private userService: UsuarioserviceService
+  ) {}
 
   ngOnInit(): void {
-    this.enviado=false;
-    this.error=false;
+    this.userService.isFoodtrucker();
+
+    this.enviado = false;
+    this.error = false;
   }
 
   // {"dueño":{ "id":1} }
   onSubmit(ft: NgForm) {
-    let estado= this.ftservice.createFoodtruck(ft);
+    let estado = this.ftservice.createFoodtruck(ft);
     console.log(estado);
-    if (estado == "Fallido"){
-      this.enviado=false;
-      this.error=true;
-    }else{
-      this.enviado=true;
-      this.error=false;
+    if (estado == 'Fallido') {
+      this.enviado = false;
+      this.error = true;
+    } else {
+      this.enviado = true;
+      this.error = false;
     }
   }
 }

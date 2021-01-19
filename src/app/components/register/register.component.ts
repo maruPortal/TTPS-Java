@@ -11,16 +11,27 @@ import { UsuarioserviceService } from 'src/app/services/usuarioservice.service';
 })
 export class RegisterComponent implements OnInit {
   // tipo: String = '';
-  constructor(private userService: UsuarioserviceService,private router: Router) {}
+  constructor(
+    private userService: UsuarioserviceService,
+    private router: Router
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.userService.isLogin()) {
+      if (sessionStorage.getItem('tipoUsuario') == 'Organizador') {
+        this.router.navigateByUrl('home-organizador');
+      } else {
+        this.router.navigateByUrl('home-foodtrucker');
+      }
+    }
+  }
 
   onSubmit(register: NgForm) {
     console.log(register.value);
     if (register.valid) {
       if (register.value.tipo === 'Foodtrucker') {
         this.userService.createFoodtrucker(register).subscribe(
-          (usu)=>{
+          (usu) => {
             sessionStorage.setItem('id', usu.id);
             sessionStorage.setItem('username', usu.username);
             sessionStorage.setItem('tipoUsuario', usu.tipo_usuario);
@@ -33,12 +44,13 @@ export class RegisterComponent implements OnInit {
       }
       if (register.value.tipo === 'Organizador') {
         this.userService.createOrganizador(register).subscribe(
-          (usu)=>{
+          (usu) => {
             sessionStorage.setItem('id', usu.id);
             sessionStorage.setItem('username', usu.username);
             sessionStorage.setItem('tipoUsuario', usu.tipo_usuario);
             this.router.navigateByUrl('home-organizador');
-          },(err: HttpErrorResponse) => {
+          },
+          (err: HttpErrorResponse) => {
             console.log('estado de error: ', err.status, typeof err.status);
           }
         );

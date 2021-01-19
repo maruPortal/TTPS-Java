@@ -38,10 +38,9 @@ export class UsuarioserviceService {
 
   recuperarData(): Observable<Usuario> {
     let id = sessionStorage.getItem('id');
-    return this.http
-      .get<Usuario>(`${environment.url}/usuario/${id}`, {
-        headers: { token: id + '123456' },
-      });
+    return this.http.get<Usuario>(`${environment.url}/usuario/${id}`, {
+      headers: { token: id + '123456' },
+    });
   }
 
   isLogin() {
@@ -72,19 +71,22 @@ export class UsuarioserviceService {
   }
 
   createFoodtrucker(register: NgForm): Observable<Usuario> {
-    return this.http
-      .post<Usuario>(`${environment.url}/usuario/foodtrucker`, register.value);
-    
+    return this.http.post<Usuario>(
+      `${environment.url}/usuario/foodtrucker`,
+      register.value
+    );
   }
 
   createOrganizador(register: NgForm): Observable<Usuario> {
-    return this.http
-      .post<Usuario>(`${environment.url}/usuario/organizador`, register.value);
+    return this.http.post<Usuario>(
+      `${environment.url}/usuario/organizador`,
+      register.value
+    );
   }
 
   editUser(usuario: NgForm): Observable<Usuario> {
     let id = sessionStorage.getItem('id');
-    let usu = new Usuario;
+    let usu = new Usuario();
     usu.apellido = `${usuario.value.apellido}`;
     usu.nombre = `${usuario.value.nombre}`;
     usu.username = `${usuario.value.username}`;
@@ -97,5 +99,14 @@ export class UsuarioserviceService {
         headers: { token: '1123456' },
       }
     );
+  }
+
+  isFoodtrucker() {
+    if (sessionStorage.getItem('tipoUsuario') != 'FoodTrucker') {
+      this.router.navigateByUrl('home-organizador');
+      return false;
+    } else {
+      return true;
+    }
   }
 }

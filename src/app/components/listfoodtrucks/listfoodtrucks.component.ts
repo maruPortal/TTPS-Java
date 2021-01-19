@@ -5,7 +5,6 @@ import { Foodtruck } from 'src/app/model/foodtruck';
 import { FoodtruckService } from 'src/app/services/foodtruck.service';
 import { UsuarioserviceService } from 'src/app/services/usuarioservice.service';
 
-
 @Component({
   selector: 'app-listfoodtrucks',
   templateUrl: './listfoodtrucks.component.html',
@@ -26,25 +25,30 @@ export class ListfoodtrucksComponent implements OnInit {
   facebook: String;
   whatsapp: String;
 
-  constructor(private ftService: FoodtruckService, private router: Router) {}
+  constructor(
+    private ftService: FoodtruckService,
+    private router: Router,
+    private userService: UsuarioserviceService
+  ) {}
 
   ngOnInit(): void {
+    this.userService.isFoodtrucker();
     this.getFoodTrucks();
     let estadoModif = sessionStorage.getItem('estadoModificacion');
-    if (estadoModif == "ModificadoExitosamente"){
-      this.modificado= true;
-    }else{
-      if (estadoModif == "SinCambios"){
+    if (estadoModif == 'ModificadoExitosamente') {
+      this.modificado = true;
+    } else {
+      if (estadoModif == 'SinCambios') {
         this.sinCambios = true;
-      }else{
+      } else {
         this.sinCambios = false;
         this.modificado = false;
       }
     }
-    sessionStorage.setItem('estadoModificacion',"");
+    sessionStorage.setItem('estadoModificacion', '');
   }
 
-  getFoodTrucks(){
+  getFoodTrucks() {
     this.ftService.getFoodtrucks().subscribe(
       (listaFTrucks) => {
         console.log(listaFTrucks);
@@ -56,27 +60,26 @@ export class ListfoodtrucksComponent implements OnInit {
     );
   }
 
-  modificarFoodTruck(idFt: string){
-    console.log("Foodtruck: " + idFt);
+  modificarFoodTruck(idFt: string) {
+    console.log('Foodtruck: ' + idFt);
     sessionStorage.setItem('idFt', idFt);
     this.router.navigateByUrl('edit-foodtruck');
-
   }
-  
-  borrarFoodTruck(idFt: string): void{
-    this.sinCambios=false;
-    console.log("Foodtruck: " + idFt);
+
+  borrarFoodTruck(idFt: string): void {
+    this.sinCambios = false;
+    console.log('Foodtruck: ' + idFt);
     this.ftService.deleteFoodtruck(idFt).subscribe(
       (response) => {
-        this.errorDel=false;
-        this.eliminado=true;
+        this.errorDel = false;
+        this.eliminado = true;
         this.getFoodTrucks();
       },
       (err: HttpErrorResponse) => {
         console.log('estado de error: ', err.status);
-        this.errorDel=true;
-        this.eliminado=false;
+        this.errorDel = true;
+        this.eliminado = false;
       }
-    );    
+    );
   }
 }

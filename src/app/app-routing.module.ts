@@ -8,42 +8,48 @@ import { LoginComponent } from './components/login/login.component';
 import { NewfoodtruckComponent } from './components/newfoodtruck/newfoodtruck.component';
 import { RegisterComponent } from './components/register/register.component';
 import { EditFoodTruckComponent } from './edit-food-truck/edit-food-truck.component';
-// import { CanActivateGuard } from './guarda/can-activate.guard';
+import { CanActivateGuard } from './guarda/can-activate.guard';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
+
+  {
+    path: 'register',
+    component: RegisterComponent,
+  },
   {
     path: 'home-organizador',
     component: HomeorganizadorComponent,
-    // canActivate: [CanActivateGuard],
+    canActivate: [CanActivateGuard],
   },
   {
     path: 'edit-user',
     component: EdituserComponent,
-    // canActivate: [CanActivateGuard],
+    canActivate: [CanActivateGuard],
   },
   {
     path: 'home-foodtrucker',
     component: HomefoodtruckerComponent,
-    // canActivate: [CanActivateGuard],
+    canActivate: [CanActivateGuard],
   },
   {
     path: 'new-foodtruck',
     component: NewfoodtruckComponent,
-    // canActivate: [CanActivateGuard],
+    canActivate: [CanActivateGuard],
   },
   {
     path: 'list-foodtrucks',
     component: ListfoodtrucksComponent,
-    // canActivate: [CanActivateGuard],
+    canActivate: [CanActivateGuard],
   },
   {
     path: 'edit-foodtruck',
     component: EditFoodTruckComponent,
-    // canActivate: [CanActivateGuard],
+    canActivate: [CanActivateGuard],
   },
-  { path: '', component: LoginComponent }, //provisorio
+
+  { path: '**', component: LoginComponent }, //provisorio -> 404
+  // { path: '', component: LoginComponent },
 ];
 
 @NgModule({

@@ -1,42 +1,58 @@
 <div style="width: max; height: 100%">
   <div style="text-align: center">
-    <div style="background: linear-gradient(180deg, rgba(255,130,0,0.7637255585828081) 22%, rgba(0,7,8,0.3575630935968137) 100%); width:100%;display: inline-block">
+    <div
+      style="
+        background: linear-gradient(
+          180deg,
+          rgba(255, 130, 0, 0.7637255585828081) 22%,
+          rgba(0, 7, 8, 0.3575630935968137) 100%
+        );
+        width: 100%;
+        display: inline-block;
+      "
+    >
       <div>
         <img src="../assets/images/logo_app_final.png" />
       </div>
     </div>
   </div>
-  <br><br>
+  <br /><br />
   <div>
-    <div *ngIf="error" class="row justify-content-md-center" style="text-align: center;">
+    <div
+      *ngIf="error"
+      class="row justify-content-md-center"
+      style="text-align: center"
+    >
       <div class="alert alert-danger col-md-3" role="alert">
         El username o contraseña no son correctos!
-      </div>  
+      </div>
     </div>
 
     <div class="row justify-content-md-center">
       <form #login="ngForm" ngNativeValidate (ngSubmit)="onSubmit(login)">
         <div class="form-group">
-          <label for=""><b style="color: white;">Usuario</b></label>
+          <label for=""><b style="color: white">Usuario</b></label>
           <input
             type="text"
             name="usuario"
             ngModel
+            placeholder="Ingrese un usuario"
             required
             class="form-control"
           />
         </div>
         <div class="form-group">
-          <label for=""><b style="color: white;">Contraseña</b></label>
+          <label for=""><b style="color: white">Contraseña</b></label>
           <input
             type="password"
             name="clave"
             ngModel
+            placeholder="Ingrese un contraseña"
             required
             class="form-control"
           />
         </div>
-        <div style="text-align: center;">
+        <div style="text-align: center">
           <button type="submit" class="btn btn-primary">INICIAR SESION</button>
         </div>
 

@@ -9,7 +9,7 @@ import { UsuarioserviceService } from 'src/app/services/usuarioservice.service';
 @Component({
   selector: 'app-edit-food-truck',
   templateUrl: './edit-food-truck.component.html',
-  styleUrls: ['./edit-food-truck.component.css']
+  styleUrls: ['./edit-food-truck.component.css'],
 })
 export class EditFoodTruckComponent implements OnInit {
   nombre: String;
@@ -21,84 +21,91 @@ export class EditFoodTruckComponent implements OnInit {
   whatsapp: String;
   error: Boolean;
   sinCambios: Boolean;
-  constructor(private ftService: FoodtruckService, private router: Router) { }
+  constructor(
+    private ftService: FoodtruckService,
+    private router: Router,
+    private userService: UsuarioserviceService
+  ) {}
 
   ngOnInit(): void {
-     this.ftService.recuperarData()
-    .subscribe(
-      (ft) => {
-        this.nombre= ft.nombre;
-        this.descripcion= ft.descripcion;
-        this.tipo_servicio= ft.tipo_servicio;
-        this.url= ft.url;
-        this.instagram= ft.instagram;
-        this.facebook= ft.facebook;
-        this.whatsapp= ft.whatsapp;
-      }
-    );
+    this.userService.isFoodtrucker();
+    this.ftService.recuperarData().subscribe((ft) => {
+      this.nombre = ft.nombre;
+      this.descripcion = ft.descripcion;
+      this.tipo_servicio = ft.tipo_servicio;
+      this.url = ft.url;
+      this.instagram = ft.instagram;
+      this.facebook = ft.facebook;
+      this.whatsapp = ft.whatsapp;
+    });
   }
 
   onSubmit(ft: NgForm) {
     this.sinCambios = this.verCambios(ft);
-    
-    let envio= this.comprobarCampos(ft);
+
+    let envio = this.comprobarCampos(ft);
 
     this.ftService.updateFt(envio).subscribe(
       () => {
-        if (this.sinCambios){
-          console.log("No hubo cambios");
-          sessionStorage.setItem('estadoModificacion', "SinCambios");
-        }else{
-          sessionStorage.setItem('estadoModificacion', "ModificadoExitosamente");
+        if (this.sinCambios) {
+          console.log('No hubo cambios');
+          sessionStorage.setItem('estadoModificacion', 'SinCambios');
+        } else {
+          sessionStorage.setItem(
+            'estadoModificacion',
+            'ModificadoExitosamente'
+          );
         }
         this.router.navigateByUrl('list-foodtrucks');
       },
       (err: HttpErrorResponse) => {
         console.log('estado de error: ', err.status, typeof err.status);
-        this.error=true;
+        this.error = true;
       }
-    ); 
+    );
   }
 
-  comprobarCampos(data: NgForm): NgForm{
-    if (data.value.descripcion==""){
-      data.value.descripcion= this.descripcion;
+  comprobarCampos(data: NgForm): NgForm {
+    if (data.value.descripcion == '') {
+      data.value.descripcion = this.descripcion;
     }
-    if (data.value.nombre==""){
-      data.value.nombre= this.nombre;
+    if (data.value.nombre == '') {
+      data.value.nombre = this.nombre;
     }
-    if (data.value.url==""){
-      data.value.url= this.url;
+    if (data.value.url == '') {
+      data.value.url = this.url;
     }
-    if (data.value.tipo_servicio==""){
-      data.value.tipo_servicio= this.tipo_servicio;
+    if (data.value.tipo_servicio == '') {
+      data.value.tipo_servicio = this.tipo_servicio;
     }
-    if (data.value.instagram==""){
-      data.value.instagram= this.instagram;
-    }
-
-    if (data.value.facebook==""){
-      data.value.facebook= this.facebook
+    if (data.value.instagram == '') {
+      data.value.instagram = this.instagram;
     }
 
-    if (data.value.whatsapp==""){
-      data.value.whatsapp= this.whatsapp;
+    if (data.value.facebook == '') {
+      data.value.facebook = this.facebook;
+    }
+
+    if (data.value.whatsapp == '') {
+      data.value.whatsapp = this.whatsapp;
     }
 
     return data;
   }
 
-  verCambios(ft:NgForm): Boolean{
-    return ft.value.descripcion=="" && 
-    ft.value.nombre=="" && 
-    ft.value.url=="" && 
-    ft.value.tipo_servicio=="" && 
-    ft.value.instagram=="" &&
-    ft.value.facebook=="" &&
-    ft.value.whatsapp=="";
+  verCambios(ft: NgForm): Boolean {
+    return (
+      ft.value.descripcion == '' &&
+      ft.value.nombre == '' &&
+      ft.value.url == '' &&
+      ft.value.tipo_servicio == '' &&
+      ft.value.instagram == '' &&
+      ft.value.facebook == '' &&
+      ft.value.whatsapp == ''
+    );
   }
 
-  cancelar(){
+  cancelar() {
     this.router.navigateByUrl('list-foodtrucks');
   }
 }
