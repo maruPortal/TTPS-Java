@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { FoodtruckService } from 'src/app/services/foodtruck.service';
 import { UsuarioserviceService } from 'src/app/services/usuarioservice.service';
 
@@ -13,7 +14,8 @@ export class NewfoodtruckComponent implements OnInit {
   error: Boolean;
   constructor(
     private ftservice: FoodtruckService,
-    private userService: UsuarioserviceService
+    private userService: UsuarioserviceService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -31,6 +33,7 @@ export class NewfoodtruckComponent implements OnInit {
       this.enviado = false;
       this.error = true;
     } else {
+      this.router.navigateByUrl('list-foodtrucks');
       this.enviado = true;
       this.error = false;
     }
