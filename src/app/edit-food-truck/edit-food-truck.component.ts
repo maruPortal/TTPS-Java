@@ -7,7 +7,7 @@ import { FoodtruckService } from 'src/app/services/foodtruck.service';
 import { UsuarioserviceService } from 'src/app/services/usuarioservice.service';
 
 @Component({
-  selector: 'app-edit-food-truck',
+  selector: 'app-edit-food-truck, ngbd-dropdown-basic',
   templateUrl: './edit-food-truck.component.html',
   styleUrls: ['./edit-food-truck.component.css'],
 })
@@ -108,4 +108,9 @@ export class EditFoodTruckComponent implements OnInit {
   cancelar() {
     this.router.navigateByUrl('list-foodtrucks');
   }
+
+  logOut() {
+    this.userService.logOut();
+  }
+
 }
