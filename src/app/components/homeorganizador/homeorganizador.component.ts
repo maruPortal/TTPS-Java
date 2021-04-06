@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UsuarioserviceService } from 'src/app/services/usuarioservice.service';
 
 @Component({
-  selector: 'app-homeorganizador',
+  selector: 'app-homeorganizador, ngbd-dropdown-basic',
   templateUrl: './homeorganizador.component.html',
   styleUrls: ['./homeorganizador.component.css'],
 })

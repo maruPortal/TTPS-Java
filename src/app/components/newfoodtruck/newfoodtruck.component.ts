@@ -5,7 +5,7 @@ import { FoodtruckService } from 'src/app/services/foodtruck.service';
 import { UsuarioserviceService } from 'src/app/services/usuarioservice.service';
 
 @Component({
-  selector: 'app-newfoodtruck',
+  selector: 'app-newfoodtruck, ngbd-dropdown-basic',
   templateUrl: './newfoodtruck.component.html',
   styleUrls: ['./newfoodtruck.component.css'],
 })
@@ -37,5 +37,9 @@ export class NewfoodtruckComponent implements OnInit {
       this.enviado = true;
       this.error = false;
     }
+  }
+
+  logOut() {
+    this.userService.logOut();
   }
 }

@@ -6,7 +6,7 @@ import { FoodtruckService } from 'src/app/services/foodtruck.service';
 import { UsuarioserviceService } from 'src/app/services/usuarioservice.service';
 
 @Component({
-  selector: 'app-listfoodtrucks',
+  selector: 'app-listfoodtrucks, ngbd-dropdown-basic',
   templateUrl: './listfoodtrucks.component.html',
   styleUrls: ['./listfoodtrucks.component.css'],
 })
@@ -81,5 +81,9 @@ export class ListfoodtrucksComponent implements OnInit {
         this.eliminado = false;
       }
     );
+  }
+
+  logOut() {
+    this.userService.logOut();
   }
 }
