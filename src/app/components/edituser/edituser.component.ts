@@ -6,7 +6,7 @@ import { Usuario } from 'src/app/model/usuario';
 import { UsuarioserviceService } from 'src/app/services/usuarioservice.service';
 
 @Component({
-  selector: 'app-edituser',
+  selector: 'app-edituser, ngbd-dropdown-basic',
   templateUrl: './edituser.component.html',
   styleUrls: ['./edituser.component.css'],
 })
@@ -86,5 +86,9 @@ export class EdituserComponent implements OnInit {
     }else{
       this.tipoPass="password";
     }
+  }
+
+  logOut() {
+    this.userService.logOut();
   }
 }

@@ -2,9 +2,23 @@
 <div style="text-align: center">
   <div style="background: linear-gradient(180deg, rgba(255,130,0,0.7637255585828081) 10%, rgba(255,130,0,0.02) 100%);
               width:100%;
-              display: inline-block">
+              display: inline-block;">
     <div style="float: left;margin-top: 10px;">
       <img style="width: 400px;" src="../assets/images/logo_app_2.png" />
+    </div>
+    <div style="margin-top: 2%; ;float: right; margin-right: 40px;">
+      <div class="row">
+        <div class="col">
+          <div ngbDropdown class="d-inline-block">
+            <button class="" id="botonCuenta" style="border-radius: 100px; outline: none; background-color: transparent; border: none" id="dropdownBasic1" ngbDropdownToggle><img style=" width: 60px;" src="../assets/images/icono_account.png" /></button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <a style="text-decoration: none;" routerLink="/edit-user"><button ngbDropdownItem>Mi Perfil</button></a>
+              <div class="dropdown-divider"></div>
+              <a style="text-decoration: none;" routerLink="/login" (click)="logOut()"><button ngbDropdownItem>Cerrar Sesion</button></a>
+            </div>
+          </div>
+        </div>
+     </div>
     </div>
   </div>
 </div><br>
@@ -35,7 +49,7 @@
 >
   <div>
     <h1 class="display-4">
-      ¡Bienvenido <b> {{ user_username }} </b>!
+      ¡Bienvenido <b> {{ user_username }}</b>!
     </h1>
     <p class="lead">Este es el home para los usuarios <b>FoodTruckers</b>.</p>
     <hr class="my-4" />
@@ -58,24 +72,8 @@
         role="button"
         >Ver Mis FoodTrucks</a
       >
-      <a
-        routerLink="/edit-user"
-        class="btn btn-primary btn-lg"
-        style="margin-right: 15px;margin-top: 5px; margin-bottom: 5px;"
-        href="#"
-        role="button"
-        >Modificar Perfil</a
-      >
       <br />
       <br />
-      <a
-        routerLink="/login"
-        class="btn btn-secondary btn-lg"
-        style="margin-right: 15px"
-        (click)="logOut()"
-        role="button"
-        >Logout</a
-      >
     </p>
   </div>
  </div>

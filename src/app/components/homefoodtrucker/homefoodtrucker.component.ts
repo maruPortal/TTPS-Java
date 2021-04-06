@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UsuarioserviceService } from 'src/app/services/usuarioservice.service';
 
 @Component({
-  selector: 'app-homefoodtrucker',
+  selector: 'app-homefoodtrucker, ngbd-dropdown-basic',
   templateUrl: './homefoodtrucker.component.html',
   styleUrls: ['./homefoodtrucker.component.css'],
 })

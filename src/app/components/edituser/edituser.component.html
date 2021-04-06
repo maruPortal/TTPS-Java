@@ -2,9 +2,23 @@
 <div style="text-align: center">
   <div style="background: linear-gradient(180deg, rgba(255,130,0,0.7637255585828081) 10%, rgba(255,130,0,0.02) 100%);
               width:100%;
-              display: inline-block">
+              display: inline-block;">
     <div style="float: left;margin-top: 10px;">
       <img style="width: 400px;" src="../assets/images/logo_app_2.png" />
+    </div>
+    <div style="margin-top: 2%; ;float: right; margin-right: 40px;">
+      <div class="row">
+        <div class="col">
+          <div ngbDropdown class="d-inline-block">
+            <button class="" id="botonCuenta" style="border-radius: 100px; outline: none; background-color: transparent; border: none" id="dropdownBasic1" ngbDropdownToggle><img style=" width: 60px;" src="../assets/images/icono_account.png" /></button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <a style="text-decoration: none;" routerLink="/edit-user"><button ngbDropdownItem>Mi Perfil</button></a>
+              <div class="dropdown-divider"></div>
+              <a style="text-decoration: none;" routerLink="/login" (click)="logOut()"><button ngbDropdownItem>Cerrar Sesion</button></a>
+            </div>
+          </div>
+        </div>
+     </div>
     </div>
   </div>
 </div><br>

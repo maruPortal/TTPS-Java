@@ -1,15 +1,29 @@
+<!--BARRA DE NAVEGACION SUPERIOR-->
 <div style="text-align: center">
   <div style="background: linear-gradient(180deg, rgba(255,130,0,0.7637255585828081) 10%, rgba(255,130,0,0.02) 100%);
               width:100%;
-              display: inline-block">
+              display: inline-block;">
     <div style="float: left;margin-top: 10px;">
       <img style="width: 400px;" src="../assets/images/logo_app_2.png" />
     </div>
+    <div style="margin-top: 2%; ;float: right; margin-right: 40px;">
+      <div class="row">
+        <div class="col">
+          <div ngbDropdown class="d-inline-block">
+            <button class="" id="botonCuenta" style="border-radius: 100px; outline: none; background-color: transparent; border: none" id="dropdownBasic1" ngbDropdownToggle><img style=" width: 60px;" src="../assets/images/icono_account.png" /></button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <a style="text-decoration: none;" routerLink="/edit-user"><button ngbDropdownItem>Mi Perfil</button></a>
+              <div class="dropdown-divider"></div>
+              <a style="text-decoration: none;" routerLink="/login" (click)="logOut()"><button ngbDropdownItem>Cerrar Sesion</button></a>
+            </div>
+          </div>
+        </div>
+     </div>
+    </div>
   </div>
 </div><br>
-<div
-  style="justify-content: center; display: flex; background-color: #ffffff77"
->
+<!--centro de la pagina-->
+<div style="justify-content: center; display: flex; background-color: #ffffff77">
   <div
     *ngIf="user_tipo == 'FoodTrucker'"
     style="width: fit-content; text-align: center"
@@ -27,14 +41,111 @@
     >
   </div>
 </div>
-<div
+<!--formulario de busqueda-->
+<div class="row justify-content-md-center" style="width: 100%; justify-content: center;">
+  <div style=" width: fit-content;height: fit-content;padding: 15px ;background-color: #e2e2e2c9; border-radius: 10px; text-align: center;">
+    <h2 style="color: white; -webkit-text-stroke: 2px #000000AA;"><b>BUSCA TU FOODTRUCK</b></h2>
+    <form class="container">
+      <div class="row">
+        <div class="col-md">
+          <label><b>ZONA</b></label><br>
+          <input type="text" placeholder="Zona" style="padding-left: 8px;">
+        </div>
+        <div class="col-md">
+          <label><b>TIPO DE COMIDA</b></label><br>
+          <input type="text" placeholder="Tipo de Comida" style="padding-left: 8px;">
+        </div>
+        <div class="col-md">
+          <label><b>NOMBRE</b></label><br>
+          <input type="text" placeholder="Nombre o Palabra relacionada" style="padding-left: 8px;">
+        </div>
+        <div class="col-md">
+          <br>
+          <button style="background-color: #000000bb; border-radius: 10px; color: white; height: fit-content; text-align: center; " type="submit">
+            <div style="padding-left: 13px; padding-right: 13px; font-size: 20px;"><b style="-webkit-text-stroke: 1.5px #000000bb;">BUSCAR</b></div>
+          </button>
+        </div>
+      </div>
+      
+
+      <!--<div class="col-sm">
+        
+      </div>-->
+    </form>
+  </div>
+</div>
+
+<!--parte central a dividir entre solicitudes finalizadas y mejores foodtrucks-->
+<div class="row" style="overflow: hidden;margin-top: 30px; max-height: 450px;">
+  <!--DIV DE RESERVAS-->
+  <div class="col" style="margin-left: 60px; margin-right: 80px;">
+    <div style="text-align: left;">
+      <h3 style="color: white; -webkit-text-stroke: 2px #000000AA;"><b>Mis Reservas Finalizadas</b></h3>
+    </div>
+    <div style="overflow: auto; background-color: #e2e2e2c9; border-radius: 10px;max-height: 450px; padding-top: 15px ;padding-bottom: 10px;">
+      <!--Div con DATA de UNA solicitud-->
+      <div class="container" style="background-color: #00000068; padding-top: 10px; padding-bottom: 10px;">
+        <div class="row h-100" style=" margin-bottom: 15px;">
+          <div class="col-4 my-auto">
+            <div style="color: white; -webkit-text-stroke: 0.5px #000000AA; font-size: 22px; 
+                        text-align: center; border-right: 2px solid white">
+              EVENTO
+            </div>
+          </div>
+          <div class="col-4 my-auto">
+            <div style="color: white;-webkit-text-stroke: 0.5px #000000AA;font-size: 18px; text-align: left; font-weight: bold;">
+              Picurba: Picnic Urbano
+            </div>
+            <div style="color: white;font-size: 18px; text-align: left;">
+              18 Ago. 2021 - 18hs
+            </div>
+          </div>
+          <div class="col-4 my-auto" style="text-align: center;">
+            <button class="btn btn-outline-warning">VALORAR</button>
+          </div>
+        </div>
+        <div class="row h-100">
+          <div class="col-4 my-auto" style="vertical-align: middle;">
+            <div style="color: white; -webkit-text-stroke: 0.5px #000000AA; font-size: 22px; 
+                        text-align: center; border-right: 2px solid white">
+              FOODTRUCK
+            </div>
+          </div>
+          <div class="col-4 my-auto" style="vertical-align: middle;">
+            <div style="color: white;-webkit-text-stroke: 0.5px #000000AA;font-size: 18px; text-align: left; font-weight: bold;">
+              Gin Bar
+            </div>
+            <div style="color: white;font-size: 18px; text-align: left; ">
+              Cocteleria
+            </div>
+          </div>
+          <div class="col-4 my-auto">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--DIV DE TOP FOODTRUCKS-->
+  <div class="col" style="margin-left: 60px; margin-right: 80px;">
+    <div style="text-align: left;">
+      <h3 style="color: white; -webkit-text-stroke: 2px #000000AA;"><b>Mejores FoodTrucks</b></h3>
+    </div>
+    <div style="overflow: auto; background-color: #e2e2e2c9; border-radius: 10px;max-height: 450px; padding: 10px;">
+      
+    </div>
+  </div>
+</div>
+
+<!-- Cartel de En Desarrollo
+
+  <div
   *ngIf="user_tipo == 'Organizador'"
   class="jumbotron"
   style="background-color: #fefefebb"
 >
   <div>
     <h1 class="display-4">
-      ¡Bienvenido <b> {{ user_username }} </b>!
+      ¡Bienvenido <b> {{ user_username }}</b>!
     </h1>
     <p class="lead">Este es el home para los usuarios <b>Organizadores</b>.</p>
     <hr class="my-4" />
@@ -42,25 +153,6 @@
       Todavia esta en desarrollo, por lo que por el momento solo podes realizar
       las siguientes acciones.
     </p>
-    <p class="lead">
-      <a
-        routerLink="/edit-user"
-        class="btn btn-primary btn-lg"
-        style="margin-right: 15px"
-        href="#"
-        role="button"
-        >Modificar Perfil</a
-      >
-      <br />
-      <br />
-      <a
-        routerLink="/login"
-        class="btn btn-secondary btn-lg"
-        style="margin-right: 15px"
-        (click)="logOut()"
-        role="button"
-        >Logout</a
-      >
-    </p>
+    
   </div>
-</div>
+</div>-->

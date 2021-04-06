@@ -4,4 +4,14 @@ body{
     background-size: cover;
     background-repeat: no-repeat;
     overflow-x: hidden;
+    max-height: 2000px;
+    
+}
+body::-webkit-scrollbar {
+    display: none;
+  }
+
+body {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
 }
