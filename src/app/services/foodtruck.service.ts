@@ -1,5 +1,10 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
+
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -78,5 +83,24 @@ export class FoodtruckService {
       );
   }
 
+  /*
+  DEBERIA ANDAR PERO ALGO RARO PASA CON ECLIPSE O ACA, NO SE
+
+  addPic(form: NgForm, base64textString): Observable<Foodtruck> {
+    let picBody = base64textString[0];
+    const headerDict = {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      'Access-Control-Allow-Headers': 'Content-Type',
+    };
+    const requestOptions = {
+      headers: new HttpHeaders(headerDict),
+    };
+    return this.http.post<Foodtruck>(
+      `${environment.url}/usuario/pruebaImagen/1`,
+      picBody.toString(),requestOptions
+    );
+  }
+  */
 
 }

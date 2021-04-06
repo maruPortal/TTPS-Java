@@ -42,6 +42,7 @@
     >
   </div>
 </div>
+
 <div
   *ngIf="user_tipo == 'FoodTrucker'"
   class="jumbotron"
@@ -72,8 +73,23 @@
         role="button"
         >Ver Mis FoodTrucks</a
       >
-      <br />
-      <br />
     </p>
   </div>
  </div>
+
+<!-- Este cachito te permite cargar una imagen, la convierte a base64 y la guarda en una coleccion para cuando toques enviar, 
+    deberia ir en el formulario de nuevo foodtruck. Tambien te muestra preview, pero algo no anda asi que queda comentado
+<div style="text-align: center; background-color: #ffffff88;">
+  <H1>PRUEBA IMAGENES</H1>
+ <form #register="ngForm" ngNativeValidate (ngSubmit)="onSubmit(register)">
+    <label>Elegi una imagen</label><br>
+    <input type="file" name="image" (change)="onUploadChange($event)" accept=".png, .jpg, .jpeg, .pdf" /><BR><BR>
+    <button type="submit"> ENVIAR </button>
+    <br><br>
+    <img *ngFor="let item of base64textString"  src={{item}} alt="" style="width: fit-content; height: fit-content; max-width: 350px; max-height: 350px;" id="img">
+    
+
+ </form>
+ 
+</div>-->
+ 
