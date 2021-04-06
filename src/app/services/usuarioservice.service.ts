@@ -44,7 +44,7 @@ export class UsuarioserviceService {
   }
 
   isLogin() {
-    return true //tempFela !(sessionStorage.getItem('id') == null);
+    return !(sessionStorage.getItem('id') == null);
   }
 
   logOut() {
