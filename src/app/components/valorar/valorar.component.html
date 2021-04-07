@@ -1,0 +1,151 @@
+<!-- barra superior  -->
+<div style="text-align: center">
+    <div style="background: linear-gradient(180deg, rgba(255,130,0,0.7637255585828081) 10%, rgba(255,130,0,0.02) 100%);
+                width:100%;
+                display: inline-block;">
+      <div style="float: left;margin-top: 10px;">
+        <img style="width: 400px;" src="../assets/images/logo_app_2.png" />
+      </div>
+      <div style="margin-top: 2%; ;float: right; margin-right: 40px;">
+        <div class="row">
+          <div class="col">
+            <div ngbDropdown class="d-inline-block">
+              <button class="" id="botonCuenta" style="border-radius: 100px; outline: none; background-color: transparent; border: none" id="dropdownBasic1" ngbDropdownToggle><img style=" width: 60px;" src="../assets/images/icono_account.png" /></button>
+              <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                <a style="text-decoration: none;" routerLink="/edit-user"><button ngbDropdownItem>Mi Perfil</button></a>
+                <div class="dropdown-divider"></div>
+                <a style="text-decoration: none;" routerLink="/login" (click)="logOut()"><button ngbDropdownItem>Cerrar Sesion</button></a>
+              </div>
+            </div>
+          </div>
+       </div>
+      </div>
+    </div>
+  </div>
+  <!-- div central -->
+  <div style="text-align: center; max-height: 600px;">
+  <div style="margin-top: 10px;">   
+    <div style="justify-content: center; display: flex;">
+      <div style="background-color: #ffffffbb; padding-top: 20px; padding-left: 20px; 
+                  padding-right: 20px; padding-bottom: 20px; border-radius: 10px;" class="justify-content-md-center">
+        <div style="text-align: center; color: #000000cc;">
+          <h3><b>FORMULARIO DE VALORACION</b></h3>
+          <div class="row" >
+            <div class="col" style="width: 500px;">
+              <!--div para resumen-->
+              <div>
+                <!--div para evento-->
+                <div style="font-size: 30px; font-weight: normal; color: black; text-align: left;">Evento</div>
+                <div style="background-color: #00000099; padding-top: 10px; padding-bottom: 10px; 
+                                              margin-bottom: 20px; margin-top: 5px; margin-left: 50px;margin-right: 20px;">
+                  <div>
+                    <div class="col my-auto">
+                      <div style="color: white;-webkit-text-stroke: 0.5px #000000AA;font-size: 23px; text-align: left; font-weight: bold;">
+                        {{ evento['nombre'] }}
+                      </div>
+                      <div style="color: white;font-size: 18px; text-align: left;">
+                        {{ evento['fecha_hora'] }}
+                      </div>
+                      <div style="color: white;font-size: 18px; text-align: left; font-weight: lighter;">
+                        {{ evento['direccion'] }}. {{ evento['provincia'] }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!--div para foodtruck-->
+                <div style="font-size: 30px; font-weight: normal; color: black; text-align: left;">FoodTruck</div>
+                <div style="background-color: #00000099; padding-top: 10px; padding-bottom: 10px; 
+                                              margin-bottom: 20px; margin-top: 5px; margin-left: 50px;margin-right: 20px;">
+                  <div>
+                    <div class="col my-auto">
+                      <div style="color: white;-webkit-text-stroke: 0.5px #000000AA;font-size: 23px; text-align: left; font-weight: bold;">
+                        {{ foodtruck.nombre }}
+                      </div>
+                      <div style="color: white;font-size: 18px; text-align: left;">
+                        {{ foodtruck.tipo_servicio }}
+                      </div>
+                      <div style="color: white;font-size: 18px; text-align: left; font-weight: lighter;">
+                        {{ foodtruck.url }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col" style="width: 500px; padding-top: 10px;">
+              <!--evaluador limpieza-->
+              <div>
+                <div style="text-align: left ;color: black; font-size: 25px; font-weight: normal;">Limpieza</div>
+                <div style="align-content: flex-start; display: flex;">
+                  <ngb-rating [(rate)]="puntos['Limpieza']" style="margin-left: 30px; outline: none;">
+                    <ng-template let-fill="fill" let-index="index">
+                      <span class="star" [class.filled]="fill === 100" [class.bad]="index < 3">&#9733;</span>
+                    </ng-template>
+                  </ngb-rating>
+                  
+                  <div style="color:black; font-weight: bold; font-size: 30px ;text-align: center;" class=" col my-auto">{{ puntos['Limpieza'] }}</div>
+                </div>
+              </div>
+              <!--evaluador limpieza-->
+              <div>
+                <div style="text-align: left ;color: black; font-size: 25px; font-weight: normal;">Simpatia</div>
+                <div style="align-content: flex-start; display: flex;">
+                  <ngb-rating [(rate)]="puntos['Simpatia']" style="margin-left: 30px; outline: none;">
+                    <ng-template let-fill="fill" let-index="index">
+                      <span class="star" [class.filled]="fill === 100" [class.bad]="index < 3">&#9733;</span>
+                    </ng-template>
+                  </ngb-rating>
+                  
+                  <div style="color:black; font-weight: bold; font-size: 30px ;text-align: center;" class=" col my-auto">{{ puntos['Simpatia'] }}</div>
+                </div>
+              </div>
+              <!--evaluador limpieza-->
+              <div>
+                <div style="text-align: left ;color: black; font-size: 25px; font-weight: normal;">Calidad/Precio</div>
+                <div style="align-content: flex-start; display: flex;">
+                  <ngb-rating [(rate)]="puntos['Calidad/Precio']" style="margin-left: 30px; outline: none;">
+                    <ng-template let-fill="fill" let-index="index">
+                      <span class="star" [class.filled]="fill === 100" [class.bad]="index < 3">&#9733;</span>
+                    </ng-template>
+                  </ngb-rating>
+                  
+                  <div style="color:black; font-weight: bold; font-size: 30px ;text-align: center;" class=" col my-auto">{{ puntos['Calidad/Precio'] }}</div>
+                </div>
+              </div>
+              <!--evaluador limpieza-->
+              <div>
+                <div style="text-align: left ;color: black; font-size: 25px; font-weight: normal;">Sabor</div>
+                <div style="align-content: flex-start; display: flex;">
+                  <ngb-rating [(rate)]="puntos['Sabor']" style="margin-left: 30px;outline: none;">
+                    <ng-template let-fill="fill" let-index="index">
+                      <span class="star" [class.filled]="fill === 100" [class.bad]="index < 3">&#9733;</span>
+                    </ng-template>
+                  </ngb-rating>
+                  
+                  <div style="color:black; font-weight: bold; font-size: 30px ;text-align: center;" class=" col my-auto">{{ puntos['Sabor'] }}</div>
+                </div>
+              </div>
+              <!--evaluador limpieza-->
+              <div>
+                <div style="text-align: left ;color: black; font-size: 25px; font-weight: normal;">Diseño</div>
+                <div style="align-content: flex-start; display: flex;">
+                  <ngb-rating [(rate)]="puntos['Diseño']" style="margin-left: 30px; outline: none;">
+                    <ng-template let-fill="fill" let-index="index">
+                      <span class="star" [class.filled]="fill === 100" [class.bad]="index < 3">&#9733;</span>
+                    </ng-template>
+                  </ngb-rating>
+                  
+                  <div style="color:black; font-weight: bold; font-size: 30px ;text-align: center;" class=" col my-auto">{{ puntos['Diseño'] }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div style="text-align: center; margin-top: 15px;">
+            <button class="btn btn-primary" (click)="enviarPuntos()">ENVIAR</button>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+    <br>
+  </div>

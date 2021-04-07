@@ -10,6 +10,7 @@ import { NewfoodtruckComponent } from './components/newfoodtruck/newfoodtruck.co
 import { RegisterComponent } from './components/register/register.component';
 import { EditFoodTruckComponent } from './edit-food-truck/edit-food-truck.component';
 import { CanActivateGuard } from './guarda/can-activate.guard';
+import { ValorarComponent } from './components/valorar/valorar.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -51,6 +52,11 @@ const routes: Routes = [
   {
     path: 'search-result',
     component: ResultadosBusquedaComponent,
+    canActivate: [CanActivateGuard],
+  },
+  {
+    path: 'valorarReserva',
+    component: ValorarComponent,
     canActivate: [CanActivateGuard],
   },
 
