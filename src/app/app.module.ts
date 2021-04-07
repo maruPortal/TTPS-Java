@@ -16,6 +16,7 @@ import { FoodtruckService } from './services/foodtruck.service';
 import { ListfoodtrucksComponent } from './components/listfoodtrucks/listfoodtrucks.component';
 import { EditFoodTruckComponent } from './edit-food-truck/edit-food-truck.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ResultadosBusquedaComponent } from './components/resultados-busqueda/resultados-busqueda.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     NewfoodtruckComponent,
     ListfoodtrucksComponent,
     EditFoodTruckComponent,
+    ResultadosBusquedaComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule, NgbModule],
   providers: [UsuarioserviceService, FoodtruckService],

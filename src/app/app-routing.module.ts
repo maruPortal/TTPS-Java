@@ -4,6 +4,7 @@ import { EdituserComponent } from './components/edituser/edituser.component';
 import { HomefoodtruckerComponent } from './components/homefoodtrucker/homefoodtrucker.component';
 import { HomeorganizadorComponent } from './components/homeorganizador/homeorganizador.component';
 import { ListfoodtrucksComponent } from './components/listfoodtrucks/listfoodtrucks.component';
+import { ResultadosBusquedaComponent } from './components/resultados-busqueda/resultados-busqueda.component';
 import { LoginComponent } from './components/login/login.component';
 import { NewfoodtruckComponent } from './components/newfoodtruck/newfoodtruck.component';
 import { RegisterComponent } from './components/register/register.component';
@@ -45,6 +46,11 @@ const routes: Routes = [
   {
     path: 'edit-foodtruck',
     component: EditFoodTruckComponent,
+    canActivate: [CanActivateGuard],
+  },
+  {
+    path: 'search-result',
+    component: ResultadosBusquedaComponent,
     canActivate: [CanActivateGuard],
   },
 
