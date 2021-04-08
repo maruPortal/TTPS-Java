@@ -4,12 +4,13 @@ import { Router } from '@angular/router';
 import { FoodtruckService } from 'src/app/services/foodtruck.service';
 import { UsuarioserviceService } from 'src/app/services/usuarioservice.service';
 
+
 @Component({
-  selector: 'app-newfoodtruck, ngbd-dropdown-basic',
-  templateUrl: './newfoodtruck.component.html',
-  styleUrls: ['./newfoodtruck.component.css'],
+  selector: 'app-newevent',
+  templateUrl: './newevent.component.html',
+  styleUrls: ['./newevent.component.css']
 })
-export class NewfoodtruckComponent implements OnInit {
+export class NeweventComponent implements OnInit {
   enviado: Boolean;
   error: Boolean;
   constructor(
@@ -25,7 +26,6 @@ export class NewfoodtruckComponent implements OnInit {
     this.error = false;
   }
 
-  // {"dueño":{ "id":1} }
   onSubmit(ft: NgForm) {
     let estado = this.ftservice.createFoodtruck(ft);
     console.log(estado);
@@ -42,4 +42,5 @@ export class NewfoodtruckComponent implements OnInit {
   logOut() {
     this.userService.logOut();
   }
+
 }

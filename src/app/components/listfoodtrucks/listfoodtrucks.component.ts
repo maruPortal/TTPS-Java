@@ -1,4 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
+import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Foodtruck } from 'src/app/model/foodtruck';
@@ -6,9 +7,10 @@ import { FoodtruckService } from 'src/app/services/foodtruck.service';
 import { UsuarioserviceService } from 'src/app/services/usuarioservice.service';
 
 @Component({
-  selector: 'app-listfoodtrucks, ngbd-dropdown-basic',
+  selector: 'app-listfoodtrucks, ngbd-dropdown-basic, ngbd-modal-config',
   templateUrl: './listfoodtrucks.component.html',
   styleUrls: ['./listfoodtrucks.component.css'],
+  providers: [NgbModalConfig, NgbModal]
 })
 export class ListfoodtrucksComponent implements OnInit {
   foodtrucks: Foodtruck[];
@@ -28,12 +30,15 @@ export class ListfoodtrucksComponent implements OnInit {
   constructor(
     private ftService: FoodtruckService,
     private router: Router,
-    private userService: UsuarioserviceService
-  ) {}
+    private userService: UsuarioserviceService,
+    config: NgbModalConfig, private modalService: NgbModal) {
+        config.backdrop = 'static';
+        config.keyboard = false;
+    }
 
   ngOnInit(): void {
-    this.userService.isFoodtrucker();
-    this.getFoodTrucks();
+    //this.userService.isFoodtrucker();
+    //this.getFoodTrucks();
     let estadoModif = sessionStorage.getItem('estadoModificacion');
     if (estadoModif == 'ModificadoExitosamente') {
       this.modificado = true;
@@ -46,6 +51,10 @@ export class ListfoodtrucksComponent implements OnInit {
       }
     }
     sessionStorage.setItem('estadoModificacion', '');
+  }
+
+  open(content) {
+    this.modalService.open(content);
   }
 
   getFoodTrucks() {

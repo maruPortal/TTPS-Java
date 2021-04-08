@@ -1,0 +1,180 @@
+<div style="text-align: center">
+    <div style="background: linear-gradient(180deg, rgba(255,130,0,0.7637255585828081) 10%, rgba(255,130,0,0.02) 100%);
+                width:100%;
+                display: inline-block;">
+      <div style="float: left;margin-top: 10px;">
+        <img style="width: 400px;" src="../assets/images/logo_app_2.png" />
+      </div>
+      <div style="margin-top: 2%; ;float: right; margin-right: 40px;">
+        <div class="row">
+          <div class="col">
+            <div ngbDropdown class="d-inline-block">
+              <button class="" id="botonCuenta" style="border-radius: 100px; outline: none; background-color: transparent; border: none" id="dropdownBasic1" ngbDropdownToggle><img style=" width: 60px;" src="../assets/images/icono_account.png" /></button>
+              <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                <a style="text-decoration: none;" routerLink="/edit-user"><button ngbDropdownItem>Mi Perfil</button></a>
+                <div class="dropdown-divider"></div>
+                <a style="text-decoration: none;" routerLink="/login" (click)="logOut()"><button ngbDropdownItem>Cerrar Sesion</button></a>
+              </div>
+            </div>
+          </div>
+       </div>
+      </div>
+    </div>
+  </div><br>
+  <div>
+    <div *ngIf="error" class="row justify-content-md-center" style="text-align: center;">
+      <div class="alert alert-danger col-md-3" role="alert">
+        ¡Alguno de los datos ingresados no son correctos!
+      </div>  
+    </div>
+    <div style="justify-content: center; display: flex;">
+      <div style="border-radius: 10px;margin-right: 15%; margin-left: 15%; background-color: #ffffffdd;">
+        <form *ngIf="!enviado"  style="width: 1000px;padding-top: 20px; padding-bottom: 30px; padding-right: 30px; padding-left: 30px;" #edit="ngForm" ngNativeValidate (ngSubmit)="onSubmit(edit)">
+          <div style="text-align: center; margin-bottom: 20px;">
+            <h3><b>NUEVO EVENTO</b></h3>
+          </div>
+          
+          <div class="form row">
+            <div class="form-group col-md-4" >
+              <label for=""><b>Nombre</b></label>
+              <input
+                type="text"
+                name="nombre"
+                ngModel 
+                required
+                class="form-control"
+                placeholder="Ingrese el nombre del evento"
+              />
+            </div>
+            
+            <div class="form-group col-md-4">
+              <label for=""><b>Direccion</b></label>
+              <input
+                type="text"
+                name="direccion"
+                ngModel
+                required
+                class="form-control"
+                placeholder="Ingrese la direccion del evento"
+              />
+            </div>
+
+            <div class="form-group col-md-4" >
+                <label for=""><b>Codigo Postal</b></label>
+                <input
+                  type="number"
+                  name="codigo_postal"
+                  ngModel 
+                  required
+                  class="form-control"
+                  placeholder="Ingrese el codigo postal"
+                />
+              </div>
+          </div>
+
+          <div class="form row">
+            
+            <div class="form-group col-md-4">
+              <label for=""><b>Provincia</b></label>
+              <input
+                type="text"
+                name="provincia"
+                ngModel
+                required
+                class="form-control"
+                placeholder="Ingrese la provincia del evento"
+              />
+            </div>
+
+            <div class="form-group col-md-4" >
+                <label for=""><b>Tipo de Evento</b></label>
+                <input
+                  type="text"
+                  name="tipo_evento"
+                  ngModel 
+                  required
+                  class="form-control"
+                  placeholder="Ingrese el tipo de evento"
+                />
+              </div>
+
+              <div class="form-group col-md-4">
+                <label for=""><b>Fecha y Hora</b></label>
+                <input
+                  type="datetime"
+                  name="fecha_hora"
+                  ngModel
+                  required
+                  class="form-control"
+                  placeholder="Ingrese la fecha y hora del evento"
+                />
+              </div>
+          </div>
+
+          <div class="form row">
+            <div class="form-group col-md-4" >
+              <label for=""><b>Email</b></label>
+              <input
+                type="email"
+                name="email"
+                ngModel 
+                required
+                class="form-control"
+                placeholder="Ingrese el email"
+              />
+            </div>
+            <div class="form-group col-md-4">
+              <label for=""><b>Telefono</b></label>
+              <input
+                type="number"
+                name="telefono"
+                ngModel
+                required
+                class="form-control"
+                placeholder="Ingrese un telefono"
+              />
+            </div>
+
+            <div class="form-group col-md-4">
+                <label for=""><b>Forma de Pago</b></label>
+                <select name="forma_pago" style="width: 100%; height: 35px;"  ngModel required>
+                    <option value="clientes" selected>Abonan los Clientes</option>
+                    <option value="organizador">Abonan el Organizador</option>
+                </select>
+              </div>
+          </div>
+
+          <div class="form row">
+            <div class="form-group col-md-8" >
+                <label for=""><b>Descripción</b></label>
+                <textarea
+                  cols="15"
+                  rows="3"
+                  name="descripcion"
+                  ngModel
+                  required
+                  class="form-control"
+                  placeholder="Ingrese una breve descripción"
+                ></textarea>
+            </div>
+
+            <div class="form-group col-md-4">
+                <label for=""><b>Geolocalizacion</b></label>
+                <input
+                  type="text"
+                  name="geolocalizacion"
+                  ngModel
+                  required
+                  class="form-control"
+                  placeholder="Ingrese algo"
+                />
+              </div>
+            
+          </div>
+          <div style="text-align: center;">
+            <button type="submit" class="btn btn-primary">ENVIAR</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>

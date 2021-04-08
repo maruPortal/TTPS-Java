@@ -19,6 +19,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ResultadosBusquedaComponent } from './components/resultados-busqueda/resultados-busqueda.component';
 import { ValorarComponent } from './components/valorar/valorar.component';
 import { ReservarComponent } from './components/reservar/reservar.component';
+import { ListeventosComponent } from './components/listeventos/listeventos.component';
+import { NeweventComponent } from './components/newevent/newevent.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +36,8 @@ import { ReservarComponent } from './components/reservar/reservar.component';
     ResultadosBusquedaComponent,
     ValorarComponent,
     ReservarComponent,
+    ListeventosComponent,
+    NeweventComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule, NgbModule],
   providers: [UsuarioserviceService, FoodtruckService],
