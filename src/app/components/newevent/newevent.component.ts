@@ -13,6 +13,7 @@ import { UsuarioserviceService } from 'src/app/services/usuarioservice.service';
 export class NeweventComponent implements OnInit {
   enviado: Boolean;
   error: Boolean;
+  user_tipo:String;
   constructor(
     private ftservice: FoodtruckService,
     private userService: UsuarioserviceService,
@@ -21,7 +22,7 @@ export class NeweventComponent implements OnInit {
 
   ngOnInit(): void {
     //this.userService.isFoodtrucker();
-
+    this.user_tipo="Organizador";
     this.enviado = false;
     this.error = false;
   }

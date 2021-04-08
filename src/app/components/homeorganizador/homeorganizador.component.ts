@@ -1,11 +1,18 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { UsuarioserviceService } from 'src/app/services/usuarioservice.service';
+import { FoodtruckService } from 'src/app/services/foodtruck.service';
+import { Router } from '@angular/router';
 import { NgbCarousel, NgbSlideEvent, NgbSlideEventSource } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: 'app-homeorganizador, ngbd-dropdown-basic, ngbd-carousel-pause',
+  selector: 'app-homeorganizador, ngbd-dropdown-basic, ngbd-carousel-pause, ngbd-nav-markup',
   templateUrl: './homeorganizador.component.html',
   styleUrls: ['./homeorganizador.component.css'],
+  styles: [`
+    .botonNav:hover {
+      background-color: #ffffff88;
+    }
+  `]
 })
 export class HomeorganizadorComponent implements OnInit {
   user_username: String;
@@ -16,13 +23,16 @@ export class HomeorganizadorComponent implements OnInit {
   pauseOnHover = true;
   pauseOnFocus = true;
   images = [62, 83, 466, 965, 982, 1043, 738].map((n) => `https://picsum.photos/id/${n}/900/500`);
+  prueba = [1,2,3];
   //aca van los string en base64 con "data:image/png;base64," delante 
   //images=[]; 
   //aca van los nombres de los ft
   ft = ["Mollys","Barfuss","Prueba","Antares","Peñon","Baum","Sale con Pan"];
   //aca van los puntajes de los ft
   puntajes = [2700,2500,2000,1980,1900,1800,1780,1750];
-  constructor(private userService: UsuarioserviceService) {}
+  constructor(private userService: UsuarioserviceService,
+              private router: Router,
+              private ftService: FoodtruckService,) {}
 
   @ViewChild('carousel', {static : true}) carousel: NgbCarousel;
 

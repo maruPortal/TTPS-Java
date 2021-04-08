@@ -4,7 +4,8 @@
               width:100%;
               display: inline-block;">
     <div style="float: left;margin-top: 10px;">
-      <img style="width: 400px;" src="../assets/images/logo_app_2.png" />
+      <a *ngIf="user_tipo=='Organizador'" routerLink="/home-organizador"><img style="width: 400px;" src="../assets/images/logo_app_2.png" /></a>
+      <a *ngIf="user_tipo=='FoodTrucker'" routerLink="/home-foodtrucker"><img style="width: 400px;" src="../assets/images/logo_app_2.png" /></a>
     </div>
     <div style="margin-top: 2%; ;float: right; margin-right: 40px;">
       <div class="row">
@@ -12,7 +13,8 @@
           <div ngbDropdown class="d-inline-block">
             <button class="" id="botonCuenta" style="border-radius: 100px; outline: none; background-color: transparent; border: none" id="dropdownBasic1" ngbDropdownToggle><img style=" width: 60px;" src="../assets/images/icono_account.png" /></button>
             <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-              <a style="text-decoration: none;" routerLink="/edit-user"><button ngbDropdownItem>Mi Perfil</button></a>
+              <a *ngIf="user_tipo=='Organizador'" style="text-decoration: none;" routerLink="/list-eventos"><button ngbDropdownItem>Mis Eventos</button></a>
+              <a *ngIf="user_tipo=='FoodTrucker'" style="text-decoration: none;" routerLink="/list-foodtrucks"><button ngbDropdownItem>Mis FoodTrucks</button></a>
               <div class="dropdown-divider"></div>
               <a style="text-decoration: none;" routerLink="/login" (click)="logOut()"><button ngbDropdownItem>Cerrar Sesion</button></a>
             </div>
@@ -123,13 +125,5 @@
 
       </form>
     </div>
-  </div>
-  <br>
-  <div style="text-align: center;">
-    <a
-            class="btn btn-primary btn-lg"
-            role="button"
-            (click)="redireccionar()"
-            >Volver al Home</a>
   </div>
 </div>

@@ -18,6 +18,7 @@ export class EdituserComponent implements OnInit {
   password: String;
   email: String;
   tipoPass:String;
+  user_tipo:String;
   constructor(
     private userService: UsuarioserviceService,
     private router: Router
@@ -26,6 +27,7 @@ export class EdituserComponent implements OnInit {
   ngOnInit(): void {
     this.enviado=false;
     this.tipoPass="password";
+    this.user_tipo="Organizador";
     this.userService.recuperarData()
     .subscribe(
       (usuario) => {
@@ -34,6 +36,7 @@ export class EdituserComponent implements OnInit {
         this.username= usuario.username;
         this.password= usuario.password;
         this.email= usuario.email;
+        //this.user_tipo= usuario.tipo_usuario;
       }
     );
   }

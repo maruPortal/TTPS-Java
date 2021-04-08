@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { UsuarioserviceService } from 'src/app/services/usuarioservice.service';
 import { FoodtruckService } from 'src/app/services/foodtruck.service';
+import { Router } from '@angular/router';
 import { NgbCarousel, NgbSlideEvent, NgbSlideEventSource } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -18,12 +19,14 @@ import { NgbCarousel, NgbSlideEvent, NgbSlideEventSource } from '@ng-bootstrap/n
 export class HomefoodtruckerComponent implements OnInit {
   user_username: String;
   user_tipo: String;
+  url_home: String;
   paused = false;
   unpauseOnArrow = false;
   pauseOnIndicator = false;
   pauseOnHover = true;
   pauseOnFocus = true;
   images = [62, 83, 466, 965, 982, 1043, 738].map((n) => `https://picsum.photos/id/${n}/900/500`);
+  prueba = [1,2,3];
   //aca van los string en base64 con "data:image/png;base64," delante 
   //images=[]; 
   //aca van los nombres de los ft
@@ -32,6 +35,7 @@ export class HomefoodtruckerComponent implements OnInit {
   puntajes = [2700,2500,2000,1980,1900,1800,1780,1750];
 
   constructor(private userService: UsuarioserviceService,
+              private router: Router,
               private ftService: FoodtruckService,) {}
 
   @ViewChild('carousel', {static : true}) carousel: NgbCarousel;
@@ -39,6 +43,7 @@ export class HomefoodtruckerComponent implements OnInit {
   ngOnInit(): void {
     this.user_username="felaornella" //tempFela this.user_username = sessionStorage.getItem('username');
     this.user_tipo="FoodTrucker"  //tempFela this.user_tipo = sessionStorage.getItem('tipoUsuario');
+    this.url_home="home-" + this.user_tipo.toLowerCase();
   }
 
   logOut() {

@@ -12,7 +12,7 @@
           <div ngbDropdown class="d-inline-block">
             <button class="" id="botonCuenta" style="border-radius: 100px; outline: none; background-color: transparent; border: none" id="dropdownBasic1" ngbDropdownToggle><img style=" width: 60px;" src="../assets/images/icono_account.png" /></button>
             <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-              <a *ngIf="user_tipo=='Organizador'" style="text-decoration: none;" routerLink="/edit-user"><button ngbDropdownItem>Mis Eventos</button></a>
+              <a *ngIf="user_tipo=='Organizador'" style="text-decoration: none;" routerLink="/list-eventos"><button ngbDropdownItem>Mis Eventos</button></a>
               <a *ngIf="user_tipo=='FoodTrucker'" style="text-decoration: none;" routerLink="/list-foodtrucks"><button ngbDropdownItem>Mis FoodTrucks</button></a>
               <div class="dropdown-divider"></div>
               <a style="text-decoration: none;" routerLink="/edit-user"><button ngbDropdownItem>Mi Perfil</button></a>
@@ -64,7 +64,7 @@
             <div style="overflow: auto; max-height: 350px;">
               
               <!--Div con DATA de UNA solicitud PENDIENTE-->
-              <div class="container" style="background-color: #00000068; padding-top: 10px; padding-bottom: 10px; margin-bottom: 20px;">
+              <div *ngFor="let each of prueba" class="container" style="background-color: #00000068; padding-top: 10px; padding-bottom: 10px; margin-bottom: 20px;">
                 <div class="row h-100" style=" margin-bottom: 15px;">
                   <div class="col-4 my-auto">
                     <div style="color: white; -webkit-text-stroke: 0.5px #000000AA; font-size: 22px; 
@@ -104,130 +104,6 @@
                   </div>
                 </div>
               </div>
-              <!--Div con DATA de UNA solicitud PENDIENTE-->
-              <div class="container" style="background-color: #00000068; padding-top: 10px; padding-bottom: 10px; margin-bottom: 20px;">
-                <div class="row h-100" style=" margin-bottom: 15px;">
-                  <div class="col-4 my-auto">
-                    <div style="color: white; -webkit-text-stroke: 0.5px #000000AA; font-size: 22px; 
-                                text-align: center; border-right: 2px solid white">
-                      EVENTO
-                    </div>
-                  </div>
-                  <div class="col-4 my-auto">
-                    <div style="color: white;-webkit-text-stroke: 0.5px #000000AA;font-size: 18px; text-align: left; font-weight: bold;">
-                      Picurba: Picnic Urbano
-                    </div>
-                    <div style="color: white;font-size: 18px; text-align: left;">
-                      18 Ago. 2021 - 18hs
-                    </div>
-                  </div>
-                  <div class="col-4 my-auto" style="text-align: center;">
-                    <button class="btn btn-success" >ACEPTAR</button>
-                  </div>
-                </div>
-                <div class="row h-100">
-                  <div class="col-4 my-auto" style="vertical-align: middle;">
-                    <div style="color: white; -webkit-text-stroke: 0.5px #000000AA; font-size: 22px; 
-                                text-align: center; border-right: 2px solid white">
-                      FOODTRUCK
-                    </div>
-                  </div>
-                  <div class="col-4 my-auto" style="vertical-align: middle;">
-                    <div style="color: white;-webkit-text-stroke: 0.5px #000000AA;font-size: 18px; text-align: left; font-weight: bold;">
-                      Gin Bar
-                    </div>
-                    <div style="color: white;font-size: 18px; text-align: left; ">
-                      Cocteleria
-                    </div>
-                  </div>
-                  <div class="col-4 my-auto" style="text-align: center;">
-                    <button class="btn btn-danger" >RECHAZAR</button>
-                  </div>
-                </div>
-              </div>
-              <!--Div con DATA de UNA solicitud PENDIENTE-->
-              <div class="container" style="background-color: #00000068; padding-top: 10px; padding-bottom: 10px; margin-bottom: 20px;">
-                <div class="row h-100" style=" margin-bottom: 15px;">
-                  <div class="col-4 my-auto">
-                    <div style="color: white; -webkit-text-stroke: 0.5px #000000AA; font-size: 22px; 
-                                text-align: center; border-right: 2px solid white">
-                      EVENTO
-                    </div>
-                  </div>
-                  <div class="col-4 my-auto">
-                    <div style="color: white;-webkit-text-stroke: 0.5px #000000AA;font-size: 18px; text-align: left; font-weight: bold;">
-                      Picurba: Picnic Urbano
-                    </div>
-                    <div style="color: white;font-size: 18px; text-align: left;">
-                      18 Ago. 2021 - 18hs
-                    </div>
-                  </div>
-                  <div class="col-4 my-auto" style="text-align: center;">
-                    <button class="btn btn-success" >ACEPTAR</button>
-                  </div>
-                </div>
-                <div class="row h-100">
-                  <div class="col-4 my-auto" style="vertical-align: middle;">
-                    <div style="color: white; -webkit-text-stroke: 0.5px #000000AA; font-size: 22px; 
-                                text-align: center; border-right: 2px solid white">
-                      FOODTRUCK
-                    </div>
-                  </div>
-                  <div class="col-4 my-auto" style="vertical-align: middle;">
-                    <div style="color: white;-webkit-text-stroke: 0.5px #000000AA;font-size: 18px; text-align: left; font-weight: bold;">
-                      Gin Bar
-                    </div>
-                    <div style="color: white;font-size: 18px; text-align: left; ">
-                      Cocteleria
-                    </div>
-                  </div>
-                  <div class="col-4 my-auto" style="text-align: center;">
-                    <button class="btn btn-danger" >RECHAZAR</button>
-                  </div>
-                </div>
-              </div>
-              <!--Div con DATA de UNA solicitud PENDIENTE-->
-              <div class="container" style="background-color: #00000068; padding-top: 10px; padding-bottom: 10px; margin-bottom: 20px;">
-                <div class="row h-100" style=" margin-bottom: 15px;">
-                  <div class="col-4 my-auto">
-                    <div style="color: white; -webkit-text-stroke: 0.5px #000000AA; font-size: 22px; 
-                                text-align: center; border-right: 2px solid white">
-                      EVENTO
-                    </div>
-                  </div>
-                  <div class="col-4 my-auto">
-                    <div style="color: white;-webkit-text-stroke: 0.5px #000000AA;font-size: 18px; text-align: left; font-weight: bold;">
-                      Picurba: Picnic Urbano
-                    </div>
-                    <div style="color: white;font-size: 18px; text-align: left;">
-                      18 Ago. 2021 - 18hs
-                    </div>
-                  </div>
-                  <div class="col-4 my-auto" style="text-align: center;">
-                    <button class="btn btn-success" >ACEPTAR</button>
-                  </div>
-                </div>
-                <div class="row h-100">
-                  <div class="col-4 my-auto" style="vertical-align: middle;">
-                    <div style="color: white; -webkit-text-stroke: 0.5px #000000AA; font-size: 22px; 
-                                text-align: center; border-right: 2px solid white">
-                      FOODTRUCK
-                    </div>
-                  </div>
-                  <div class="col-4 my-auto" style="vertical-align: middle;">
-                    <div style="color: white;-webkit-text-stroke: 0.5px #000000AA;font-size: 18px; text-align: left; font-weight: bold;">
-                      Gin Bar
-                    </div>
-                    <div style="color: white;font-size: 18px; text-align: left; ">
-                      Cocteleria
-                    </div>
-                  </div>
-                  <div class="col-4 my-auto" style="text-align: center;">
-                    <button class="btn btn-danger" >RECHAZAR</button>
-                  </div>
-                </div>
-              </div>
-
             </div>
           </ng-template>
         </ng-container>
@@ -298,7 +174,6 @@
           <div class="carousel-caption">
             <h3 style="-webkit-text-stroke: 1px black;">{{ puntajes[i] }} Pts.</h3>
           </div>
-          <a href="https://www.google.fr/?q=Number+{{i+1}}" target="_blank" rel="nofollow noopener noreferrer">
             <div class="picsum-img-wrapper">
               <div style=" position: absolute; background: linear-gradient(90deg, rgba(0,0,0,0.7637255585828081) 5%, rgba(255,130,0,0.02) 100%);" class="container">
                 <div class="row" style="margin-left: 25px;">
@@ -317,7 +192,6 @@
               </div>
               <img [src]="img" alt="My image {{i + 1}} description" style="max-height: 400px;">
             </div>
-          </a>
         </ng-template>
       </ngb-carousel>
 

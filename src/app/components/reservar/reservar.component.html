@@ -4,7 +4,7 @@
                 width:100%;
                 display: inline-block;">
       <div style="float: left;margin-top: 10px;">
-        <img style="width: 400px;" src="../assets/images/logo_app_2.png" />
+        <a routerLink="/home-organizador"><img style="width: 400px;" src="../assets/images/logo_app_2.png" /></a>
       </div>
       <div style="margin-top: 2%; ;float: right; margin-right: 40px;">
         <div class="row">
@@ -12,9 +12,12 @@
             <div ngbDropdown class="d-inline-block">
               <button class="" id="botonCuenta" style="border-radius: 100px; outline: none; background-color: transparent; border: none" id="dropdownBasic1" ngbDropdownToggle><img style=" width: 60px;" src="../assets/images/icono_account.png" /></button>
               <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                <a style="text-decoration: none;" routerLink="/edit-user"><button ngbDropdownItem>Mi Perfil</button></a>
+                <a *ngIf="user_tipo=='Organizador'" style="text-decoration: none;" routerLink="/list-eventos"><button ngbDropdownItem>Mis Eventos</button></a>
+                <a *ngIf="user_tipo=='FoodTrucker'" style="text-decoration: none;" routerLink="/list-foodtrucks"><button ngbDropdownItem>Mis FoodTrucks</button></a>
                 <div class="dropdown-divider"></div>
-                <a style="text-decoration: none;" routerLink="/login" (click)="logOut()"><button ngbDropdownItem>Cerrar Sesion</button></a>
+                    <a style="text-decoration: none;" routerLink="/edit-user"><button ngbDropdownItem>Mi Perfil</button></a>
+                <div class="dropdown-divider"></div>
+                    <a style="text-decoration: none;" routerLink="/login" (click)="logOut()"><button ngbDropdownItem>Cerrar Sesion</button></a>
               </div>
             </div>
           </div>
@@ -100,8 +103,8 @@
                           
                         </div>
                       </ng-template>
-                    <button   class="btn btn-danger mb-2 mr-2" (click)="confirmarReserva()">CANCELAR</button>
-                    <button *ngIf="!haySeleccion" style="margin-left: 20px;" disabled class="btn btn-success mb-2 mr-2" (click)="cancelar()">CONFIRMAR</button>
+                    <a routerLink="/home-organizador"><button   class="btn btn-danger mb-2 mr-2" (click)="confirmarReserva()">CANCELAR</button></a>
+                    <button *ngIf="!haySeleccion" style="margin-left: 20px;" disabled class="btn btn-success mb-2 mr-2">CONFIRMAR</button>
                     <button *ngIf="haySeleccion" style="margin-left: 20px;" class="btn btn-success mb-2 mr-2" (click)="cancelar()">CONFIRMAR</button>
                 </div>
             </div>

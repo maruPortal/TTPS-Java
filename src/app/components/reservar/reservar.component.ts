@@ -68,7 +68,7 @@ export class ReservarComponent implements OnInit {
   }
 
   cancelar(){
-
+    this.router.navigateByUrl("/home-organizador");
   }
 
   confirmarReserva(){
