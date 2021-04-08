@@ -37,9 +37,10 @@ export class HomeorganizadorComponent implements OnInit {
   @ViewChild('carousel', {static : true}) carousel: NgbCarousel;
 
   ngOnInit(): void {
-    this.user_username="felaornella" //tempFela this.user_username = sessionStorage.getItem('username');
-    this.user_tipo="Organizador"  //tempFela this.user_tipo = sessionStorage.getItem('tipoUsuario');
+    this.user_username = sessionStorage.getItem('username');
+    this.user_tipo = sessionStorage.getItem('tipoUsuario');
   }
+  
   logOut() {
     this.userService.logOut();
   }

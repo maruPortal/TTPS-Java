@@ -32,24 +32,24 @@ export class ListfoodtrucksComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    //this.userService.isFoodtrucker();
-    //this.getFoodTrucks();
-    this.user_tipo="Organizador";
-    this.user_username="felaornella";
+    this.userService.isFoodtrucker();
+    this.getFoodTrucks();
+    this.user_username = sessionStorage.getItem('username');
+    this.user_tipo = sessionStorage.getItem('tipoUsuario');
     this.foodtrucks.push(new Foodtruck("1","Gin Bar","Cocteleria","El bar movil ideal para tu evento","www.ginbar.com.ar","@ginbar.truck"));
     
-    //let estadoModif = sessionStorage.getItem('estadoModificacion');
-    //if (estadoModif == 'ModificadoExitosamente') {
-    //  this.modificado = true;
-    //} else {
-    //  if (estadoModif == 'SinCambios') {
-    //    this.sinCambios = true;
-    //  } else {
-    //    this.sinCambios = false;
-    //    this.modificado = false;
-    //  }
-    //}
-    //sessionStorage.setItem('estadoModificacion', '');
+    let estadoModif = sessionStorage.getItem('estadoModificacion');
+    if (estadoModif == 'ModificadoExitosamente') {
+      this.modificado = true;
+    } else {
+      if (estadoModif == 'SinCambios') {
+        this.sinCambios = true;
+      } else {
+        this.sinCambios = false;
+        this.modificado = false;
+      }
+    }
+    sessionStorage.setItem('estadoModificacion', '');
   }
 
   open(content) {

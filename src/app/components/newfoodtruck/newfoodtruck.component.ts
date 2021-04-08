@@ -22,7 +22,7 @@ export class NewfoodtruckComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    //this.userService.isFoodtrucker();
+    this.userService.isFoodtrucker();
 
     this.enviado = false;
     this.error = false;

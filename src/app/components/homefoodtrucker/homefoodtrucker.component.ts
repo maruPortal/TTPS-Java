@@ -41,8 +41,8 @@ export class HomefoodtruckerComponent implements OnInit {
   @ViewChild('carousel', {static : true}) carousel: NgbCarousel;
 
   ngOnInit(): void {
-    this.user_username="felaornella" //tempFela this.user_username = sessionStorage.getItem('username');
-    this.user_tipo="FoodTrucker"  //tempFela this.user_tipo = sessionStorage.getItem('tipoUsuario');
+    this.user_username = sessionStorage.getItem('username');
+    this.user_tipo = sessionStorage.getItem('tipoUsuario');
     this.url_home="home-" + this.user_tipo.toLowerCase();
   }
 
@@ -102,21 +102,6 @@ export class HomefoodtruckerComponent implements OnInit {
 
   decodeM(){
     this.decode=true;
-  }
-
-  onUploadChange(evt: any) {
-    const file = evt.target.files[0];
-  
-    if (file) {
-      const reader = new FileReader();
-  
-      reader.onload = this.handleReaderLoaded.bind(this);
-      reader.readAsBinaryString(file);
-    }
-  }
-  
-  handleReaderLoaded(e) {
-    this.base64textString.push('data:image/png;base64,' + btoa(e.target.result));
   }*/
 
 }

@@ -27,7 +27,7 @@ export class EdituserComponent implements OnInit {
   ngOnInit(): void {
     this.enviado=false;
     this.tipoPass="password";
-    this.user_tipo="Organizador";
+    this.user_tipo = sessionStorage.getItem('tipoUsuario');
     this.userService.recuperarData()
     .subscribe(
       (usuario) => {
@@ -36,7 +36,6 @@ export class EdituserComponent implements OnInit {
         this.username= usuario.username;
         this.password= usuario.password;
         this.email= usuario.email;
-        //this.user_tipo= usuario.tipo_usuario;
       }
     );
   }

@@ -49,8 +49,8 @@ export class ReservarComponent implements OnInit {
     this.eventos.push(new Evento("1","El Callejón6", "Calle 10, 598",1900,"La Plata, Buenos Aires","","25 Ene. 2021 - 13hs") );
     this.eventos.push(new Evento("1","El Callejón7", "Calle 10, 598",1900,"La Plata, Buenos Aires","","25 Ene. 2021 - 13hs") );
     this.eventos.push(new Evento("1","El Callejón8", "Calle 10, 598",1900,"La Plata, Buenos Aires","","25 Ene. 2021 - 13hs") );
-    this.user_username="felaornella" //tempFela this.user_username = sessionStorage.getItem('username');
-    this.user_tipo="Organizador"  //tempFela this.user_tipo = sessionStorage.getItem('tipoUsuario');
+    this.user_username = sessionStorage.getItem('username');
+    this.user_tipo = sessionStorage.getItem('tipoUsuario');
   }
 
   logOut() {

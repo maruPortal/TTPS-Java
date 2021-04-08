@@ -30,7 +30,7 @@ export class EditEventoComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    //this.userService.isFoodtrucker();
+    this.userService.isFoodtrucker();
     this.ftService.recuperarData().subscribe((ft) => {
       this.nombre = ft.nombre;
       this.descripcion = ft.descripcion;
@@ -43,7 +43,7 @@ export class EditEventoComponent implements OnInit {
   }
 
   onSubmit(ft: NgForm) {
- //   this.sinCambios = this.verCambios(ft);
+    this.sinCambios = this.verCambios(ft);
 
     let envio = this.comprobarCampos(ft);
 
@@ -72,7 +72,9 @@ export class EditEventoComponent implements OnInit {
     return data;
   }
 
-  
+  verCambios(data){
+    return true;
+  }
 
   cancelar() {
     this.router.navigateByUrl('list-foodtrucks');

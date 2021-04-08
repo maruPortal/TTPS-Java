@@ -32,8 +32,8 @@ export class ListeventosComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    this.user_tipo="Organizador";
-    this.user_username="felaornella";
+    this.user_username = sessionStorage.getItem('username');
+    this.user_tipo = sessionStorage.getItem('tipoUsuario');
     this.url_home="home-" + this.user_tipo.toLowerCase();
     console.log(this.url_home);
 

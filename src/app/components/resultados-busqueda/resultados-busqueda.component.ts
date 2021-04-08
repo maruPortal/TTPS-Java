@@ -24,9 +24,10 @@ export class ResultadosBusquedaComponent implements OnInit {
   ngOnInit(): void {
     this.cantRes=10;
     this.fts.push(new Foodtruck("1","Gin Bar","Cocteleria","El bar movil ideal para tu evento","www.ginbar.com.ar","@ginbar.truck"));
-    this.restante = [Math.ceil(this.images.length / 4) - this.images.length];
-    this.user_username="felaornella" //tempFela this.user_username = sessionStorage.getItem('username');
-    this.user_tipo="Organizador"  //tempFela this.user_tipo = sessionStorage.getItem('tipoUsuario');
+    this.restante = new Array((Math.ceil(this.images.length / 5))*5 - this.images.length);
+    console.log((Math.ceil(this.images.length / 5))*5 - this.images.length);
+    this.user_username = sessionStorage.getItem('username');
+    this.user_tipo = sessionStorage.getItem('tipoUsuario');
   }
 
   logOut() {

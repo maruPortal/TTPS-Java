@@ -38,8 +38,8 @@ export class ValorarComponent implements OnInit {
     this.foodtruck = new Foodtruck("1","Gin Bar","Cocteleria","El bar movil ideal para tu evento","www.ginbar.com.ar","@ginbar.truck");
     this.evento={"nombre":"El Callejón", "fecha_hora": "25 Ene. 2021 - 13hs", "direccion": "Calle 10, 598", "provincia":"La Plata, Buenos Aires"} ;
     this.puntos={'Limpieza':0, 'Simpatia':0, 'Calidad/Precio':0, 'Sabor':0, 'Diseño':0,}
-    this.user_username="felaornella" //tempFela this.user_username = sessionStorage.getItem('username');
-    this.user_tipo="Organizador"  //tempFela this.user_tipo = sessionStorage.getItem('tipoUsuario');
+    this.user_username = sessionStorage.getItem('username');
+    this.user_tipo = sessionStorage.getItem('tipoUsuario');
   }
 
 
