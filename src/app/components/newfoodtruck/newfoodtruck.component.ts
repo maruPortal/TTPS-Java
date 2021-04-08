@@ -13,6 +13,8 @@ export class NewfoodtruckComponent implements OnInit {
   enviado: Boolean;
   error: Boolean;
   user_tipo="FoodTrucker";
+  imgFoodTruck: String;
+
   constructor(
     private ftservice: FoodtruckService,
     private userService: UsuarioserviceService,
@@ -43,4 +45,20 @@ export class NewfoodtruckComponent implements OnInit {
   logOut() {
     this.userService.logOut();
   }
+
+  onUploadChange(evt: any) {
+    const file = evt.target.files[0];
+  
+    if (file) {
+      const reader = new FileReader();
+  
+      reader.onload = this.handleReaderLoaded.bind(this);
+      reader.readAsBinaryString(file);
+    }
+  }
+  
+  handleReaderLoaded(e) {
+    this.imgFoodTruck=('data:image/png;base64,' + btoa(e.target.result));
+  }
+
 }
