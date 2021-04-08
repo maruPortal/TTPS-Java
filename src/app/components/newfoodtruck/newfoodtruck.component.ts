@@ -12,6 +12,7 @@ import { UsuarioserviceService } from 'src/app/services/usuarioservice.service';
 export class NewfoodtruckComponent implements OnInit {
   enviado: Boolean;
   error: Boolean;
+  user_tipo="FoodTrucker";
   constructor(
     private ftservice: FoodtruckService,
     private userService: UsuarioserviceService,

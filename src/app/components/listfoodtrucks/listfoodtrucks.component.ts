@@ -13,19 +13,14 @@ import { UsuarioserviceService } from 'src/app/services/usuarioservice.service';
   providers: [NgbModalConfig, NgbModal]
 })
 export class ListfoodtrucksComponent implements OnInit {
-  foodtrucks: Foodtruck[];
+  foodtrucks= [];
   modificado: Boolean;
   errorDel: Boolean;
   eliminado: Boolean;
   sinCambios: Boolean;
 
-  nombre: String;
-  descripcion: String;
-  tipo_servicio: String;
-  url: String;
-  instagram: String;
-  facebook: String;
-  whatsapp: String;
+  user_username: String;
+  user_tipo: String;
 
   constructor(
     private ftService: FoodtruckService,
@@ -39,18 +34,22 @@ export class ListfoodtrucksComponent implements OnInit {
   ngOnInit(): void {
     //this.userService.isFoodtrucker();
     //this.getFoodTrucks();
-    let estadoModif = sessionStorage.getItem('estadoModificacion');
-    if (estadoModif == 'ModificadoExitosamente') {
-      this.modificado = true;
-    } else {
-      if (estadoModif == 'SinCambios') {
-        this.sinCambios = true;
-      } else {
-        this.sinCambios = false;
-        this.modificado = false;
-      }
-    }
-    sessionStorage.setItem('estadoModificacion', '');
+    this.user_tipo="Organizador";
+    this.user_username="felaornella";
+    this.foodtrucks.push(new Foodtruck("1","Gin Bar","Cocteleria","El bar movil ideal para tu evento","www.ginbar.com.ar","@ginbar.truck"));
+    
+    //let estadoModif = sessionStorage.getItem('estadoModificacion');
+    //if (estadoModif == 'ModificadoExitosamente') {
+    //  this.modificado = true;
+    //} else {
+    //  if (estadoModif == 'SinCambios') {
+    //    this.sinCambios = true;
+    //  } else {
+    //    this.sinCambios = false;
+    //    this.modificado = false;
+    //  }
+    //}
+    //sessionStorage.setItem('estadoModificacion', '');
   }
 
   open(content) {
@@ -76,6 +75,11 @@ export class ListfoodtrucksComponent implements OnInit {
   }
 
   borrarFoodTruck(idFt: string): void {
+    
+    this.foodtrucks.splice(this.foodtrucks.indexOf(this.foodtrucks.find(element => element.id == idFt)),1);
+    this.modalService.dismissAll();
+
+
     this.sinCambios = false;
     console.log('Foodtruck: ' + idFt);
     this.ftService.deleteFoodtruck(idFt).subscribe(
