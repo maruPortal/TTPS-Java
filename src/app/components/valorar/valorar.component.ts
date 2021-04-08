@@ -3,10 +3,9 @@ import { UsuarioserviceService } from 'src/app/services/usuarioservice.service';
 import { FoodtruckService } from 'src/app/services/foodtruck.service';
 import { Foodtruck } from 'src/app/model/foodtruck';
 import { Router } from '@angular/router';
-import { Console } from 'node:console';
 
 @Component({
-  selector: 'app-valorar, ngbd-rating-template',
+  selector: 'app-valorar, ngbd-rating-template, ',
   templateUrl: './valorar.component.html',
   styleUrls: ['./valorar.component.css'],
   styles: [`

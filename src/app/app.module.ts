@@ -18,6 +18,7 @@ import { EditFoodTruckComponent } from './edit-food-truck/edit-food-truck.compon
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ResultadosBusquedaComponent } from './components/resultados-busqueda/resultados-busqueda.component';
 import { ValorarComponent } from './components/valorar/valorar.component';
+import { ReservarComponent } from './components/reservar/reservar.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { ValorarComponent } from './components/valorar/valorar.component';
     EditFoodTruckComponent,
     ResultadosBusquedaComponent,
     ValorarComponent,
+    ReservarComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule, NgbModule],
   providers: [UsuarioserviceService, FoodtruckService],
