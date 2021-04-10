@@ -192,11 +192,11 @@
     <div style="overflow: auto; background-color: #e2e2e2c9; border-radius: 10px;max-height: 450px;">
       <!--CAROUSEL BOOTSTRAP-->
       <ngb-carousel style="max-height: 450px;" #carousel [interval]="3000" [pauseOnHover]="pauseOnHover" [pauseOnFocus]="pauseOnFocus" (slide)="onSlide($event)">
-        <ng-template ngbSlide *ngFor="let img of images; index as i">
+        <ng-template ngbSlide *ngFor="let ftr of fts; index as i">
           <div class="carousel-caption">
-            <h3 style="-webkit-text-stroke: 1px black;">{{ fts[i].puntaje * 1000 }} Pts.</h3>
+            <h3 style="-webkit-text-stroke: 1px black;">{{ ftr.puntaje * 1000 }} Pts.</h3>
           </div>
-          <a routerLink="/reservar" [state]="{ ft: fts[i]}" rel="nofollow noopener noreferrer">
+          <a routerLink="/reservar" [state]="{ ft: ftr }" rel="nofollow noopener noreferrer">
             <div class="picsum-img-wrapper">
               <div style=" position: absolute; background: linear-gradient(90deg, rgba(0,0,0,0.7637255585828081) 5%, rgba(255,130,0,0.02) 100%);" class="container">
                 <div class="row" style="margin-left: 25px;">
@@ -205,15 +205,15 @@
                   </div>
                   <div class="my-auto" style="margin-left: 40px;">
                     <div class="row">
-                      <b style="font-size: 25px; color: white; -webkit-text-stroke: 1px #000000aa;">{{ fts[i].nombre }}</b>
+                      <b style="font-size: 25px; color: white; -webkit-text-stroke: 1px #000000aa;">{{ ftr.nombre }}</b>
                     </div>
                     <div class="row">
-                      <div style="font-size: 25px; color: white; -webkit-text-stroke: 0.5px #000000aa;">{{ fts[i].tipo_servicio }}</div>
+                      <div style="font-size: 25px; color: white; -webkit-text-stroke: 0.5px #000000aa;">{{ ftr.tipo_servicio }}</div>
                     </div>
                   </div> 
                 </div>
               </div>
-              <img [src]="img" alt="My image {{i + 1}} description" style="max-height: 400px;">
+              <img [src]="images[i]" alt="My image {{i + 1}} description" style="max-height: 400px;">
             </div>
           </a>
         </ng-template>

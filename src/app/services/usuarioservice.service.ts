@@ -41,8 +41,13 @@ export class UsuarioserviceService {
 
   getSolicitudes(): Observable<Solicitud[]> {
     let id = sessionStorage.getItem('id');
+
+    let tipo = sessionStorage.getItem('tipoUsuario');
     return this.http.get<Solicitud[]>(
-      `${environment.url}/usuario/${id}/solicitudes`
+      `${environment.url}/usuario/${id}/solicitudes`,
+      {
+        headers: { tipoUsuario: tipo },
+      }
     );
   }
 

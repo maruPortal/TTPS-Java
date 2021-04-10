@@ -27,7 +27,7 @@ export class HomeorganizadorComponent implements OnInit {
   pauseOnHover = true;
   pauseOnFocus = true;
   //imagenesDeLosFoodTruck
-  images = [62, 83, 466, 965, 982].map((n) => `https://picsum.photos/id/${n}/900/500`);
+  images = [62, 83, 466, 965, 982,62, 83, 466, 965, 982].map((n) => `https://picsum.photos/id/${n}/900/500`);
   //aca van los string en base64 con "data:image/png;base64," delante 
   //images=[]; 
   
