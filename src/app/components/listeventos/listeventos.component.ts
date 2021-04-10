@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Evento } from 'src/app/model/evento';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Foodtruck } from 'src/app/model/foodtruck';
+import { EventosService } from 'src/app/services/eventos.service';
 
 @Component({
   selector: 'app-listeventos,  ngbd-modal-config',
@@ -26,6 +27,7 @@ export class ListeventosComponent implements OnInit {
   constructor( private ftService: FoodtruckService,
     private router: Router,
     private userService: UsuarioserviceService,
+    private evService: EventosService,
     config: NgbModalConfig, private modalService: NgbModal) {
         config.backdrop = 'static';
         config.keyboard = false;
@@ -36,15 +38,7 @@ export class ListeventosComponent implements OnInit {
     this.user_tipo = sessionStorage.getItem('tipoUsuario');
     this.url_home="home-" + this.user_tipo.toLowerCase();
     console.log(this.url_home);
-
-    this.eventos.push(new Evento("1","El Callejón1", "Calle 10, 598",1900,"La Plata, Buenos Aires"," ","25 Ene. 2021 - 13hs","prueba@hotmail.com","2216042101","El mejor evento de la ciudad","Gastronomico","Clientes") );
-    this.eventos.push(new Evento("2","El Callejón2", "Calle 10, 598",1900,"La Plata, Buenos Aires"," ","25 Ene. 2021 - 13hs","prueba@hotmail.com","2216042101","El mejor evento de la ciudad","Gastronomico","Clientes") );
-    this.eventos.push(new Evento("3","El Callejón3", "Calle 10, 598",1900,"La Plata, Buenos Aires"," ","25 Ene. 2021 - 13hs","prueba@hotmail.com","2216042101","El mejor evento de la ciudad","Gastronomico","Clientes") );
-    this.eventos.push(new Evento("4","El Callejón4", "Calle 10, 598",1900,"La Plata, Buenos Aires"," ","25 Ene. 2021 - 13hs","prueba@hotmail.com","2216042101","El mejor evento de la ciudad","Gastronomico","Clientes") );
-    this.eventos.push(new Evento("5","El Callejón5", "Calle 10, 598",1900,"La Plata, Buenos Aires"," ","25 Ene. 2021 - 13hs","prueba@hotmail.com","2216042101","El mejor evento de la ciudad","Gastronomico","Clientes") );
-    this.eventos.push(new Evento("6","El Callejón6", "Calle 10, 598",1900,"La Plata, Buenos Aires"," ","25 Ene. 2021 - 13hs","prueba@hotmail.com","2216042101","El mejor evento de la ciudad","Gastronomico","Clientes") );
-    this.eventos.push(new Evento("7","El Callejón7", "Calle 10, 598",1900,"La Plata, Buenos Aires"," ","25 Ene. 2021 - 13hs","prueba@hotmail.com","2216042101","El mejor evento de la ciudad","Gastronomico","Clientes") );
-    this.eventos.push(new Evento("8","El Callejón8", "Calle 10, 598",1900,"La Plata, Buenos Aires"," ","25 Ene. 2021 - 13hs","prueba@hotmail.com","2216042101","El mejor evento de la ciudad","Gastronomico","Clientes") );
+    this.getEventos();
   }
 
   logOut() {
@@ -62,5 +56,14 @@ export class ListeventosComponent implements OnInit {
     console.log("Index: " + index);
     this.eventos.splice(index,1);
     this.modalService.dismissAll();
+  }
+
+  getEventos(){
+    this.evService.recuperarEventos().subscribe(
+      (listRes) => {
+        console.log("Cantidad de eventos: " + listRes.length);
+        this.eventos=listRes.reverse();
+      }
+    )
   }
 }

@@ -53,7 +53,7 @@ export class NeweventComponent implements OnInit {
         () => {
           this.enviado = true;
           this.error = false;
-          this.router.navigateByUrl('list-foodtrucks');
+          this.router.navigateByUrl('list-eventos');
         },
         (err: HttpErrorResponse) => {
           console.log('estado de error: ', err.status, typeof err.status);

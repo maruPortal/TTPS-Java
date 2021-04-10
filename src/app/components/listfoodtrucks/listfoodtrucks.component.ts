@@ -60,7 +60,7 @@ export class ListfoodtrucksComponent implements OnInit {
     this.ftService.getFoodtrucks().subscribe(
       (listaFTrucks) => {
         console.log(listaFTrucks);
-        this.foodtrucks = listaFTrucks;
+        this.foodtrucks = listaFTrucks.reverse();
       },
       (err: HttpErrorResponse) => {
         console.log('estado de error: ', err.status);

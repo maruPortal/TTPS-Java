@@ -14,4 +14,9 @@ export class EventosService {
   crearEvento(evento): Observable<Evento> {
     return this.http.post<Evento>(`${environment.url}/eventos`, evento);
   }
+
+  recuperarEventos(): Observable<Evento[]>{
+    let id = sessionStorage.getItem("id");
+    return this.http.get<Evento[]>(`${environment.url}/eventos/${id}`);
+  }
 }
