@@ -90,6 +90,39 @@ export class HomefoodtruckerComponent implements OnInit {
     );
   }
 
+  aceptarReserva(soli){
+    this.userService.modificarSolicitud(soli.id,'Aceptada').subscribe(
+      (response) => {
+        this.nuevas.splice(this.nuevas.indexOf(soli),1);
+        this.aceptadas.push(response);
+      },
+      (err: HttpErrorResponse) =>{
+        console.log("estado de error: " + err.status);
+      }
+    )
+  }
+
+  rechazarReserva(soli){
+    this.userService.modificarSolicitud(soli.id,'Rechazada').subscribe(
+      (response) => {
+        this.nuevas.splice(this.nuevas.indexOf(soli),1);
+      },
+      (err: HttpErrorResponse) =>{
+        console.log("estado de error: " + err.status);
+      }
+    )
+  }
+
+  finalizarReserva(soli){
+    this.userService.modificarSolicitud(soli.id,'Finalizada').subscribe(
+      (response) => {
+        this.aceptadas.splice(this.nuevas.indexOf(soli),1);
+      },
+      (err: HttpErrorResponse) =>{
+        console.log("estado de error: " + err.status);
+      }
+    )
+  }
 
   logOut() {
     this.userService.logOut();
