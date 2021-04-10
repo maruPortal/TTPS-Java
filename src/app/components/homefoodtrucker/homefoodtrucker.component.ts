@@ -29,10 +29,14 @@ export class HomefoodtruckerComponent implements OnInit {
   prueba = [1,2,3];
   //aca van los string en base64 con "data:image/png;base64," delante 
   //images=[]; 
-  //aca van los nombres de los ft
-  ft = ["Mollys","Barfuss","Prueba","Antares","Peñon","Baum","Sale con Pan"];
-  //aca van los puntajes de los ft
-  puntajes = [2700,2500,2000,1980,1900,1800,1780,1750];
+  
+  //aca van los ft
+  fts = [];
+
+  //aca van las solicitudes
+  solis = [];
+  nuevas = [];
+  aceptadas = [];
 
   constructor(private userService: UsuarioserviceService,
               private router: Router,
@@ -44,7 +48,48 @@ export class HomefoodtruckerComponent implements OnInit {
     this.user_username = sessionStorage.getItem('username');
     this.user_tipo = sessionStorage.getItem('tipoUsuario');
     this.url_home="home-" + this.user_tipo.toLowerCase();
+    this.obtenerTopFoodtrucks();
+    this.obtenerSolicitudes();
   }
+
+  obtenerTopFoodtrucks(){
+    this.ftService.topFoodtrucks().subscribe(
+      (listaRes)=> {
+        console.log("Fts: " + listaRes.length);
+        this.fts = listaRes;
+      },
+      (err: HttpErrorResponse) =>{
+        console.log("estado de error:  " + err.status);
+      }
+    )
+  }
+
+  obtenerSolicitudes(){
+    this.userService.getSolicitudes().subscribe(
+      (listaRes) => {
+        console.log("Solis: " + listaRes.length);
+        let estNue = [];
+        let estAce = [];
+        listaRes.forEach(function(value){
+          if (value.estado == "Enviada"){
+            estNue.push(value);
+          }else{
+            if (value.estado == "Aceptada"){
+              estAce.push(value);
+            }
+          }
+        });
+        this.nuevas = estNue;
+        this.aceptadas = estAce;
+        console.log("Nue:  " + this.nuevas.length);
+        console.log("Ace:  " + this.aceptadas.length);
+      },
+      (err: HttpErrorResponse) =>{
+        console.log("estado de error:  " + err.status);
+      }
+    );
+  }
+
 
   logOut() {
     this.userService.logOut();

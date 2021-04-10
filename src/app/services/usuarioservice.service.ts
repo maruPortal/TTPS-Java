@@ -23,7 +23,7 @@ export class UsuarioserviceService {
     let id = sessionStorage.getItem('id');
     this.http
       .get<Usuario>(`${environment.url}/usuario/${id}`, {
-        headers: { token: id + '123456' },
+        headers: { token: id + '123456'},
       })
       .subscribe(
         (response) => {
@@ -40,7 +40,11 @@ export class UsuarioserviceService {
   
   getSolicitudes(): Observable<Solicitud[]>{
     let id = sessionStorage.getItem('id');
-    return this.http.get<Solicitud[]>(`${environment.url}/usuario/${id}/solicitudes`);
+    
+    let tipo = sessionStorage.getItem('tipoUsuario');
+    return this.http.get<Solicitud[]>(`${environment.url}/usuario/${id}/solicitudes`, {
+      headers: { tipoUsuario: tipo},
+    });
   }
 
 
