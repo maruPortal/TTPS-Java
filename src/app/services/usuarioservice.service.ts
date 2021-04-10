@@ -8,6 +8,7 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Evento } from '../model/evento';
 import { Foodtruck } from '../model/foodtruck';
 import { Solicitud } from '../model/solicitud';
 import { Usuario } from '../model/usuario';
@@ -37,12 +38,13 @@ export class UsuarioserviceService {
         }
       );
   }
-  
-  getSolicitudes(): Observable<Solicitud[]>{
-    let id = sessionStorage.getItem('id');
-    return this.http.get<Solicitud[]>(`${environment.url}/usuario/${id}/solicitudes`);
-  }
 
+  getSolicitudes(): Observable<Solicitud[]> {
+    let id = sessionStorage.getItem('id');
+    return this.http.get<Solicitud[]>(
+      `${environment.url}/usuario/${id}/solicitudes`
+    );
+  }
 
   recuperarData(): Observable<Usuario> {
     let id = sessionStorage.getItem('id');
@@ -118,33 +120,50 @@ export class UsuarioserviceService {
     }
   }
 
-  buscar(form: NgForm): Observable<Foodtruck[]>{
+  buscar(form: NgForm): Observable<Foodtruck[]> {
     let zona = form.value.zona.trim();
     let nombre = form.value.nombre.trim();
     let comida = form.value.comida.trim();
 
-    if (zona==null){
-      zona='';
+    if (zona == null) {
+      zona = '';
     }
-    if (nombre==null){
-      nombre='';
+    if (nombre == null) {
+      nombre = '';
     }
-    if (comida==null){
-      comida='';
+    if (comida == null) {
+      comida = '';
     }
     let params = {
-      "Zona": zona,
-      "Nombre":nombre,
-      "Comida": comida
-    }
-    return this.http.get<Foodtruck[]>(`${environment.url}/usuario/buscar`,{params});
-  }
-
-  getSolicitudEspecifica(sId): Observable<Solicitud>{
-    return this.http.get<Solicitud>(`${environment.url}/usuario/recuperarSolicitud/${sId}`,
-    {
-      headers: { token: '1123456' },
+      Zona: zona,
+      Nombre: nombre,
+      Comida: comida,
+    };
+    return this.http.get<Foodtruck[]>(`${environment.url}/usuario/buscar`, {
+      params,
     });
   }
 
+  getSolicitudEspecifica(sId): Observable<Solicitud> {
+    return this.http.get<Solicitud>(
+      `${environment.url}/usuario/recuperarSolicitud/${sId}`,
+      {
+        headers: { token: '1123456' },
+      }
+    );
+  }
+
+  getMisEventos(idUser): Observable<Evento[]> {
+    return this.http.get<Evento[]>(`${environment.url}/eventos/${idUser}`);
+  }
+
+  createSolicitud(solicitud): Observable<Solicitud> {
+    return this.http.post<Solicitud>(
+      `${environment.url}/usuario/nuevaSolicitud`,
+      solicitud,
+      {
+        headers: { token: '1123456' },
+      }
+    );
+  }
 }

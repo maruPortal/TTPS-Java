@@ -1,3 +1,5 @@
+import { Usuario } from './usuario';
+
 export class Foodtruck {
   id: string;
   nombre: string;
@@ -8,6 +10,7 @@ export class Foodtruck {
   whatsapp: string;
   facebook: String;
   puntaje: number;
+  dueno: Usuario;
 
   constructor(
     id?: string,
@@ -18,7 +21,8 @@ export class Foodtruck {
     instagram?: string,
     whatsapp?: string,
     facebook?: String,
-    puntaje?: number
+    puntaje?: number,
+    dueno?: Usuario
   ) {
     this.id = id;
     this.nombre = nombre;
@@ -29,5 +33,6 @@ export class Foodtruck {
     this.whatsapp = whatsapp;
     this.facebook = facebook;
     this.puntaje = puntaje;
+    this.dueno = dueno;
   }
 }

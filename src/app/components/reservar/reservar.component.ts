@@ -1,58 +1,64 @@
-import { Component, OnInit, ViewEncapsulation} from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { UsuarioserviceService } from 'src/app/services/usuarioservice.service';
 import { FoodtruckService } from 'src/app/services/foodtruck.service';
 import { Foodtruck } from 'src/app/model/foodtruck';
 import { Router } from '@angular/router';
 import { Evento } from 'src/app/model/evento';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Solicitud } from 'src/app/model/solicitud';
 
 @Component({
   selector: 'app-reservar',
   templateUrl: './reservar.component.html',
   styleUrls: ['./reservar.component.css'],
   encapsulation: ViewEncapsulation.None,
-  styles: [`
-    .dark-modal .modal-content {
-      background-color: #292b2c;
-      color: white;
-    }
-    .dark-modal .close {
-      color: white;
-    }
-    .light-blue-backdrop {
-      background-color: #5cb3fd;
-    }
-  `]
+  styles: [
+    `
+      .dark-modal .modal-content {
+        background-color: #292b2c;
+        color: white;
+      }
+      .dark-modal .close {
+        color: white;
+      }
+      .light-blue-backdrop {
+        background-color: #5cb3fd;
+      }
+    `,
+  ],
 })
 export class ReservarComponent implements OnInit {
   user_username: String;
   user_tipo: String;
   modalActivo: Boolean;
   foodtruck: Foodtruck;
-  eventos=[];
+  eventos = [];
   modalSeleccion: Boolean;
   eventoSeleccionado: Evento;
   haySeleccion: Boolean;
-  constructor(private userService: UsuarioserviceService,
+  solicitud: Solicitud = new Solicitud();
+
+  constructor(
+    private userService: UsuarioserviceService,
     private ftService: FoodtruckService,
     private router: Router,
-    private modalService: NgbModal) { }
+    private modalService: NgbModal
+  ) {}
 
   ngOnInit(): void {
-    console.log("FT:  " + window.history.state.ft);
-    this.haySeleccion=false;
+    console.log('FT:  ' + window.history.state.ft);
+    this.haySeleccion = false;
     this.foodtruck = window.history.state.ft;
-    if (this.foodtruck==null){
+    if (this.foodtruck == null) {
       this.router.navigateByUrl('/');
     }
-    this.eventos.push(new Evento("1","El Callejón1", "Calle 10, 598",1900,"La Plata, Buenos Aires","","25 Ene. 2021 - 13hs") );
-    this.eventos.push(new Evento("1","El Callejón2", "Calle 10, 598",1900,"La Plata, Buenos Aires","","25 Ene. 2021 - 13hs") );
-    this.eventos.push(new Evento("1","El Callejón3", "Calle 10, 598",1900,"La Plata, Buenos Aires","","25 Ene. 2021 - 13hs") );
-    this.eventos.push(new Evento("1","El Callejón4", "Calle 10, 598",1900,"La Plata, Buenos Aires","","25 Ene. 2021 - 13hs") );
-    this.eventos.push(new Evento("1","El Callejón5", "Calle 10, 598",1900,"La Plata, Buenos Aires","","25 Ene. 2021 - 13hs") );
-    this.eventos.push(new Evento("1","El Callejón6", "Calle 10, 598",1900,"La Plata, Buenos Aires","","25 Ene. 2021 - 13hs") );
-    this.eventos.push(new Evento("1","El Callejón7", "Calle 10, 598",1900,"La Plata, Buenos Aires","","25 Ene. 2021 - 13hs") );
-    this.eventos.push(new Evento("1","El Callejón8", "Calle 10, 598",1900,"La Plata, Buenos Aires","","25 Ene. 2021 - 13hs") );
+    this.userService
+      .getMisEventos(sessionStorage.getItem('id'))
+      .subscribe((eventos) => {
+        console.log(eventos);
+        this.eventos = eventos;
+      });
+
     this.user_username = sessionStorage.getItem('username');
     this.user_tipo = sessionStorage.getItem('tipoUsuario');
   }
@@ -65,18 +71,25 @@ export class ReservarComponent implements OnInit {
     this.modalService.open(longContent, { scrollable: true });
   }
 
-  marcarSeleccionado(ev){
-    this.eventoSeleccionado=ev;
-    this.haySeleccion=true;
+  marcarSeleccionado(ev) {
+    this.eventoSeleccionado = ev;
+    this.haySeleccion = true;
     this.modalService.dismissAll();
   }
 
-  cancelar(){
-    this.router.navigateByUrl("/home-organizador");
+  cancelar() {
+    this.router.navigateByUrl('/home-organizador');
   }
 
-  confirmarReserva(){
-    
+  confirmarReserva() {
+    this.userService.recuperarData().subscribe((user) => {
+      this.solicitud.foodtruck = this.foodtruck;
+      this.solicitud.evento = this.eventoSeleccionado;
+      this.solicitud.solicitado = this.foodtruck.dueno;
+      this.solicitud.creador = user;
+      this.userService.createSolicitud(this.solicitud).subscribe(() => {
+        this.router.navigateByUrl('/');
+      });
+    });
   }
-
 }
