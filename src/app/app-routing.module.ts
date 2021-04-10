@@ -14,6 +14,7 @@ import { ValorarComponent } from './components/valorar/valorar.component';
 import { ReservarComponent } from './components/reservar/reservar.component';
 import { ListeventosComponent } from './components/listeventos/listeventos.component';
 import { NeweventComponent } from './components/newevent/newevent.component';
+import { EditEventoComponent } from './components/edit-evento/edit-evento.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -60,6 +61,11 @@ const routes: Routes = [
   {
     path: 'edit-foodtruck',
     component: EditFoodTruckComponent,
+    canActivate: [CanActivateGuard],
+  },
+  {
+    path: 'edit-evento',
+    component: EditEventoComponent,
     canActivate: [CanActivateGuard],
   },
   {

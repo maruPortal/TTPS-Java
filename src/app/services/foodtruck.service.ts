@@ -83,6 +83,10 @@ export class FoodtruckService {
       );
   }
 
+  topFoodtrucks(): Observable<Foodtruck[]>{
+    return this.http.get<Foodtruck[]>(`${environment.url}/foodtruck/topFoodtrucks`)
+  }
+
   /*
   DEBERIA ANDAR PERO ALGO RARO PASA CON ECLIPSE O ACA, NO SE
 

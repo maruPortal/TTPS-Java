@@ -8,6 +8,8 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Foodtruck } from '../model/foodtruck';
+import { Solicitud } from '../model/solicitud';
 import { Usuario } from '../model/usuario';
 
 @Injectable({
@@ -35,6 +37,12 @@ export class UsuarioserviceService {
         }
       );
   }
+  
+  getSolicitudes(): Observable<Solicitud[]>{
+    let id = sessionStorage.getItem('id');
+    return this.http.get<Solicitud[]>(`${environment.url}/usuario/${id}/solicitudes`);
+  }
+
 
   recuperarData(): Observable<Usuario> {
     let id = sessionStorage.getItem('id');
@@ -109,4 +117,34 @@ export class UsuarioserviceService {
       return true;
     }
   }
+
+  buscar(form: NgForm): Observable<Foodtruck[]>{
+    let zona = form.value.zona.trim();
+    let nombre = form.value.nombre.trim();
+    let comida = form.value.comida.trim();
+
+    if (zona==null){
+      zona='';
+    }
+    if (nombre==null){
+      nombre='';
+    }
+    if (comida==null){
+      comida='';
+    }
+    let params = {
+      "Zona": zona,
+      "Nombre":nombre,
+      "Comida": comida
+    }
+    return this.http.get<Foodtruck[]>(`${environment.url}/usuario/buscar`,{params});
+  }
+
+  getSolicitudEspecifica(sId): Observable<Solicitud>{
+    return this.http.get<Solicitud>(`${environment.url}/usuario/recuperarSolicitud/${sId}`,
+    {
+      headers: { token: '1123456' },
+    });
+  }
+
 }

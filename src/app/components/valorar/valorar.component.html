@@ -44,13 +44,13 @@
                   <div>
                     <div class="col my-auto">
                       <div style="color: white;-webkit-text-stroke: 0.5px #000000AA;font-size: 23px; text-align: left; font-weight: bold;">
-                        {{ evento['nombre'] }}
+                        {{ solicitud.evento['nombre'] }}
                       </div>
                       <div style="color: white;font-size: 18px; text-align: left;">
-                        {{ evento['fecha_hora'] }}
+                        {{ solicitud.evento['fecha_hora'] }}
                       </div>
                       <div style="color: white;font-size: 18px; text-align: left; font-weight: lighter;">
-                        {{ evento['direccion'] }}. {{ evento['provincia'] }}
+                        {{ solicitud.evento['direccion'] }}. {{ solicitud.evento['provincia'] }}
                       </div>
                     </div>
                   </div>
@@ -62,13 +62,13 @@
                   <div>
                     <div class="col my-auto">
                       <div style="color: white;-webkit-text-stroke: 0.5px #000000AA;font-size: 23px; text-align: left; font-weight: bold;">
-                        {{ foodtruck.nombre }}
+                        {{ solicitud.foodtruck.nombre }}
                       </div>
                       <div style="color: white;font-size: 18px; text-align: left;">
-                        {{ foodtruck.tipo_servicio }}
+                        {{ solicitud.foodtruck.tipo_servicio }}
                       </div>
                       <div style="color: white;font-size: 18px; text-align: left; font-weight: lighter;">
-                        {{ foodtruck.url }}
+                        {{ solicitud.foodtruck.url }}
                       </div>
                     </div>
                   </div>

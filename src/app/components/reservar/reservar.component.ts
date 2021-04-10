@@ -39,8 +39,12 @@ export class ReservarComponent implements OnInit {
     private modalService: NgbModal) { }
 
   ngOnInit(): void {
+    console.log("FT:  " + window.history.state.ft);
     this.haySeleccion=false;
-    this.foodtruck = new Foodtruck("1","Gin Bar","Cocteleria","El bar movil ideal para tu evento","www.ginbar.com.ar","@ginbar.truck");
+    this.foodtruck = window.history.state.ft;
+    if (this.foodtruck==null){
+      this.router.navigateByUrl('/');
+    }
     this.eventos.push(new Evento("1","El Callejón1", "Calle 10, 598",1900,"La Plata, Buenos Aires","","25 Ene. 2021 - 13hs") );
     this.eventos.push(new Evento("1","El Callejón2", "Calle 10, 598",1900,"La Plata, Buenos Aires","","25 Ene. 2021 - 13hs") );
     this.eventos.push(new Evento("1","El Callejón3", "Calle 10, 598",1900,"La Plata, Buenos Aires","","25 Ene. 2021 - 13hs") );
