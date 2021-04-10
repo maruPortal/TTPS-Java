@@ -12,6 +12,7 @@ import { Evento } from '../model/evento';
 import { Foodtruck } from '../model/foodtruck';
 import { Solicitud } from '../model/solicitud';
 import { Usuario } from '../model/usuario';
+import { Valoracion } from '../model/valoracion';
 
 @Injectable({
   providedIn: 'root',
@@ -169,6 +170,31 @@ export class UsuarioserviceService {
       {
         headers: { token: '1123456' },
       }
+    );
+  }
+  modificarSolicitud(sId, estado): Observable<Solicitud> {
+    let params = {
+      estado: estado,
+    };
+    console.log(estado);
+    return this.http.put<Solicitud>(
+      `${environment.url}/usuario/modificarSolicitud/${sId}`,
+      '',
+      { params }
+    );
+  }
+
+  calificarSolicitud(sId, puntos): Observable<Solicitud> {
+    let val = new Valoracion();
+    val.limpieza = puntos['Limpieza'];
+    val.simpatia = puntos['Simpatia'];
+    val.calidad_precio = puntos['Calidad/Precio'];
+    val.sabor = puntos['Sabor'];
+    val.diseno = puntos['Diseno'];
+
+    return this.http.put<Solicitud>(
+      `${environment.url}/usuario/valorarSolicitud/${sId}`,
+      val
     );
   }
 }

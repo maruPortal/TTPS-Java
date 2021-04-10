@@ -81,7 +81,7 @@
                     </div>
                   </div>
                   <div class="col-4 my-auto" style="text-align: center;">
-                    <button class="btn btn-success" (click)="aceptarReserva(each.id)">ACEPTAR</button>
+                    <button class="btn btn-success" (click)="aceptarReserva(each)">ACEPTAR</button>
                   </div>
                 </div>
                 <div class="row h-100">
@@ -100,7 +100,7 @@
                     </div>
                   </div>
                   <div class="col-4 my-auto" style="text-align: center;">
-                    <button class="btn btn-danger" (click)="rechazarReserva(each.id)" >RECHAZAR</button>
+                    <button class="btn btn-danger" (click)="rechazarReserva(each)" >RECHAZAR</button>
                   </div>
                 </div>
               </div>
@@ -109,7 +109,7 @@
         </ng-container>
         <ng-container ngbNavItem>
           <a ngbNavLink class="botonNav" style="color: #000000cc; margin-left: 10px;font-weight: bold;">Confirmadas</a>
-          <ng-template ngbNavContent>
+          <ng-template ngbNavContent id="confirmadas">
             <div style="overflow: auto; max-height: 350px;">
               <!--Div con DATA de UNA solicitud CONFIRMADA-->
               <div *ngFor="let each of aceptadas" class="container" style="background-color: #00000068; padding-top: 10px; padding-bottom: 10px; margin-bottom: 20px;">
@@ -129,7 +129,7 @@
                     </div>
                   </div>
                   <div class="col-4 my-auto" style="text-align: center;">
-                    <button class="btn btn-warning" (click)="finalizarReserva(each.id)">FINALIZAR</button>
+                    <button class="btn btn-warning" (click)="finalizarReserva(each)">FINALIZAR</button>
                   </div>
                 </div>
                 <div class="row h-100">
@@ -177,7 +177,6 @@
           <div class="carousel-caption">
             <h3 style="-webkit-text-stroke: 1px black;">{{ ftr.puntaje * 1000 }} Pts.</h3>
           </div>
-          <a routerLink="/reservar" [state]="{ ft: ftr }" rel="nofollow noopener noreferrer">
             <div class="picsum-img-wrapper">
               <div style=" position: absolute; background: linear-gradient(90deg, rgba(0,0,0,0.7637255585828081) 5%, rgba(255,130,0,0.02) 100%);" class="container">
                 <div class="row" style="margin-left: 25px;">
@@ -196,7 +195,6 @@
               </div>
               <img [src]="images[i]" alt="My image {{i + 1}} description" style="max-height: 400px;">
             </div>
-          </a>
         </ng-template>
       </ngb-carousel>
 

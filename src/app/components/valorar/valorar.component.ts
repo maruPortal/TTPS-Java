@@ -4,6 +4,8 @@ import { FoodtruckService } from 'src/app/services/foodtruck.service';
 import { Foodtruck } from 'src/app/model/foodtruck';
 import { Router } from '@angular/router';
 import { Solicitud } from 'src/app/model/solicitud';
+import { HttpErrorResponse } from '@angular/common/http';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-valorar, ngbd-rating-template, ',
@@ -39,7 +41,7 @@ export class ValorarComponent implements OnInit {
     if (this.solicitud==null){
       this.router.navigateByUrl('/');
     }
-    this.puntos={'Limpieza':0, 'Simpatia':0, 'Calidad/Precio':0, 'Sabor':0, 'Diseño':0,}
+    this.puntos={'Limpieza':0, 'Simpatia':0, 'Calidad/Precio':0, 'Sabor':0, 'Diseno':0,}
     this.user_username = sessionStorage.getItem('username');
     this.user_tipo = sessionStorage.getItem('tipoUsuario');
   }
@@ -63,7 +65,14 @@ export class ValorarComponent implements OnInit {
     console.log('Simpatia:  ' + this.puntos['Simpatia']);
     console.log('Calidad/Precio:  ' + this.puntos['Calidad/Precio']);
     console.log('Sabor:  ' + this.puntos['Sabor']);
-    console.log('Diseño:  ' + this.puntos['Diseño']);
+    console.log('Diseño:  ' + this.puntos['Diseno']);
+    this.userService.calificarSolicitud(this.solicitud.id,this.puntos).subscribe(
+      (response)=>{
+        this.router.navigateByUrl('/home-organizador');
+      },
+      (err: HttpErrorResponse) =>{
+        console.log("estado de error:   " + err.status);
+      }
+    )
   }
-
 }
