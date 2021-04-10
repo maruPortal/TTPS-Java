@@ -46,6 +46,7 @@ export class ReservarComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.userService.isOrganizador();
     console.log('FT:  ' + window.history.state.ft);
     this.haySeleccion = false;
     this.foodtruck = window.history.state.ft;

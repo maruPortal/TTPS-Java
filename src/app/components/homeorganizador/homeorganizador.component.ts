@@ -48,6 +48,7 @@ export class HomeorganizadorComponent implements OnInit {
   ngOnInit(): void {
     this.user_username = sessionStorage.getItem('username');
     this.user_tipo = sessionStorage.getItem('tipoUsuario');
+    this.userService.isOrganizador();
     this.obtenerTopFoodtrucks();
     this.obtenerSolicitudes();
   }

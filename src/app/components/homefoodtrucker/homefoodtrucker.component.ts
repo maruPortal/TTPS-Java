@@ -47,6 +47,7 @@ export class HomefoodtruckerComponent implements OnInit {
   ngOnInit(): void {
     this.user_username = sessionStorage.getItem('username');
     this.user_tipo = sessionStorage.getItem('tipoUsuario');
+    this.userService.isFoodtrucker();
     this.url_home="home-" + this.user_tipo.toLowerCase();
     this.obtenerTopFoodtrucks();
     this.obtenerSolicitudes();

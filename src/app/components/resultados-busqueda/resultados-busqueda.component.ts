@@ -24,6 +24,7 @@ export class ResultadosBusquedaComponent implements OnInit {
   
 
   ngOnInit(): void {
+    this.userService.isOrganizador();
     this.fts = window.history.state.resultados;
     if (this.fts==null){
       this.router.navigateByUrl('/');

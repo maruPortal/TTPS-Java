@@ -126,6 +126,15 @@ export class UsuarioserviceService {
     }
   }
 
+  isOrganizador() {
+    if (sessionStorage.getItem('tipoUsuario') != 'Organizador') {
+      this.router.navigateByUrl('home-foodtrucker');
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   buscar(form: NgForm): Observable<Foodtruck[]> {
     let zona = form.value.zona.trim();
     let nombre = form.value.nombre.trim();

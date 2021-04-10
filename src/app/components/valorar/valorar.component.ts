@@ -37,6 +37,7 @@ export class ValorarComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit(): void {
+    this.userService.isOrganizador();
     this.solicitud = window.history.state.soli;
     if (this.solicitud==null){
       this.router.navigateByUrl('/');

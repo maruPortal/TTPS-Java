@@ -30,7 +30,7 @@ export class EditEventoComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.userService.isFoodtrucker();
+    this.userService.isOrganizador();
     this.ftService.recuperarData().subscribe((ft) => {
       this.nombre = ft.nombre;
       this.descripcion = ft.descripcion;
