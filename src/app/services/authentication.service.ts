@@ -40,7 +40,8 @@ export class AuthenticationService {
                 }
             },
             (err: HttpErrorResponse) => {
-                console.log("estado de error en login:  " + err.status );
+                console.log("Problemas con Autenticacion - estado de error en login:  " + err.status );
+
             });
     }
 
