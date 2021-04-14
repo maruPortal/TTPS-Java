@@ -13,13 +13,14 @@ import { Foodtruck } from '../model/foodtruck';
 import { Solicitud } from '../model/solicitud';
 import { Usuario } from '../model/usuario';
 import { Valoracion } from '../model/valoracion';
+import { AuthenticationService } from './authentication.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UsuarioserviceService {
   usuario: Usuario;
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router,private authenticationService: AuthenticationService ) {}
 
   getUsuario() {
     let id = sessionStorage.getItem('id');
@@ -68,7 +69,7 @@ export class UsuarioserviceService {
     this.router.navigateByUrl('login');
   }
 
-  autenticacion(login: NgForm): Observable<Usuario> {
+  /*autenticacion(login: NgForm): Observable<Usuario> {
     const headerDict = {
       usuario: `${login.value.usuario}`,
       clave: `${login.value.clave}`,
@@ -84,6 +85,13 @@ export class UsuarioserviceService {
       '',
       requestOptions
     );
+  }*/
+
+  autenticacion(login: NgForm){
+    let usuario= `${login.value.usuario}`;
+    let clave= `${login.value.clave}`;
+    
+    return this.authenticationService.login(usuario,clave);
   }
 
   createFoodtrucker(register: NgForm): Observable<Usuario> {

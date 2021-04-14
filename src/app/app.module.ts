@@ -8,7 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { RegisterComponent } from './components/register/register.component';
 import { EdituserComponent } from './components/edituser/edituser.component';
 import { UsuarioserviceService } from './services/usuarioservice.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HomefoodtruckerComponent } from './components/homefoodtrucker/homefoodtrucker.component';
 import { HomeorganizadorComponent } from './components/homeorganizador/homeorganizador.component';
 import { NewfoodtruckComponent } from './components/newfoodtruck/newfoodtruck.component';
@@ -22,6 +22,7 @@ import { ReservarComponent } from './components/reservar/reservar.component';
 import { ListeventosComponent } from './components/listeventos/listeventos.component';
 import { NeweventComponent } from './components/newevent/newevent.component';
 import { EditEventoComponent } from './components/edit-evento/edit-evento.component';
+import { JwtInterceptorInterceptor } from './helpers/jwt-interceptor.interceptor';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,7 @@ import { EditEventoComponent } from './components/edit-evento/edit-evento.compon
     EditEventoComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule, NgbModule],
-  providers: [UsuarioserviceService, FoodtruckService],
+  providers: [UsuarioserviceService, FoodtruckService, {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptorInterceptor, multi:true}],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

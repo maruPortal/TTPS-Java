@@ -27,24 +27,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(login: NgForm) {
-    this.userService.autenticacion(login).subscribe(
-      (usuario) => {
-        //almacenamiento en sesion
-        this.error = false;
-        sessionStorage.setItem('id', usuario.id);
-        sessionStorage.setItem('username', usuario.username);
-        sessionStorage.setItem('tipoUsuario', usuario.tipo_usuario);
-
-        if (usuario.tipo_usuario == 'Organizador') {
-          this.router.navigateByUrl('home-organizador');
-        } else {
-          this.router.navigateByUrl('home-foodtrucker');
-        }
-      },
-      (err: HttpErrorResponse) => {
-        console.log('estado de error: ', err.status, typeof err.status);
-        this.error = true;
-      }
-    );
+    this.userService.autenticacion(login);
+    
   }
 }
