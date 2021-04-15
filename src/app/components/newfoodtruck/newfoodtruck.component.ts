@@ -52,11 +52,19 @@ export class NewfoodtruckComponent implements OnInit {
   }
 
   checkImg(){
-    return true;
+    return this.imgFoodTruck.length>0;
   }
 
   checkFt(ft){
-    return true;
+    let nombre = ft.value.nombre.trim();
+    let tipo = ft.value.tipo_servicio.trim();
+    let url = ft.value.url.trim();
+    let desc = ft.value.descripcion.trim();
+    let ig = ft.value.instagram.trim();
+    let fb = ft.value.facebook.trim();
+    let wp = ft.value.whatsapp.trim();
+    let cond2 = (((((((nombre.length > 0 && tipo.length > 0 )&& url.length > 0) && desc.length > 0) && ig.length > 0 )&& fb.length > 0) && wp.length > 0));
+    return cond2;
   }
 
   logOut() {
