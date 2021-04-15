@@ -11,6 +11,7 @@ export class Foodtruck {
   facebook: String;
   puntaje: number;
   dueno: Usuario;
+  imagenes: String[];
 
   constructor(
     id?: string,

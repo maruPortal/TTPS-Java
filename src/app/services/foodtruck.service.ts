@@ -19,7 +19,8 @@ export class FoodtruckService {
   elEstado: string;
   constructor(private http: HttpClient, private router: Router) {}
 
-  createFoodtruck(ft: NgForm): String {
+  createFoodtruck(ft: NgForm, img): String {
+    console.log(img);
     let id = sessionStorage.getItem('id');
     let dueñoID = { id: `${id}` };
     let ftruck = {
@@ -31,10 +32,12 @@ export class FoodtruckService {
       facebook: ft.value.facebook,
       whatsapp: ft.value.whatsapp,
       dueno: dueñoID,
+      imagenes: img
     };
     this.http.post<any>(`${environment.url}/foodtruck`, ftruck).subscribe(
       (response) => {
         this.elEstado = 'Exito';
+        this.router.navigateByUrl('list-foodtrucks');
       },
       (err: HttpErrorResponse) => {
         console.log('estado de error: ', err.status);
@@ -87,24 +90,29 @@ export class FoodtruckService {
     return this.http.get<Foodtruck[]>(`${environment.url}/foodtruck/topFoodtrucks`)
   }
 
-  /*
-  DEBERIA ANDAR PERO ALGO RARO PASA CON ECLIPSE O ACA, NO SE
-
-  addPic(form: NgForm, base64textString): Observable<Foodtruck> {
-    let picBody = base64textString[0];
-    const headerDict = {
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-      'Access-Control-Allow-Headers': 'Content-Type',
-    };
-    const requestOptions = {
-      headers: new HttpHeaders(headerDict),
-    };
+  
+  //DEBERIA ANDAR PERO ALGO RARO PASA CON ECLIPSE O ACA, NO SE
+  
+  addPic(id, base64textString): Observable<Foodtruck> {
+    let body = {
+      "imagen": base64textString[0].toString()
+    }
     return this.http.post<Foodtruck>(
-      `${environment.url}/usuario/pruebaImagen/1`,
-      picBody.toString(),requestOptions
+      `${environment.url}/foodtruck/pruebaImagen/1`,
+      body
     );
   }
-  */
+  
+  pedirImagenes(idFt): Observable<String[]>{
+    console.log("entre")
+    return this.http.get<String[]>(`${environment.url}/foodtruck/${idFt}/imagenes`);
+    
+  }
+
+  topFoodtruckImages(): Observable<String[]>{
+    console.log("entre")
+    return this.http.get<String[]>(`${environment.url}/foodtruck/1/imagenes`);
+    
+  }
 
 }

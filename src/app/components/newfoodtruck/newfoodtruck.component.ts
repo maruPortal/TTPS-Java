@@ -13,7 +13,7 @@ export class NewfoodtruckComponent implements OnInit {
   enviado: Boolean;
   error: Boolean;
   user_tipo="FoodTrucker";
-  imgFoodTruck: String;
+  imgFoodTruck = [];
 
   constructor(
     private ftservice: FoodtruckService,
@@ -30,16 +30,33 @@ export class NewfoodtruckComponent implements OnInit {
 
   // {"dueño":{ "id":1} }
   onSubmit(ft: NgForm) {
-    let estado = this.ftservice.createFoodtruck(ft);
-    console.log(estado);
-    if (estado == 'Fallido') {
-      this.enviado = false;
-      this.error = true;
-    } else {
-      this.router.navigateByUrl('list-foodtrucks');
-      this.enviado = true;
-      this.error = false;
-    }
+    if(this.checkImg()){
+      if (this.checkFt(ft)){
+        let estado = this.ftservice.createFoodtruck(ft,this.imgFoodTruck);
+        console.log(estado);
+        if (estado == 'Fallido') {
+          this.enviado = false;
+          this.error = true;
+        } else {
+         
+          this.enviado = true;
+          this.error = false;
+        }
+      }else{
+        console.log("Completa todo")
+      }
+    }else{
+      console.log("Subi alguna foto")
+    } 
+    
+  }
+
+  checkImg(){
+    return true;
+  }
+
+  checkFt(ft){
+    return true;
   }
 
   logOut() {
@@ -58,7 +75,8 @@ export class NewfoodtruckComponent implements OnInit {
   }
   
   handleReaderLoaded(e) {
-    this.imgFoodTruck=('data:image/png;base64,' + btoa(e.target.result));
+    this.imgFoodTruck.push('data:image/png;base64,' + btoa(e.target.result));
+    
   }
 
 }

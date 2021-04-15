@@ -5,6 +5,7 @@ import { UsuarioserviceService } from 'src/app/services/usuarioservice.service';
 import { FoodtruckService } from 'src/app/services/foodtruck.service';
 import { Router } from '@angular/router';
 import { NgbCarousel, NgbSlideEvent, NgbSlideEventSource } from '@ng-bootstrap/ng-bootstrap';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-homefoodtrucker, ngbd-dropdown-basic, ngbd-carousel-pause, ngbd-nav-markup',
@@ -25,10 +26,10 @@ export class HomefoodtruckerComponent implements OnInit {
   pauseOnIndicator = false;
   pauseOnHover = true;
   pauseOnFocus = true;
-  images = [62, 83, 466, 965, 982, 1043, 738].map((n) => `https://picsum.photos/id/${n}/900/500`);
+  //images = [62, 83, 466, 965, 982, 1043, 738].map((n) => `https://picsum.photos/id/${n}/900/500`);
   prueba = [1,2,3];
   //aca van los string en base64 con "data:image/png;base64," delante 
-  //images=[]; 
+  images= []; 
   
   //aca van los ft
   fts = [];
@@ -49,6 +50,7 @@ export class HomefoodtruckerComponent implements OnInit {
     this.user_tipo = sessionStorage.getItem('tipoUsuario');
     this.userService.isFoodtrucker();
     this.url_home="home-" + this.user_tipo.toLowerCase();
+    this.obtenerTopFoodtrucksImagenes();
     this.obtenerTopFoodtrucks();
     this.obtenerSolicitudes();
   }
@@ -58,6 +60,17 @@ export class HomefoodtruckerComponent implements OnInit {
       (listaRes)=> {
         console.log("Fts: " + listaRes.length);
         this.fts = listaRes;
+      },
+      (err: HttpErrorResponse) =>{
+        console.log("estado de error:  " + err.status);
+      }
+    )
+  }
+
+  obtenerTopFoodtrucksImagenes(){
+    this.ftService.topFoodtruckImages().subscribe(
+      (listaRes)=> {
+        this.images = listaRes;
       },
       (err: HttpErrorResponse) =>{
         console.log("estado de error:  " + err.status);
@@ -162,6 +175,17 @@ export class HomefoodtruckerComponent implements OnInit {
   handleReaderLoaded(e) {
     this.images.push('data:image/png;base64,' + btoa(e.target.result));
   }
+
+  /*onSubmit(login: NgForm) {
+    this.ftService.addPic(login,this.images).subscribe(
+      (usuario) => {
+        console.log("Paso")
+      },
+      (err: HttpErrorResponse) => {
+        console.log('estado de error: ', err.status, typeof err.status);
+      }
+    );
+  }*/
 
   /*
 
