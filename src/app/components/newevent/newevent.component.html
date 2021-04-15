@@ -100,18 +100,33 @@
                   placeholder="Ingrese el tipo de evento"
                 />
               </div>
-
               <div class="form-group col-md-4">
                 <label for=""><b>Fecha y Hora</b></label>
-                <input
+                <!--<input
                   type="datetime"
                   name="fecha_hora"
                   ngModel
                   required
                   class="form-control"
                   placeholder="Ingrese la fecha y hora del evento"
-                />
+                />-->
+                <div class="row">
+                  <div class="col-6">
+                    <div class="input-group">
+                      <input class="form-control" placeholder="Elija una fecha" (click)="d.toggle()" 
+                             ngModel name="fecha" [minDate]="fechaMinima" ngbDatepicker #d="ngbDatepicker" readonly="true">
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="row">
+                      <input class="form-control" placeholder="HH" ngModel name="hora" style="width: 50px;">
+                      <div style="margin-left: 10px; margin-right: 10px; padding-top: 5px;">:</div>
+                      <input class="form-control" placeholder="MM" ngModel name="minuto" style="width: 50px;">
+                    </div>
+                  </div>
+                </div>
               </div>
+              
           </div>
 
           <div class="form row">
@@ -140,7 +155,7 @@
 
             <div class="form-group col-md-4">
                 <label for=""><b>Forma de Pago</b></label>
-                <select name="forma_pago" style="width: 100%; height: 35px;"  ngModel required>
+                <select name="forma_pago" style="width: 100%; height: 35px;" ngModel required>
                     <option value="clientes" selected>Abonan los Clientes</option>
                     <option value="organizador">Abonan el Organizador</option>
                 </select>
@@ -162,17 +177,18 @@
             </div>
 
             <div class="form-group col-md-4">
-                <label for=""><b>Geolocalizacion</b></label>
-                <input
-                  type="text"
-                  name="geolocalizacion"
-                  ngModel
-                  required
-                  class="form-control"
-                  placeholder="Ingrese algo"
-                />
-              </div>
-            
+              <label for=""><b>Geolocalizacion</b></label>
+              <input
+                type="text"
+                name="geolocalizacion"
+                ngModel
+                required
+                class="form-control"
+                placeholder="Ingrese algo"
+              />
+            </div>
+           
+              
           </div>
           <div style="text-align: center;">
             <button type="submit" class="btn btn-primary">ENVIAR</button>

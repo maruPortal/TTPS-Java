@@ -23,6 +23,7 @@ import { ListeventosComponent } from './components/listeventos/listeventos.compo
 import { NeweventComponent } from './components/newevent/newevent.component';
 import { EditEventoComponent } from './components/edit-evento/edit-evento.component';
 import { JwtInterceptorInterceptor } from './helpers/jwt-interceptor.interceptor';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,7 @@ import { JwtInterceptorInterceptor } from './helpers/jwt-interceptor.interceptor
     NeweventComponent,
     EditEventoComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule, NgbModule],
+  imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule, NgbModule, BrowserAnimationsModule],
   providers: [UsuarioserviceService, FoodtruckService, {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptorInterceptor, multi:true}],
   bootstrap: [AppComponent],
 })

@@ -19,8 +19,6 @@ export class JwtInterceptorInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
       // agrego Authorization Header con jwt token si esta disponible
       let currentUser = localStorage.getItem("token");
-      console.log("tko: " + currentUser);
-      console.log("tko: " + `${currentUser}`)
       if (currentUser) {
           request = request.clone({
               setHeaders: {
@@ -36,7 +34,9 @@ export class JwtInterceptorInterceptor implements HttpInterceptor {
       return next.handle(request).pipe(
         catchError((error: HttpErrorResponse) => {
             console.log("error con token");
-            this.usuService.logOut();
+            if (error.status==0){
+              this.usuService.logOut();
+            }
             return throwError(error);            
         })
       );
