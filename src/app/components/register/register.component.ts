@@ -30,30 +30,10 @@ export class RegisterComponent implements OnInit {
     console.log(register.value);
     if (register.valid) {
       if (register.value.tipo === 'Foodtrucker') {
-        this.userService.createFoodtrucker(register).subscribe(
-          (usu) => {
-            sessionStorage.setItem('id', usu.id);
-            sessionStorage.setItem('username', usu.username);
-            sessionStorage.setItem('tipoUsuario', usu.tipo_usuario);
-            this.router.navigateByUrl('home-foodtrucker');
-          },
-          (err: HttpErrorResponse) => {
-            console.log('estado de error: ', err.status, typeof err.status);
-          }
-        );
+        this.userService.createFoodtrucker(register);
       }
       if (register.value.tipo === 'Organizador') {
-        this.userService.createOrganizador(register).subscribe(
-          (usu) => {
-            sessionStorage.setItem('id', usu.id);
-            sessionStorage.setItem('username', usu.username);
-            sessionStorage.setItem('tipoUsuario', usu.tipo_usuario);
-            this.router.navigateByUrl('home-organizador');
-          },
-          (err: HttpErrorResponse) => {
-            console.log('estado de error: ', err.status, typeof err.status);
-          }
-        );
+        this.userService.createOrganizador(register);
       }
     }
   }

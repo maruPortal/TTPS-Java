@@ -27,9 +27,9 @@ export class HomeorganizadorComponent implements OnInit {
   pauseOnHover = true;
   pauseOnFocus = true;
   //imagenesDeLosFoodTruck
-  images = [62, 83, 466, 965, 982,62, 83, 466, 965, 982].map((n) => `https://picsum.photos/id/${n}/900/500`);
+  //images = [62, 83, 466, 965, 982,62, 83, 466, 965, 982].map((n) => `https://picsum.photos/id/${n}/900/500`);
   //aca van los string en base64 con "data:image/png;base64," delante 
-  //images=[]; 
+  images=[]; 
   
   //aca van los ft
   fts = [];
@@ -49,14 +49,25 @@ export class HomeorganizadorComponent implements OnInit {
     this.user_username = sessionStorage.getItem('username');
     this.user_tipo = sessionStorage.getItem('tipoUsuario');
     this.userService.isOrganizador();
+    this.obtenerTopFoodtrucksImagenes();
     this.obtenerTopFoodtrucks();
     this.obtenerSolicitudes();
   }
   
+  obtenerTopFoodtrucksImagenes(){
+    this.ftService.topFoodtruckImages().subscribe(
+      (listaRes)=> {
+        this.images = listaRes;
+      },
+      (err: HttpErrorResponse) =>{
+        console.log("estado de error:  " + err.status);
+      }
+    )
+  }
+
   obtenerTopFoodtrucks(){
     this.ftService.topFoodtrucks().subscribe(
       (listaRes)=> {
-        console.log("Fts: " + listaRes.length);
         this.fts = listaRes;
       },
       (err: HttpErrorResponse) =>{

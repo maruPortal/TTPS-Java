@@ -65,6 +65,7 @@ export class UsuarioserviceService {
   }
 
   logOut() {
+    this.authenticationService.logout();
     sessionStorage.clear();
     this.router.navigateByUrl('login');
   }
@@ -94,18 +95,42 @@ export class UsuarioserviceService {
     return this.authenticationService.login(usuario,clave);
   }
 
-  createFoodtrucker(register: NgForm): Observable<Usuario> {
-    return this.http.post<Usuario>(
+  createFoodtrucker(register: NgForm){
+    this.http.post<Usuario>(
       `${environment.url}/usuario/foodtrucker`,
       register.value
+    ).subscribe(
+      (response) => {
+        localStorage.setItem('token', response["token"]);
+        sessionStorage.setItem('id', response["usuario_id"]);
+        sessionStorage.setItem('username', response["usuario_username"]);
+        sessionStorage.setItem('tipoUsuario', response["usuario_tipo_usuario"]);
+        this.router.navigateByUrl('home-foodtrucker');
+        
+      },
+      (err: HttpErrorResponse) => {
+        console.log('estado de error: ', err.status);
+      }
     );
   }
 
-  createOrganizador(register: NgForm): Observable<Usuario> {
-    return this.http.post<Usuario>(
+  createOrganizador(register: NgForm) {
+    this.http.post<Usuario>(
       `${environment.url}/usuario/organizador`,
-      register.value
-    );
+      register.value)
+      .subscribe(
+        (response) => {
+          localStorage.setItem('token', response["token"]);
+          sessionStorage.setItem('id', response["usuario_id"]);
+          sessionStorage.setItem('username', response["usuario_username"]);
+          sessionStorage.setItem('tipoUsuario', response["usuario_tipo_usuario"]);
+          this.router.navigateByUrl('home-organizador');
+          
+        },
+        (err: HttpErrorResponse) => {
+          console.log('estado de error: ', err.status);
+        }
+      );
   }
 
   editUser(usuario: NgForm): Observable<Usuario> {

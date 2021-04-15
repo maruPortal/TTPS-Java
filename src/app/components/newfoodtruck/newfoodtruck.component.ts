@@ -14,6 +14,7 @@ export class NewfoodtruckComponent implements OnInit {
   error: Boolean;
   user_tipo="FoodTrucker";
   imgFoodTruck = [];
+  corteImg: Boolean;
 
   constructor(
     private ftservice: FoodtruckService,
@@ -30,6 +31,7 @@ export class NewfoodtruckComponent implements OnInit {
 
   // {"dueño":{ "id":1} }
   onSubmit(ft: NgForm) {
+    this.corteImg = false;
     if(this.checkImg()){
       if (this.checkFt(ft)){
         let estado = this.ftservice.createFoodtruck(ft,this.imgFoodTruck);
@@ -84,6 +86,9 @@ export class NewfoodtruckComponent implements OnInit {
   
   handleReaderLoaded(e) {
     this.imgFoodTruck.push('data:image/png;base64,' + btoa(e.target.result));
+    if (this.imgFoodTruck.length == 3){
+      this.corteImg = true;
+    }
     
   }
 

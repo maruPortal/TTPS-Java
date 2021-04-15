@@ -43,7 +43,7 @@
               type="text"
               name="nombre"
               ngModel 
-              
+              required
               class="form-control"
               placeholder="Ingrese un nombre"
             />
@@ -54,7 +54,7 @@
               type="text"
               name="tipo_servicio"
               ngModel
-              
+              required
               class="form-control"
               placeholder="Ingrese un tipo de servicio"
             />
@@ -65,7 +65,7 @@
               type="text"
               name="url"
               ngModel
-              
+              required
               class="form-control"
               placeholder="Ingrese la dirección URL de su web "
             />
@@ -79,19 +79,28 @@
               rows="3"
               name="descripcion"
               ngModel
-              
+              required
               class="form-control"
               placeholder="Ingrese una breve descripción"
             ></textarea>
           </div>
           <div class="form-group col-md-6">
             <label><b>Elegi una imagen</b></label><br>
-            <input 
+            <div *ngIf="!corteImg">
+              <input 
               type="file" 
               name="image" 
               (change)="onUploadChange($event)" 
               accept=".png, .jpg" />
-              <img src={{imgFoodTruck}} alt="" style="margin-top: 10px; max-width: 100px; max-height: 100px;" id="img">
+            </div>
+              <div style="display: inline-block;" *ngFor="let each of imgFoodTruck">
+                <div style="display: flex;">
+                  <button style="width: 25px; height: 25px; background-color: black; 
+                                position: absolute; float: right; color: white; font-weight: normal; text-align:start;"
+                                (click)="imgFoodTruck.splice(imgFoodTruck.indexOf(each),1)">X</button>
+                  <img src={{each}} alt="" style="margin-right: 10px; max-width: 100px; max-height: 100px;" id="img">
+                </div>
+              </div>
           </div>
           
         </div>
@@ -106,7 +115,7 @@
               name="instagram"
               placeholder="@instagram"
               ngModel
-              
+              required
               class="form-control"
             />
           </div>
@@ -119,7 +128,7 @@
               name="facebook"
               placeholder="Pagina de Facebook"
               ngModel
-              
+              required
               class="form-control"
             />
           </div>
@@ -132,7 +141,7 @@
               name="whatsapp"
               placeholder="Numero de WhatsApp"
               ngModel
-              
+              required
               class="form-control"
             />
           </div>

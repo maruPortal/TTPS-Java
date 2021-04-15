@@ -36,7 +36,7 @@ export class ListfoodtrucksComponent implements OnInit {
     this.getFoodTrucks();
     this.user_username = sessionStorage.getItem('username');
     this.user_tipo = sessionStorage.getItem('tipoUsuario');
-    this.foodtrucks.push(new Foodtruck("1","Gin Bar","Cocteleria","El bar movil ideal para tu evento","www.ginbar.com.ar","@ginbar.truck"));
+
     
     let estadoModif = sessionStorage.getItem('estadoModificacion');
     if (estadoModif == 'ModificadoExitosamente') {

@@ -91,7 +91,6 @@ export class FoodtruckService {
   }
 
   
-  //DEBERIA ANDAR PERO ALGO RARO PASA CON ECLIPSE O ACA, NO SE
   
   addPic(id, base64textString): Observable<Foodtruck> {
     let body = {
@@ -110,9 +109,7 @@ export class FoodtruckService {
   }
 
   topFoodtruckImages(): Observable<String[]>{
-    console.log("entre")
-    return this.http.get<String[]>(`${environment.url}/foodtruck/1/imagenes`);
-    
+    return this.http.get<String[]>(`${environment.url}/foodtruck/topFoodtrucks/imagenes`);
   }
 
 }
