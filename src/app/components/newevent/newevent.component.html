@@ -119,9 +119,16 @@
                   </div>
                   <div class="col-6">
                     <div class="row">
-                      <input class="form-control" placeholder="HH" ngModel name="hora" style="width: 50px;">
+                      <select name="minuto" style="width: 52px; height: 35px;" ngModel required>
+                        <option *ngFor="let each of horas" value="each" selected>{{each}}</option>
+                      </select>
                       <div style="margin-left: 10px; margin-right: 10px; padding-top: 5px;">:</div>
-                      <input class="form-control" placeholder="MM" ngModel name="minuto" style="width: 50px;">
+                      <select name="minuto" style="width: 52px; height: 35px;" ngModel required>
+                        <option value="00" selected>00</option>
+                        <option value="15">15</option>
+                        <option value="30">30</option>
+                        <option value="45">45</option>
+                      </select>
                     </div>
                   </div>
                 </div>
@@ -177,21 +184,57 @@
             </div>
 
             <div class="form-group col-md-4">
-              <label for=""><b>Geolocalizacion</b></label>
-              <input
-                type="text"
-                name="geolocalizacion"
-                ngModel
-                required
-                class="form-control"
-                placeholder="Ingrese algo"
-              />
+              <label for=""><b>Geolocalizacion</b></label><br>
+              <p style="font-weight: normal; font-size: 18px;">{{dataShow}}</p>
+              <button
+                id="botonMapa"
+                type="button"
+                class="btn btn-outline-primary mb-2 mr-2"
+                (click)="openXl(longContent)"
+                style="background-color: transparent; width: 100%; height: 80px; background-image: url(../assets/images/geolocalizacion.jpg); box-shadow: inset 0 0 20px 10px rgba(0,0,0,0.2); border-radius: 8px;"
+                
+              >
+                <B style="color: white; text-shadow: 0 0 10px rgba(0,0,0,1);">ABRIR MAPA</B>
+              </button>
+              <ng-template #longContent let-modal>
+                <div class="modal-header">
+                  <h4 style="font-weight: bold;" class="modal-title">Marca la Geolocalizacion de tu Evento</h4>
+                  <button
+                    type="button"
+                    class="close"
+                    aria-label="Close"
+                    (click)="modal.dismiss('Cross click')"
+                    
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <!--Mapa en Modal-->
+                <div class="modal-body">
+
+                  <div
+                      style="height: 500px;"
+                      leaflet 
+                      (leafletMapReady)="onMapReady($event)"
+                      [leafletOptions]="options">
+                  </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button
+                      type="button"
+                      class="btn btn-outline-primary mb-2 mr-2"
+                      (click)="modal.dismiss()"
+                      
+                    >CONFIRMAR</button>
+                </div>
+              </ng-template>
             </div>
            
               
           </div>
           <div style="text-align: center;">
-            <button type="submit" class="btn btn-primary">ENVIAR</button>
+            <button type="submit" [disabled]="!habilitarButton" class="btn btn-primary">ENVIAR</button>
           </div>
         </form>
       </div>

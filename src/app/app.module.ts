@@ -24,6 +24,7 @@ import { NeweventComponent } from './components/newevent/newevent.component';
 import { EditEventoComponent } from './components/edit-evento/edit-evento.component';
 import { JwtInterceptorInterceptor } from './helpers/jwt-interceptor.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     NeweventComponent,
     EditEventoComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule, NgbModule, BrowserAnimationsModule],
+  imports: [BrowserModule, 
+            AppRoutingModule, 
+            FormsModule, 
+            HttpClientModule, 
+            NgbModule, 
+            BrowserAnimationsModule,
+            //LeafletModule.forRoot()
+            LeafletModule
+          ],
   providers: [UsuarioserviceService, FoodtruckService, {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptorInterceptor, multi:true}],
   bootstrap: [AppComponent],
 })

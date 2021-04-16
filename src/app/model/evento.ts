@@ -6,7 +6,7 @@ export class Evento {
   direccion: String;
   codigo_postal;
   provincia: String;
-  geolocalizacion: Number;
+  geolocalizacion: String;
   fecha_hora: String;
   email: String;
   tel_contacto: Number;
@@ -22,7 +22,7 @@ export class Evento {
     direccion?: String,
     codigo_postal?,
     provincia?: String,
-    geolocalizacion?: Number,
+    geolocalizacion?: String,
     fecha_hora?: String,
     email?: String,
     tel_contacto?: Number,
