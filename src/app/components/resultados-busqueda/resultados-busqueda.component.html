@@ -32,12 +32,20 @@
     <div style="width: 100%; text-align: center;">
         <div style="font-size: 27px;font-weight: bold ;color: white; -webkit-text-stroke: 0.8px #000000cc;">Resultados de tu busqueda: {{ fts.length }} resultados</div>
     </div>
-    <div class="container" style="overflow: auto; max-height: 700px; max-width: 90%; background-color: #ffffff33; border-radius: 10px;">
-        <div class="row" style="margin-top: 20px;">
-            <div  class="col" style="margin-bottom: 20px ;height: 400px; width: 300px; " *ngFor="let ftr of fts; index as i">
-                <div class="row">
-                    <img [src]="images[i]" alt="My image {{i + 1}} description" 
-                         style="width: 300px; height: 200px; border-top-left-radius: 15px; border-top-right-radius: 15px;">
+    <div class="container" style="overflow: auto; outline: none;max-height: 700px; max-width: 90%; background-color: #ffffff33; border-radius: 10px;">
+        <div class="row" style="margin-top: 20px;; outline: none">
+            <div  class="col" style="margin-bottom: 20px; margin-left: 15px ;height: 400px; width: 300px;; outline: none " *ngFor="let ftr of fts; index as i">
+                <div class="row" style="width: 300px; outline: none;">
+                  <ngb-carousel *ngIf="ftr.imagenes" style="width: 300px; outline: none;">
+                    <ng-template ngbSlide *ngFor="let ftrImg of ftr.imagenes">
+                      <div class="picsum-img-wrapper"  >
+                        <img [src]="ftrImg" alt="Random first slide" style="width: 300px; height: 200px; outline: none; border-top-left-radius: 15px; border-top-right-radius: 15px;">
+                      </div>
+                    </ng-template>
+                  </ngb-carousel>
+
+<!--                    <img [src]="ftr.imagenes[0]" alt="My image {{i + 1}} description" 
+                         style="width: 300px; height: 200px; border-top-left-radius: 15px; border-top-right-radius: 15px;">-->
                 </div>
                 <div class="row" style="background-color: #ffffffdd;width: 300px;
                                         border-bottom-left-radius: 15px; border-bottom-right-radius: 15px;">

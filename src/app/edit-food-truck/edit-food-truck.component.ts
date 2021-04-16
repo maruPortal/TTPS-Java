@@ -5,6 +5,7 @@ import { NgForm } from '@angular/forms';
 import { Foodtruck } from 'src/app/model/foodtruck';
 import { FoodtruckService } from 'src/app/services/foodtruck.service';
 import { UsuarioserviceService } from 'src/app/services/usuarioservice.service';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-edit-food-truck, ngbd-dropdown-basic',
@@ -24,7 +25,8 @@ export class EditFoodTruckComponent implements OnInit {
   constructor(
     private ftService: FoodtruckService,
     private router: Router,
-    private userService: UsuarioserviceService
+    private userService: UsuarioserviceService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -48,19 +50,15 @@ export class EditFoodTruckComponent implements OnInit {
     this.ftService.updateFt(envio).subscribe(
       () => {
         if (this.sinCambios) {
-          console.log('No hubo cambios');
-          sessionStorage.setItem('estadoModificacion', 'SinCambios');
+          this.toastr.warning("No se detectaron cambios","Modificacion Cancelada",{timeOut:4000});
         } else {
-          sessionStorage.setItem(
-            'estadoModificacion',
-            'ModificadoExitosamente'
-          );
+          this.toastr.success("El foodtruck fue modificado con exito","Modificación Exitosa");
         }
         this.router.navigateByUrl('list-foodtrucks');
       },
       (err: HttpErrorResponse) => {
-        console.log('estado de error: ', err.status, typeof err.status);
-        this.error = true;
+        console.log('estado de error: ', err.status);
+        this.toastr.error("Error al modificar el foodtruck:  " + err.status,"Error");
       }
     );
   }

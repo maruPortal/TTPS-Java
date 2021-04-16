@@ -6,6 +6,9 @@ import { Evento } from 'src/app/model/evento';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Foodtruck } from 'src/app/model/foodtruck';
 import { EventosService } from 'src/app/services/eventos.service';
+import { ToastrService } from 'ngx-toastr';
+import { Http2SecureServer } from 'node:http2';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-listeventos,  ngbd-modal-config',
@@ -15,19 +18,16 @@ import { EventosService } from 'src/app/services/eventos.service';
 })
 export class ListeventosComponent implements OnInit {
   foodtrucks: Foodtruck[];
-  modificado: Boolean;
-  errorDel: Boolean;
-  eliminado: Boolean;
-  sinCambios: Boolean;
   
   user_username: String;
   user_tipo: String;
   url_home: String;
   eventos=[];
-  constructor( private ftService: FoodtruckService,
+  constructor(
     private router: Router,
     private userService: UsuarioserviceService,
     private evService: EventosService,
+    private toastr: ToastrService,
     config: NgbModalConfig, private modalService: NgbModal) {
         config.backdrop = 'static';
         config.keyboard = false;
@@ -57,13 +57,17 @@ export class ListeventosComponent implements OnInit {
     console.log("Index: " + index);
     this.eventos.splice(index,1);
     this.modalService.dismissAll();
+    this.toastr.success("Evento eliminado con exito","Evento Eliminado");
+    //implementar metodo de borrado con la api en evento service
   }
 
   getEventos(){
     this.evService.recuperarEventos().subscribe(
       (listRes) => {
-        console.log("Cantidad de eventos: " + listRes.length);
         this.eventos=listRes.reverse();
+      },
+      (err: HttpErrorResponse)=>{
+        this.toastr.error("Error al recuperar mis eventos","Error")
       }
     )
   }

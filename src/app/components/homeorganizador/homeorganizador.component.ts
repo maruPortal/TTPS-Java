@@ -7,6 +7,7 @@ import { Solicitud } from 'src/app/model/solicitud';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ID_SEPARATOR } from '@angular/localize/src/utils';
 import { NgForm } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-homeorganizador, ngbd-dropdown-basic, ngbd-carousel-pause, ngbd-nav-markup',
@@ -41,7 +42,8 @@ export class HomeorganizadorComponent implements OnInit {
   
   constructor(private userService: UsuarioserviceService,
               private router: Router,
-              private ftService: FoodtruckService,) {}
+              private ftService: FoodtruckService,
+              private toastr: ToastrService) {}
 
   @ViewChild('carousel', {static : true}) carousel: NgbCarousel;
 
@@ -61,6 +63,7 @@ export class HomeorganizadorComponent implements OnInit {
       },
       (err: HttpErrorResponse) =>{
         console.log("estado de error:  " + err.status);
+        this.toastr.error("Error al obtener imagenes - " + err.status, "Error");
       }
     )
   }
@@ -72,6 +75,7 @@ export class HomeorganizadorComponent implements OnInit {
       },
       (err: HttpErrorResponse) =>{
         console.log("estado de error:  " + err.status);
+        this.toastr.error("Error al obtener top foodtrucks - " + err.status, "Error");
       }
     )
   }
@@ -79,7 +83,6 @@ export class HomeorganizadorComponent implements OnInit {
   obtenerSolicitudes(){
     this.userService.getSolicitudes().subscribe(
       (listaRes) => {
-        console.log("Solis: " + listaRes.length);
         let estFin = [];
         let estPen = [];
         listaRes.forEach(function(value){
@@ -98,6 +101,7 @@ export class HomeorganizadorComponent implements OnInit {
       },
       (err: HttpErrorResponse) =>{
         console.log("estado de error:  " + err.status);
+        this.toastr.error("Error al obtener solicitudes - " + err.status, "Error");
       }
     );
   }
@@ -146,7 +150,8 @@ export class HomeorganizadorComponent implements OnInit {
       this.userService.buscar(ft).subscribe(
         (response) => {
           if (response==null){
-            console.log("No hubo resultados")
+            console.log("No hubo resultados");
+            this.toastr.info("Su busqueda no retorno ningun resultado", "Sin Resultados");
           }else{
             response.forEach(function(value){
               console.log(value.nombre + value.id);
@@ -156,6 +161,7 @@ export class HomeorganizadorComponent implements OnInit {
         },
         (err: HttpErrorResponse) =>{
           console.log("estado de error:  " + err.status);
+          this.toastr.error("Error al realizar busqueda","Error");
         }
       );
     }else{
@@ -193,6 +199,7 @@ export class HomeorganizadorComponent implements OnInit {
       },
       (err: HttpErrorResponse) =>{
         console.log("estado de error:   " + err.status);
+        this.toastr.error("Error al recuperar la solicitud para valorar","Error")
       }
     )
   }

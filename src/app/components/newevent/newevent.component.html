@@ -119,8 +119,8 @@
                   </div>
                   <div class="col-6">
                     <div class="row">
-                      <select name="minuto" style="width: 52px; height: 35px;" ngModel required>
-                        <option *ngFor="let each of horas" value="each" selected>{{each}}</option>
+                      <select name="hora" style="width: 52px; height: 35px;" ngModel required>
+                        <option *ngFor="let each of horas" value="{{each}}" selected>{{each}}</option>
                       </select>
                       <div style="margin-left: 10px; margin-right: 10px; padding-top: 5px;">:</div>
                       <select name="minuto" style="width: 52px; height: 35px;" ngModel required>

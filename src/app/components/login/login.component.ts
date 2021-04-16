@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UsuarioserviceService } from 'src/app/services/usuarioservice.service';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -11,9 +11,12 @@ import { UsuarioserviceService } from 'src/app/services/usuarioservice.service';
 })
 export class LoginComponent implements OnInit {
   error: Boolean;
+  title = "ProbandoToast";
+
   constructor(
     private userService: UsuarioserviceService,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -28,6 +31,9 @@ export class LoginComponent implements OnInit {
 
   onSubmit(login: NgForm) {
     this.userService.autenticacion(login);
-    
+  }
+
+  showStandard() {
+    this.toastr.error("MensajePrueba",this.title);
   }
 }

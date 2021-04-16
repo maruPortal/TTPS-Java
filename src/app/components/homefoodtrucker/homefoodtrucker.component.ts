@@ -6,6 +6,7 @@ import { FoodtruckService } from 'src/app/services/foodtruck.service';
 import { Router } from '@angular/router';
 import { NgbCarousel, NgbSlideEvent, NgbSlideEventSource } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-homefoodtrucker, ngbd-dropdown-basic, ngbd-carousel-pause, ngbd-nav-markup',
@@ -41,7 +42,8 @@ export class HomefoodtruckerComponent implements OnInit {
 
   constructor(private userService: UsuarioserviceService,
               private router: Router,
-              private ftService: FoodtruckService,) {}
+              private ftService: FoodtruckService,
+              private toastr: ToastrService) {}
 
   @ViewChild('carousel', {static : true}) carousel: NgbCarousel;
 
@@ -109,9 +111,11 @@ export class HomefoodtruckerComponent implements OnInit {
       (response) => {
         this.nuevas.splice(this.nuevas.indexOf(soli),1);
         this.aceptadas.push(response);
+        this.toastr.success("Se agrego la reserva a la solapa 'Confirmadas'","Solicitud Aceptada");
       },
       (err: HttpErrorResponse) =>{
         console.log("estado de error: " + err.status);
+        this.toastr.error("Error al aceptar solicitud","Error");
       }
     )
   }
@@ -120,9 +124,11 @@ export class HomefoodtruckerComponent implements OnInit {
     this.userService.modificarSolicitud(soli.id,'Rechazada').subscribe(
       (response) => {
         this.nuevas.splice(this.nuevas.indexOf(soli),1);
+        this.toastr.success("Se rechazo la solicitud correctamente","Solicitud Rechazada");
       },
       (err: HttpErrorResponse) =>{
         console.log("estado de error: " + err.status);
+        this.toastr.error("Error al aceptar solicitud","Error");
       }
     )
   }
@@ -131,9 +137,11 @@ export class HomefoodtruckerComponent implements OnInit {
     this.userService.modificarSolicitud(soli.id,'Finalizada').subscribe(
       (response) => {
         this.aceptadas.splice(this.nuevas.indexOf(soli),1);
+        this.toastr.success("Se finalizo la reserva correctamente y se la habilito para Calificar","Solicitud Finalizada",{timeOut:4000});
       },
       (err: HttpErrorResponse) =>{
         console.log("estado de error: " + err.status);
+        this.toastr.error("Error al aceptar solicitud","Error");
       }
     )
   }

@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { Evento } from 'src/app/model/evento';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Solicitud } from 'src/app/model/solicitud';
+import { ToastrService } from 'ngx-toastr';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-reservar',
@@ -42,7 +44,8 @@ export class ReservarComponent implements OnInit {
     private userService: UsuarioserviceService,
     private ftService: FoodtruckService,
     private router: Router,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -56,8 +59,10 @@ export class ReservarComponent implements OnInit {
     this.userService
       .getMisEventos(sessionStorage.getItem('id'))
       .subscribe((eventos) => {
-        console.log(eventos);
         this.eventos = eventos;
+      },
+      (err: HttpErrorResponse)=>{
+        this.toastr.error("Error al recuperar mis eventos","Error");
       });
 
     this.user_username = sessionStorage.getItem('username');
@@ -88,9 +93,18 @@ export class ReservarComponent implements OnInit {
       this.solicitud.evento = this.eventoSeleccionado;
       this.solicitud.solicitado = this.foodtruck.dueno;
       this.solicitud.creador = user;
-      this.userService.createSolicitud(this.solicitud).subscribe(() => {
-        this.router.navigateByUrl('/');
-      });
+      this.userService.createSolicitud(this.solicitud).subscribe(
+        (exito) => {
+          this.router.navigateByUrl('/');
+          this.toastr.success("Solicitud enviada con exito y agregada al panel 'Pendientes'","Solicitu Enviada");
+        },
+        (err: HttpErrorResponse)=>{
+          this.toastr.error("Error al enviar la solicitud","Error");
+        }
+      );
+    },
+    (err: HttpErrorResponse)=>{
+      this.toastr.error("Error al recuperar la informacion del usuario","Error");
     });
   }
 }

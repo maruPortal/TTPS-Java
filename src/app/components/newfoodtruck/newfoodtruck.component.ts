@@ -8,6 +8,15 @@ import { UsuarioserviceService } from 'src/app/services/usuarioservice.service';
   selector: 'app-newfoodtruck, ngbd-dropdown-basic',
   templateUrl: './newfoodtruck.component.html',
   styleUrls: ['./newfoodtruck.component.css'],
+  styles: [
+    `
+      input::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+    `,
+  ],
 })
 export class NewfoodtruckComponent implements OnInit {
   enviado: Boolean;
@@ -34,16 +43,7 @@ export class NewfoodtruckComponent implements OnInit {
     this.corteImg = false;
     if(this.checkImg()){
       if (this.checkFt(ft)){
-        let estado = this.ftservice.createFoodtruck(ft,this.imgFoodTruck);
-        console.log(estado);
-        if (estado == 'Fallido') {
-          this.enviado = false;
-          this.error = true;
-        } else {
-         
-          this.enviado = true;
-          this.error = false;
-        }
+        this.ftservice.createFoodtruck(ft,this.imgFoodTruck);
       }else{
         console.log("Completa todo")
       }
@@ -64,8 +64,7 @@ export class NewfoodtruckComponent implements OnInit {
     let desc = ft.value.descripcion.trim();
     let ig = ft.value.instagram.trim();
     let fb = ft.value.facebook.trim();
-    let wp = ft.value.whatsapp.trim();
-    let cond2 = (((((((nombre.length > 0 && tipo.length > 0 )&& url.length > 0) && desc.length > 0) && ig.length > 0 )&& fb.length > 0) && wp.length > 0));
+    let cond2 = ((((((nombre.length > 0 && tipo.length > 0 )&& url.length > 0) && desc.length > 0) && ig.length > 0 )&& fb.length > 0));
     return cond2;
   }
 

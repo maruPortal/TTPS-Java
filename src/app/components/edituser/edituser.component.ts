@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Usuario } from 'src/app/model/usuario';
 import { UsuarioserviceService } from 'src/app/services/usuarioservice.service';
 
@@ -21,7 +22,8 @@ export class EdituserComponent implements OnInit {
   user_tipo:String;
   constructor(
     private userService: UsuarioserviceService,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -46,10 +48,12 @@ export class EdituserComponent implements OnInit {
     this.userService.editUser(envio).subscribe(
       () => {
         //actualiza los datos
-        this.enviado=true;
+        this.toastr.success("Perfil actualizado con exito","Perfil Actualizado");
+
       },
       (err: HttpErrorResponse) => {
         console.log('estado de error: ', err.status, typeof err.status);
+        this.toastr.error("Error al actualizar el perfil","Error");
       }
     );
   }

@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { Solicitud } from 'src/app/model/solicitud';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-valorar, ngbd-rating-template, ',
@@ -34,7 +35,8 @@ export class ValorarComponent implements OnInit {
   puntos: {};
   constructor(private userService: UsuarioserviceService,
               private ftService: FoodtruckService,
-              private router: Router) { }
+              private router: Router,
+              private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.userService.isOrganizador();
@@ -70,9 +72,11 @@ export class ValorarComponent implements OnInit {
     this.userService.calificarSolicitud(this.solicitud.id,this.puntos).subscribe(
       (response)=>{
         this.router.navigateByUrl('/home-organizador');
+        this.toastr.success("Calificacion enviada con exito","Solicitud Calificada");
       },
       (err: HttpErrorResponse) =>{
         console.log("estado de error:   " + err.status);
+        this.toastr.error("Error al enviar calificacion","Error");
       }
     )
   }

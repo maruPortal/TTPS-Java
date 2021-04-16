@@ -11,15 +11,16 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Foodtruck } from '../model/foodtruck';
 import { NewfoodtruckComponent } from '../components/newfoodtruck/newfoodtruck.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FoodtruckService {
   elEstado: string;
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router, private toastr:ToastrService ) {}
 
-  createFoodtruck(ft: NgForm, img): String {
+  createFoodtruck(ft: NgForm, img){
     console.log(img);
     let id = sessionStorage.getItem('id');
     let dueñoID = { id: `${id}` };
@@ -36,15 +37,14 @@ export class FoodtruckService {
     };
     this.http.post<any>(`${environment.url}/foodtruck`, ftruck).subscribe(
       (response) => {
-        this.elEstado = 'Exito';
+        this.toastr.success("El foodtruck se agrego con exito", "FoodTruck Creado",{timeOut:4000});
         this.router.navigateByUrl('list-foodtrucks');
       },
       (err: HttpErrorResponse) => {
         console.log('estado de error: ', err.status);
-        this.elEstado = 'Fallido';
+        this.toastr.error("Error al crear el foodtruck: " + err.status,"Error");
       }
     );
-    return this.elEstado;
   }
 
   deleteFoodtruck(idFt: string): Observable<Object> {

@@ -25,11 +25,6 @@
     </div>
   </div><br>
   <div>
-    <div *ngIf="error" class="row justify-content-md-center" style="text-align: center;">
-      <div class="alert alert-danger col-md-3" role="alert">
-        ¡Alguno de los datos ingresados no son correctos!
-      </div>  
-    </div>
     <div style="justify-content: center; display: flex;">
       <div style="border-radius: 10px;margin-right: 15%; margin-left: 15%; background-color: #ffffffdd;">
         <form *ngIf="!enviado"  style="width: 1000px;padding-top: 20px; padding-bottom: 30px; padding-right: 30px; padding-left: 30px;" #edit="ngForm" ngNativeValidate (ngSubmit)="onSubmit(edit)">

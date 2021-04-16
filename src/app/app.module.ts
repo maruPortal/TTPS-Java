@@ -23,8 +23,9 @@ import { ListeventosComponent } from './components/listeventos/listeventos.compo
 import { NeweventComponent } from './components/newevent/newevent.component';
 import { EditEventoComponent } from './components/edit-evento/edit-evento.component';
 import { JwtInterceptorInterceptor } from './helpers/jwt-interceptor.interceptor';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,13 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
             NgbModule, 
             BrowserAnimationsModule,
             //LeafletModule.forRoot()
-            LeafletModule
+            LeafletModule,
+            BrowserAnimationsModule,
+            ToastrModule.forRoot({
+              timeOut:3000,
+              progressBar:true,
+              preventDuplicates: true,
+            })
           ],
   providers: [UsuarioserviceService, FoodtruckService, {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptorInterceptor, multi:true}],
   bootstrap: [AppComponent],

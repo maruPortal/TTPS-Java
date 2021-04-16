@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Foodtruck } from 'src/app/model/foodtruck';
 import { FoodtruckService } from 'src/app/services/foodtruck.service';
 import { UsuarioserviceService } from 'src/app/services/usuarioservice.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-listfoodtrucks, ngbd-dropdown-basic, ngbd-modal-config',
@@ -14,11 +15,6 @@ import { UsuarioserviceService } from 'src/app/services/usuarioservice.service';
 })
 export class ListfoodtrucksComponent implements OnInit {
   foodtrucks= [];
-  modificado: Boolean;
-  errorDel: Boolean;
-  eliminado: Boolean;
-  sinCambios: Boolean;
-
   user_username: String;
   user_tipo: String;
 
@@ -26,6 +22,7 @@ export class ListfoodtrucksComponent implements OnInit {
     private ftService: FoodtruckService,
     private router: Router,
     private userService: UsuarioserviceService,
+    private toastr: ToastrService,
     config: NgbModalConfig, private modalService: NgbModal) {
         config.backdrop = 'static';
         config.keyboard = false;
@@ -36,20 +33,6 @@ export class ListfoodtrucksComponent implements OnInit {
     this.getFoodTrucks();
     this.user_username = sessionStorage.getItem('username');
     this.user_tipo = sessionStorage.getItem('tipoUsuario');
-
-    
-    let estadoModif = sessionStorage.getItem('estadoModificacion');
-    if (estadoModif == 'ModificadoExitosamente') {
-      this.modificado = true;
-    } else {
-      if (estadoModif == 'SinCambios') {
-        this.sinCambios = true;
-      } else {
-        this.sinCambios = false;
-        this.modificado = false;
-      }
-    }
-    sessionStorage.setItem('estadoModificacion', '');
   }
 
   open(content) {
@@ -76,22 +59,17 @@ export class ListfoodtrucksComponent implements OnInit {
 
   borrarFoodTruck(idFt: string): void {
     
-    this.foodtrucks.splice(this.foodtrucks.indexOf(this.foodtrucks.find(element => element.id == idFt)),1);
+    
     this.modalService.dismissAll();
-
-
-    this.sinCambios = false;
-    console.log('Foodtruck: ' + idFt);
     this.ftService.deleteFoodtruck(idFt).subscribe(
       (response) => {
-        this.errorDel = false;
-        this.eliminado = true;
+        this.toastr.success("Foodtruck elimando con exito","Foodtruck Eliminado")
+        this.foodtrucks.splice(this.foodtrucks.indexOf(this.foodtrucks.find(element => element.id == idFt)),1);
         this.getFoodTrucks();
       },
       (err: HttpErrorResponse) => {
         console.log('estado de error: ', err.status);
-        this.errorDel = true;
-        this.eliminado = false;
+        this.toastr.error("Error al eliminar el foodtruck:  "+err.status,"Error");
       }
     );
   }

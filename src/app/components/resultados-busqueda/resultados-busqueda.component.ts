@@ -5,7 +5,7 @@ import { Foodtruck } from 'src/app/model/foodtruck';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-resultados-busqueda',
+  selector: 'app-resultados-busqueda, ngbd-carousel-basic',
   templateUrl: './resultados-busqueda.component.html',
   styleUrls: ['./resultados-busqueda.component.css']
 })
