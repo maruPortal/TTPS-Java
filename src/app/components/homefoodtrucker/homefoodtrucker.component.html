@@ -62,7 +62,7 @@
           <a ngbNavLink class="botonNav" style="color: #000000cc; font-weight: bold;">Solicitudes</a>
           <ng-template ngbNavContent>
             <div style="overflow: auto; max-height: 350px;">
-              
+              <div *ngIf="nuevas.length==0" style="margin-left: 20px; font-weight: bold; color: #000000aa;">No hay solicitudes nuevas para mostrar</div>
               <!--Div con DATA de UNA solicitud RECIBIDA-->
               <div *ngFor="let each of nuevas" class="container" style="background-color: #00000068; padding-top: 10px; padding-bottom: 10px; margin-bottom: 20px;">
                 <div class="row h-100" style=" margin-bottom: 15px;">
@@ -108,10 +108,11 @@
           </ng-template>
         </ng-container>
         <ng-container ngbNavItem>
-          <a ngbNavLink class="botonNav" style="color: #000000cc; margin-left: 10px;font-weight: bold;">Confirmadas</a>
+          <a ngbNavLink class="botonNav" style="color: #000000cc; margin-left: 10px;font-weight: bold;">En Curso</a>
           <ng-template ngbNavContent id="confirmadas">
             <div style="overflow: auto; max-height: 350px;">
               <!--Div con DATA de UNA solicitud CONFIRMADA-->
+              <div *ngIf="aceptadas.length==0" style="margin-left: 20px; font-weight: bold; color: #000000aa;">No hay reservas activas para mostrar</div>
               <div *ngFor="let each of aceptadas" class="container" style="background-color: #00000068; padding-top: 10px; padding-bottom: 10px; margin-bottom: 20px;">
                 <div class="row h-100" style=" margin-bottom: 15px;">
                   <div class="col-4 my-auto">
@@ -139,7 +140,7 @@
                       FOODTRUCK
                     </div>
                   </div>
-                  <div class="col-4 my-auto" style="vertical-align: middle;">
+                  <div class="col-8 my-auto" style="vertical-align: middle;">
                     <div style="color: white;-webkit-text-stroke: 0.5px #000000AA;font-size: 18px; text-align: left; font-weight: bold;">
                       {{ each.foodtruck.nombre }}
                     </div>
@@ -147,7 +148,107 @@
                       {{ each.foodtruck.tipo_servicio }}
                     </div>
                   </div>
+                </div>
+              </div>
+
+            </div>
+          </ng-template>
+        </ng-container>
+        <ng-container ngbNavItem>
+          <a ngbNavLink class="botonNav" style="color: #000000cc; margin-left: 10px;font-weight: bold;">Finalizadas</a>
+          <ng-template ngbNavContent id="confirmadas">
+            <div style="overflow: auto; max-height: 350px;">
+              <!--Div con DATA de UNA solicitud CONFIRMADA-->
+              <div *ngIf="finalizadas.length==0" style="margin-left: 20px; font-weight: bold; color: #000000aa;">No hay reservas finalizadas para mostrar</div>
+              <div *ngFor="let each of finalizadas" class="container" style="background-color: #00000068; padding-top: 10px; padding-bottom: 10px; margin-bottom: 20px;">
+                <div class="row h-100" style=" margin-bottom: 15px;">
                   <div class="col-4 my-auto">
+                    <div style="color: white; -webkit-text-stroke: 0.5px #000000AA; font-size: 22px; 
+                                text-align: center; border-right: 2px solid white">
+                      EVENTO
+                    </div>
+                  </div>
+                  <div class="col-4 my-auto">
+                    <div style="color: white;-webkit-text-stroke: 0.5px #000000AA;font-size: 18px; text-align: left; font-weight: bold;">
+                      {{ each.evento.nombre }}
+                    </div>
+                    <div style="color: white;font-size: 18px; text-align: left;">
+                      {{ each.evento.fecha_hora }}
+                    </div>
+                  </div>
+                  <div class="col-4 my-auto" style="text-align: center;">
+                    <button class="btn btn-info" disabled><div style="font-size: 16px;">ESPERANDO<br>CALIFICACION</div></button>
+                  </div>
+                </div>
+                <div class="row h-100">
+                  <div class="col-4 my-auto" style="vertical-align: middle;">
+                    <div style="color: white; -webkit-text-stroke: 0.5px #000000AA; font-size: 22px; 
+                                text-align: center; border-right: 2px solid white">
+                      FOODTRUCK
+                    </div>
+                  </div>
+                  <div class="col-8 my-auto" style="vertical-align: middle;">
+                    <div style="color: white;-webkit-text-stroke: 0.5px #000000AA;font-size: 18px; text-align: left; font-weight: bold;">
+                      {{ each.foodtruck.nombre }}
+                    </div>
+                    <div style="color: white;font-size: 18px; text-align: left; ">
+                      {{ each.foodtruck.tipo_servicio }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </ng-template>
+        </ng-container>
+        <ng-container ngbNavItem>
+          <a ngbNavLink class="botonNav" style="color: #000000cc; margin-left: 10px;font-weight: bold;">Historial</a>
+          <ng-template ngbNavContent id="confirmadas">
+            <div style="overflow: auto; max-height: 350px;">
+              <div *ngIf="historial.length==0" style="margin-left: 20px; font-weight: bold; color: #000000aa;">Aun no hay reservas para mostrar</div>
+              <!--Div con DATA de UNA solicitud CONFIRMADA-->
+              <div *ngFor="let each of historial" class="container" style="background-color: #00000068; padding-top: 10px; padding-bottom: 10px; margin-bottom: 20px;">
+                <div class="row h-100" style=" margin-bottom: 15px;">
+                  <div class="col-4 my-auto">
+                    <div style="color: white; -webkit-text-stroke: 0.5px #000000AA; font-size: 22px; 
+                                text-align: center; border-right: 2px solid white">
+                      EVENTO
+                    </div>
+                  </div>
+                  <div *ngIf="each.estado=='Calificada'" class="col-8 my-auto">
+                    <div style="color: white;-webkit-text-stroke: 0.5px #000000AA;font-size: 18px; text-align: left; font-weight: bold;">
+                      {{ each.evento.nombre }}
+                    </div>
+                    <div style="color: white;font-size: 18px; text-align: left;">
+                      {{ each.evento.fecha_hora }}
+                    </div>
+                  </div>
+                  <div *ngIf="each.estado=='Rechazada'" class="col-4 my-auto" style="text-align: center;">
+                    <div style="color: white;-webkit-text-stroke: 0.5px #000000AA;font-size: 18px; text-align: left; font-weight: bold;">
+                      {{ each.evento.nombre }}
+                    </div>
+                    <div style="color: white;font-size: 18px; text-align: left;">
+                      {{ each.evento.fecha_hora }}
+                    </div>
+                  </div>
+                  <div *ngIf="each.estado=='Rechazada'" class="col-4 my-auto" style="text-align: center;">
+                    <button class="btn btn-danger" disabled>RECHAZADA</button>
+                  </div>
+                </div>
+                <div class="row h-100">
+                  <div class="col-4 my-auto" style="vertical-align: middle;">
+                    <div style="color: white; -webkit-text-stroke: 0.5px #000000AA; font-size: 22px; 
+                                text-align: center; border-right: 2px solid white">
+                      FOODTRUCK
+                    </div>
+                  </div>
+                  <div class="col-8 my-auto" style="vertical-align: middle;">
+                    <div style="color: white;-webkit-text-stroke: 0.5px #000000AA;font-size: 18px; text-align: left; font-weight: bold;">
+                      {{ each.foodtruck.nombre }}
+                    </div>
+                    <div style="color: white;font-size: 18px; text-align: left; ">
+                      {{ each.foodtruck.tipo_servicio }}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -193,7 +294,7 @@
                   </div> 
                 </div>
               </div>
-              <img [src]="images[i]" alt="My image {{i + 1}} description" style="max-height: 400px;">
+              <img [src]="images[i]" alt="My image {{i + 1}} description" style="height: 400px;">
             </div>
         </ng-template>
       </ngb-carousel>

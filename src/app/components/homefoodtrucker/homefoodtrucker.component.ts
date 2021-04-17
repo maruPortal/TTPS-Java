@@ -39,6 +39,8 @@ export class HomefoodtruckerComponent implements OnInit {
   solis = [];
   nuevas = [];
   aceptadas = [];
+  finalizadas = [];
+  historial = [];
 
   constructor(private userService: UsuarioserviceService,
               private router: Router,
@@ -86,19 +88,29 @@ export class HomefoodtruckerComponent implements OnInit {
         console.log("Solis: " + listaRes.length);
         let estNue = [];
         let estAce = [];
+        let estFin = [];
+        let estHis = [];
         listaRes.forEach(function(value){
           if (value.estado == "Enviada"){
             estNue.push(value);
           }else{
             if (value.estado == "Aceptada"){
               estAce.push(value);
+            }else{
+              if (value.estado == "Finalizada"){
+                estFin.push(value);
+              }else{
+                if(value.estado!="Cancelada"){
+                  estHis.push(value);
+                }
+              }
             }
           }
         });
-        this.nuevas = estNue;
-        this.aceptadas = estAce;
-        console.log("Nue:  " + this.nuevas.length);
-        console.log("Ace:  " + this.aceptadas.length);
+        this.nuevas = estNue.reverse();
+        this.aceptadas = estAce.reverse();
+        this.finalizadas = estFin.reverse();
+        this.historial = estHis.reverse();
       },
       (err: HttpErrorResponse) =>{
         console.log("estado de error:  " + err.status);
@@ -111,7 +123,7 @@ export class HomefoodtruckerComponent implements OnInit {
       (response) => {
         this.nuevas.splice(this.nuevas.indexOf(soli),1);
         this.aceptadas.push(response);
-        this.toastr.success("Se agrego la reserva a la solapa 'Confirmadas'","Solicitud Aceptada");
+        this.toastr.success("Se agrego la reserva a la solapa 'En Curso'","Solicitud Aceptada");
       },
       (err: HttpErrorResponse) =>{
         console.log("estado de error: " + err.status);

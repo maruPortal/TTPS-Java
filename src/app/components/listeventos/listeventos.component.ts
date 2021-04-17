@@ -7,7 +7,6 @@ import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Foodtruck } from 'src/app/model/foodtruck';
 import { EventosService } from 'src/app/services/eventos.service';
 import { ToastrService } from 'ngx-toastr';
-import { Http2SecureServer } from 'node:http2';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
