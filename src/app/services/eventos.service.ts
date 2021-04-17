@@ -15,8 +15,18 @@ export class EventosService {
     return this.http.post<Evento>(`${environment.url}/eventos`, evento);
   }
 
-  recuperarEventos(): Observable<Evento[]>{
-    let id = sessionStorage.getItem("id");
+  recuperarEventos(): Observable<Evento[]> {
+    let id = sessionStorage.getItem('id');
     return this.http.get<Evento[]>(`${environment.url}/eventos/${id}`);
+  }
+
+  editarEvento(evento): Observable<Evento> {
+    console.log('id de evento a modificar:', evento.id);
+    console.log('estado de evento a modificar:', evento.eliminado);
+
+    return this.http.put<Evento>(
+      `${environment.url}/eventos/${evento.id}`,
+      evento
+    );
   }
 }

@@ -15,6 +15,7 @@ export class Evento {
   forma_pago: String;
   organizador: Usuario;
   imagenes: [];
+  eliminado: Number;
 
   constructor(
     organizador?: Usuario,
@@ -30,7 +31,8 @@ export class Evento {
     descripcion?: String,
     tipo_evento?: String,
     forma_pago?: String,
-    imagenes?: []
+    imagenes?: [],
+    eliminado?: Number
   ) {
     this.organizador = organizador;
     this.id = id;
@@ -46,5 +48,6 @@ export class Evento {
     this.tipo_evento = tipo_evento;
     this.forma_pago = forma_pago;
     this.imagenes = imagenes;
+    this.eliminado = eliminado;
   }
 }

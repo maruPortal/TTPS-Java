@@ -11,10 +11,10 @@ import { ToastrService } from 'ngx-toastr';
   selector: 'app-listfoodtrucks, ngbd-dropdown-basic, ngbd-modal-config',
   templateUrl: './listfoodtrucks.component.html',
   styleUrls: ['./listfoodtrucks.component.css'],
-  providers: [NgbModalConfig, NgbModal]
+  providers: [NgbModalConfig, NgbModal],
 })
 export class ListfoodtrucksComponent implements OnInit {
-  foodtrucks= [];
+  foodtrucks = [];
   user_username: String;
   user_tipo: String;
 
@@ -23,10 +23,12 @@ export class ListfoodtrucksComponent implements OnInit {
     private router: Router,
     private userService: UsuarioserviceService,
     private toastr: ToastrService,
-    config: NgbModalConfig, private modalService: NgbModal) {
-        config.backdrop = 'static';
-        config.keyboard = false;
-    }
+    config: NgbModalConfig,
+    private modalService: NgbModal
+  ) {
+    config.backdrop = 'static';
+    config.keyboard = false;
+  }
 
   ngOnInit(): void {
     this.userService.isFoodtrucker();
@@ -57,19 +59,23 @@ export class ListfoodtrucksComponent implements OnInit {
     this.router.navigateByUrl('edit-foodtruck');
   }
 
-  borrarFoodTruck(idFt: string): void {
-    
-    
+  borrarFoodTruck(ft: Foodtruck): void {
     this.modalService.dismissAll();
-    this.ftService.deleteFoodtruck(idFt).subscribe(
-      (response) => {
-        this.toastr.success("Foodtruck elimando con exito","Foodtruck Eliminado")
-        this.foodtrucks.splice(this.foodtrucks.indexOf(this.foodtrucks.find(element => element.id == idFt)),1);
+    ft.eliminado = 1;
+    this.ftService.deleteFoodtruck(ft).subscribe(
+      () => {
+        this.toastr.success(
+          'Foodtruck elimando con exito',
+          'Foodtruck Eliminado'
+        );
         this.getFoodTrucks();
       },
       (err: HttpErrorResponse) => {
         console.log('estado de error: ', err.status);
-        this.toastr.error("Error al eliminar el foodtruck:  "+err.status,"Error");
+        this.toastr.error(
+          'Error al eliminar el foodtruck:  ' + err.status,
+          'Error'
+        );
       }
     );
   }

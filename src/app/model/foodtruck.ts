@@ -12,6 +12,7 @@ export class Foodtruck {
   puntaje: number;
   dueno: Usuario;
   imagenes: String[];
+  eliminado: number;
 
   constructor(
     id?: string,
@@ -23,7 +24,8 @@ export class Foodtruck {
     whatsapp?: string,
     facebook?: String,
     puntaje?: number,
-    dueno?: Usuario
+    dueno?: Usuario,
+    eliminado?: number
   ) {
     this.id = id;
     this.nombre = nombre;
@@ -35,5 +37,6 @@ export class Foodtruck {
     this.facebook = facebook;
     this.puntaje = puntaje;
     this.dueno = dueno;
+    this.eliminado = eliminado;
   }
 }
