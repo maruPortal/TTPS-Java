@@ -6,6 +6,7 @@ import {
 import { Injectable } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Evento } from '../model/evento';
@@ -20,7 +21,10 @@ import { AuthenticationService } from './authentication.service';
 })
 export class UsuarioserviceService {
   usuario: Usuario;
-  constructor(private http: HttpClient, private router: Router,private authenticationService: AuthenticationService ) {}
+  constructor(private http: HttpClient, 
+              private router: Router,
+              private authenticationService: AuthenticationService,
+              private toastr: ToastrService) {}
 
   getUsuario() {
     let id = sessionStorage.getItem('id');
@@ -106,10 +110,11 @@ export class UsuarioserviceService {
         sessionStorage.setItem('username', response["usuario_username"]);
         sessionStorage.setItem('tipoUsuario', response["usuario_tipo_usuario"]);
         this.router.navigateByUrl('home-foodtrucker');
-        
+        this.toastr.info("Bienvenido " + response["usuario_username"]);
       },
       (err: HttpErrorResponse) => {
         console.log('estado de error: ', err.status);
+        this.toastr.error("Username o Email ya existen en el sistema","Error",{timeOut:4000});
       }
     );
   }
@@ -125,6 +130,7 @@ export class UsuarioserviceService {
           sessionStorage.setItem('username', response["usuario_username"]);
           sessionStorage.setItem('tipoUsuario', response["usuario_tipo_usuario"]);
           this.router.navigateByUrl('home-organizador');
+          this.toastr.info("Bienvenido " + response["usuario_username"]);
           
         },
         (err: HttpErrorResponse) => {
@@ -199,6 +205,11 @@ export class UsuarioserviceService {
         headers: { token: '1123456' },
       }
     );
+  }
+
+  cancelarSolicitud(sId): Observable<Solicitud> {
+    return this.http.put<Solicitud>(
+      `${environment.url}/usuario/cancelarSolicitud/${sId}`,'');
   }
 
   getMisEventos(idUser): Observable<Evento[]> {

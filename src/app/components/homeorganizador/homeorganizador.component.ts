@@ -39,7 +39,10 @@ export class HomeorganizadorComponent implements OnInit {
   solis = [];
   pendientes = [];
   finalizadas = [];
-  
+  calificadas = [];
+  activas = [];
+  estadoCalificado="Calificada";
+  estadoRechazado="Rechazada";
   constructor(private userService: UsuarioserviceService,
               private router: Router,
               private ftService: FoodtruckService,
@@ -85,19 +88,29 @@ export class HomeorganizadorComponent implements OnInit {
       (listaRes) => {
         let estFin = [];
         let estPen = [];
+        let estAct = [];
+        let estCal = [];
         listaRes.forEach(function(value){
           if (value.estado == "Finalizada"){
             estFin.push(value);
           }else{
             if (value.estado == "Enviada"){
               estPen.push(value);
+            }else{
+              if(value.estado == "Calificada" || value.estado == "Rechazada"){
+                estCal.push(value);
+              }else{
+                if(value.estado!= "Cancelada"){
+                  estAct.push(value)
+                }
+              }
             }
           }
         });
-        this.pendientes = estPen;
-        this.finalizadas = estFin;
-        console.log("Pend:  " + this.pendientes.length);
-        console.log("Fina:  " + this.finalizadas.length);
+        this.activas = estAct.reverse();
+        this.calificadas = estCal.reverse();
+        this.pendientes = estPen.reverse();
+        this.finalizadas = estFin.reverse();
       },
       (err: HttpErrorResponse) =>{
         console.log("estado de error:  " + err.status);
@@ -105,6 +118,8 @@ export class HomeorganizadorComponent implements OnInit {
       }
     );
   }
+
+
 
   logOut() {
     this.userService.logOut();
@@ -171,24 +186,11 @@ export class HomeorganizadorComponent implements OnInit {
   }
 
   notVacios(ft:NgForm){
-    let avanzar=true;
-    if ((ft.value.zona == null) || (ft.value.zona.trim()=="")){
-      avanzar=false;
-    }else{
-      avanzar=true;
-    }
-    if ((ft.value.comida == null) || (ft.value.comida.trim()=="")){
-      avanzar=false;
-    }else{
-      avanzar=true;
-    }
-    if ((ft.value.nombre == null) || (ft.value.nombre.trim()=="")){
-      avanzar=false;
-    }else{
-      avanzar=true;
-    }
+    let condZona= ((ft.value.zona == null) || (ft.value.zona.trim()==""));
+    let condComida= ((ft.value.comida == null) || (ft.value.comida.trim()==""));
+    let condNombre= ((ft.value.nombre == null) || (ft.value.nombre.trim()==""));
 
-    return avanzar;
+    return !((condZona && condComida)&&condNombre);
   }
 
   valorarReserva(sId){
@@ -201,6 +203,34 @@ export class HomeorganizadorComponent implements OnInit {
         console.log("estado de error:   " + err.status);
         this.toastr.error("Error al recuperar la solicitud para valorar","Error")
       }
+    )
+  }
+
+  cancelarReserva(s){
+    this.userService.cancelarSolicitud(s.id).subscribe(
+      (solicitud) => {
+        console.log("Antes: " + this.pendientes.toString());
+        console.log(this.pendientes.indexOf(s));
+        for(let each of this.pendientes){
+          console.log(each.toString());
+        }
+        this.pendientes.splice(this.pendientes.indexOf(s),1);
+        console.log("Despues: " + this.pendientes.toString());
+        for(let each of this.pendientes){
+          console.log(each.toString());
+        }
+        this.toastr.success("Solicitud cancelada con exito","Solicitud Cancelada");
+      },
+      (err: HttpErrorResponse) => {
+        if (err.status==400){
+          this.toastr.error("La solicitud ya fue aceptada y no puede cancelarse","Error",{timeOut:5000});
+          this.pendientes.splice(this.pendientes.indexOf(s),1);
+          this.activas.push(s);
+        }else{
+          this.toastr.error("Ocurrio un error al modificar la solicitud","Error");
+        }
+      }
+
     )
   }
 

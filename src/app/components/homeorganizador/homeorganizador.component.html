@@ -85,10 +85,12 @@
     <div style="background-color: #e2e2e2c9; border-radius: 10px;max-height: 400px; 
                 padding-bottom: 10px;">
       <nav ngbNav #nav="ngbNav" class="nav-tabs">
+        <!-- Solicitudes Finalizadas -->
         <ng-container ngbNavItem>
           <a ngbNavLink class="botonNav" style="color: #000000cc; font-weight: bold;">Finalizadas</a>
           <ng-template ngbNavContent>
             <div style="overflow: auto; max-height: 350px;">
+              <div *ngIf="finalizadas.length==0" style="margin-left: 20px; font-weight: bold; color: #000000aa;">No hay reservas finalizadas para mostrar</div>
               <!--Div con DATA de UNA solicitud FINALIZADA-->
               <div *ngFor="let each of finalizadas" class="container" style="background-color: #00000068; padding-top: 10px; padding-bottom: 10px; margin-bottom: 20px;">
                 <div class="row h-100" style=" margin-bottom: 15px;">
@@ -133,12 +135,14 @@
             </div>
           </ng-template>
         </ng-container>
+        <!-- Solicitudes En Curso -->
         <ng-container ngbNavItem>
-          <a ngbNavLink class="botonNav" style="color: #000000cc; margin-left: 10px;font-weight: bold;">Pendientes</a>
+          <a ngbNavLink class="botonNav" style="color: #000000cc; margin-left: 10px;font-weight: bold;">En Curso</a>
           <ng-template ngbNavContent>
             <div style="overflow: auto; max-height: 350px;">
+              <div *ngIf="activas.length==0" style="margin-left: 20px; font-weight: bold; color: #000000aa;">No hay reservas en curso para mostrar</div>
               <!--Div con DATA de UNA solicitud PENDIENTE-->
-              <div *ngFor="let each of pendientes" class="container" style="background-color: #00000068; padding-top: 10px; padding-bottom: 10px; margin-bottom: 20px;">
+              <div *ngFor="let each of activas" class="container" style="background-color: #00000068; padding-top: 10px; padding-bottom: 10px; margin-bottom: 20px;">
                 <div class="row h-100" style=" margin-bottom: 15px;">
                   <div class="col-4 my-auto">
                     <div style="color: white; -webkit-text-stroke: 0.5px #000000AA; font-size: 22px; 
@@ -154,6 +158,110 @@
                       {{ each.evento.fecha_hora }}
                     </div>
                   </div>
+                </div>
+                <div class="row h-100">
+                  <div class="col-4 my-auto" style="vertical-align: middle;">
+                    <div style="color: white; -webkit-text-stroke: 0.5px #000000AA; font-size: 22px; 
+                                text-align: center; border-right: 2px solid white">
+                      FOODTRUCK
+                    </div>
+                  </div>
+                  <div class="col-8 my-auto" style="vertical-align: middle;">
+                    <div style="color: white;-webkit-text-stroke: 0.5px #000000AA;font-size: 18px; text-align: left; font-weight: bold;">
+                      {{ each.foodtruck.nombre }}
+                    </div>
+                    <div style="color: white;font-size: 18px; text-align: left; ">
+                      {{ each.foodtruck.tipo_servicio }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </ng-template>
+        </ng-container>
+        <!-- Solicitudes Pendientes -->
+        <ng-container ngbNavItem>
+          <a ngbNavLink class="botonNav" style="color: #000000cc; margin-left: 10px;font-weight: bold;">Pendientes</a>
+          <ng-template ngbNavContent>
+            <div style="overflow: auto; max-height: 350px;">
+              <!--Div con DATA de UNA solicitud PENDIENTE-->
+              <div *ngIf="pendientes.length==0" style="margin-left: 20px; font-weight: bold; color: #000000aa;">No hay reservas pendientes para mostrar</div>
+              <div *ngFor="let each of pendientes" class="container" style="background-color: #00000068; padding-top: 10px; padding-bottom: 10px; margin-bottom: 20px;">
+                <div class="row h-100" style=" margin-bottom: 15px;">
+                  <div class="col-4 my-auto">
+                    <div style="color: white; -webkit-text-stroke: 0.5px #000000AA; font-size: 22px; 
+                                text-align: center; border-right: 2px solid white">
+                      EVENTO
+                    </div>
+                  </div>
+                  <div class="col-4 my-auto">
+                    <div style="color: white;-webkit-text-stroke: 0.5px #000000AA;font-size: 18px; text-align: left; font-weight: bold;">
+                      {{ each.evento.nombre }}
+                    </div>
+                    <div style="color: white;font-size: 18px; text-align: left;">
+                      {{ each.evento.fecha_hora }}
+                    </div>
+                  </div>
+                  <div class="col-4 my-auto">
+                    <button class="btn btn-info" (click)="cancelarReserva(each)">CANCELAR</button>
+                  </div>
+                </div>
+                <div class="row h-100">
+                  <div class="col-4 my-auto" style="vertical-align: middle;">
+                    <div style="color: white; -webkit-text-stroke: 0.5px #000000AA; font-size: 22px; 
+                                text-align: center; border-right: 2px solid white">
+                      FOODTRUCK
+                    </div>
+                  </div>
+                  <div class="col-8 my-auto" style="vertical-align: middle;">
+                    <div style="color: white;-webkit-text-stroke: 0.5px #000000AA;font-size: 18px; text-align: left; font-weight: bold;">
+                      {{ each.foodtruck.nombre }}
+                    </div>
+                    <div style="color: white;font-size: 18px; text-align: left; ">
+                      {{ each.foodtruck.tipo_servicio }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </ng-template>
+        </ng-container>
+        <!--Solicitudes pasadas-->
+        <ng-container ngbNavItem>
+          <a ngbNavLink class="botonNav" style="color: #000000cc; margin-left: 10px;font-weight: bold;">Historial</a>
+          <ng-template ngbNavContent>
+            <div style="overflow: auto; max-height: 350px;">
+              <div *ngIf="calificadas.length==0" style="margin-left: 20px; font-weight: bold; color: #000000aa;">Aun no hay reservas para mostrar</div>
+              <!--Div con DATA de UNA solicitud PENDIENTE-->
+              <div *ngFor="let each of calificadas" class="container" style="background-color: #00000068; padding-top: 10px; padding-bottom: 10px; margin-bottom: 20px;">
+                <div class="row h-100" style=" margin-bottom: 15px;">
+                  <div class="col-4 my-auto">
+                    <div style="color: white; -webkit-text-stroke: 0.5px #000000AA; font-size: 22px; 
+                                text-align: center; border-right: 2px solid white">
+                      EVENTO
+                    </div>
+                  </div>
+                  <div *ngIf="each.estado==estadoCalificado" class="col-8 my-auto">
+                    <div style="color: white;-webkit-text-stroke: 0.5px #000000AA;font-size: 18px; text-align: left; font-weight: bold;">
+                      {{ each.evento.nombre }}
+                    </div>
+                    <div style="color: white;font-size: 18px; text-align: left;">
+                      {{ each.evento.fecha_hora }}
+                    </div>
+                  </div>
+                  <div *ngIf="each.estado==estadoRechazado" class="col-4 my-auto">
+                    <div style="color: white;-webkit-text-stroke: 0.5px #000000AA;font-size: 18px; text-align: left; font-weight: bold;">
+                      {{ each.evento.nombre }}
+                    </div>
+                    <div style="color: white;font-size: 18px; text-align: left;">
+                      {{ each.evento.fecha_hora }}
+                    </div>
+                  </div>
+                  <div *ngIf="each.estado==estadoRechazado" class="col-4 my-auto">
+                    <button type="button" disabled class="btn btn-danger">RECHAZADA</button>
+                  </div> 
                 </div>
                 <div class="row h-100">
                   <div class="col-4 my-auto" style="vertical-align: middle;">
@@ -213,7 +321,7 @@
                   </div> 
                 </div>
               </div>
-              <img [src]="images[i]" alt="My image {{i + 1}} description" style="max-height: 400px;">
+              <img [src]="images[i]" alt="My image {{i + 1}} description" style="height: 400px;">
             </div>
           </a>
         </ng-template>
