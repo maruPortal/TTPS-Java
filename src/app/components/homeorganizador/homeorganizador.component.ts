@@ -224,6 +224,8 @@ export class HomeorganizadorComponent implements OnInit {
       (err: HttpErrorResponse) => {
         if (err.status==400){
           this.toastr.error("La solicitud ya fue aceptada y no puede cancelarse","Error",{timeOut:5000});
+          this.pendientes.splice(this.pendientes.indexOf(s),1);
+          this.activas.push(s);
         }else{
           this.toastr.error("Ocurrio un error al modificar la solicitud","Error");
         }
