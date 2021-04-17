@@ -127,7 +127,12 @@ export class HomefoodtruckerComponent implements OnInit {
       },
       (err: HttpErrorResponse) =>{
         console.log("estado de error: " + err.status);
-        this.toastr.error("Error al aceptar solicitud","Error");
+        if(err.status==400){
+          this.toastr.error("La solicitud fue cancelada","Error",{timeOut:4000});
+          this.nuevas.splice(this.nuevas.indexOf(soli),1);
+        }else{
+          this.toastr.error("Error al aceptar solicitud","Error");
+        }
       }
     )
   }
@@ -140,7 +145,12 @@ export class HomefoodtruckerComponent implements OnInit {
       },
       (err: HttpErrorResponse) =>{
         console.log("estado de error: " + err.status);
-        this.toastr.error("Error al aceptar solicitud","Error");
+        if (err.status==400){
+          this.toastr.error("La solicitud fue cancelada","Error",{timeOut:4000});
+          this.nuevas.splice(this.nuevas.indexOf(soli),1);
+        }else{
+          this.toastr.error("Error al rechazar solicitud","Error");
+        }
       }
     )
   }
@@ -153,7 +163,7 @@ export class HomefoodtruckerComponent implements OnInit {
       },
       (err: HttpErrorResponse) =>{
         console.log("estado de error: " + err.status);
-        this.toastr.error("Error al aceptar solicitud","Error");
+        this.toastr.error("Error al finalizar solicitud","Error");
       }
     )
   }

@@ -68,7 +68,7 @@ export class ListfoodtrucksComponent implements OnInit {
           'Foodtruck elimando con exito',
           'Foodtruck Eliminado'
         );
-        this.getFoodTrucks();
+        this.foodtrucks.splice(this.foodtrucks.indexOf(ft),1);
       },
       (err: HttpErrorResponse) => {
         console.log('estado de error: ', err.status);

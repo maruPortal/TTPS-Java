@@ -53,7 +53,11 @@ export class EdituserComponent implements OnInit {
       },
       (err: HttpErrorResponse) => {
         console.log('estado de error: ', err.status, typeof err.status);
-        this.toastr.error("Error al actualizar el perfil","Error");
+        if(err.status==400){
+          this.toastr.error("El username o email ya existen en el sistema","Error",{timeOut:4000});
+        }else{
+          this.toastr.error("Error al actualizar el perfil","Error");
+        }
       }
     );
   }
