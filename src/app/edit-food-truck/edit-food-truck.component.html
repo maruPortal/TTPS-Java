@@ -64,7 +64,7 @@
       </div>
     </div>
     <div class="form row">
-      <div class="form-group col-md-12">
+      <div class="form-group col-md-6">
         <label for=""><b>Descripción</b></label>
         <textarea
           cols="15"
@@ -74,8 +74,27 @@
           ngModel
           required
           class="form-control"
+          style="max-height: 160px;"
           placeholder="Ingrese una breve descripción"
         ></textarea>
+      </div>
+      <div class="form-group col-md-6">
+        <label><b>Elegi una imagen</b></label><br>
+        <div *ngIf="!cortarImg">
+          <input 
+          type="file" 
+          name="image" 
+          (change)="onUploadChange($event)" 
+          accept=".png, .jpg, .jpeg" />
+        </div>
+          <div style="display: inline-block;" *ngFor="let each of imagenes">
+            <div style="display: flex;">
+              <button style="width: 25px; height: 25px; background-color: black; 
+                            position: absolute; float: right; color: white; font-weight: normal; text-align:start;"
+                            (click)="sacarFoto(each)">X</button>
+              <img src={{each}} alt="" style="margin-right: 10px; max-width: 100px; max-height: 100px;" id="img">
+            </div>
+          </div>
       </div>
     </div>
     <div style="text-align: center;">

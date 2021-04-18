@@ -78,7 +78,7 @@ export class FoodtruckService {
     );
   }
 
-  updateFt(ft: NgForm): Observable<Foodtruck> {
+  updateFt(ft: NgForm, imgs): Observable<Foodtruck> {
     let id = sessionStorage.getItem('idFt');
 
     let idO = sessionStorage.getItem('id');
@@ -92,6 +92,7 @@ export class FoodtruckService {
       facebook: ft.value.facebook,
       whatsapp: ft.value.whatsapp,
       dueno: dueñoID,
+      imagenes: imgs
     };
     return this.http.put<Foodtruck>(
       `${environment.url}/foodtruck/${id}`,

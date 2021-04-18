@@ -20,8 +20,11 @@ export class EditFoodTruckComponent implements OnInit {
   instagram: String;
   facebook: String;
   whatsapp: String;
+  imagenes: String[];
+  imagenesBack= [];
   error: Boolean;
   sinCambios: Boolean;
+  cortarImg: Boolean =false;
   constructor(
     private ftService: FoodtruckService,
     private router: Router,
@@ -39,28 +42,37 @@ export class EditFoodTruckComponent implements OnInit {
       this.instagram = ft.instagram;
       this.facebook = ft.facebook;
       this.whatsapp = ft.whatsapp;
+      this.imagenes = ft.imagenes;
+      for (let each of ft.imagenes){
+        this.imagenesBack.push(each);
+      }
     });
   }
 
   onSubmit(ft: NgForm) {
     this.sinCambios = this.verCambios(ft);
+    console.log(this.sinCambios);
 
     let envio = this.comprobarCampos(ft);
 
-    this.ftService.updateFt(envio).subscribe(
-      () => {
-        if (this.sinCambios) {
-          this.toastr.warning("No se detectaron cambios","Modificacion Cancelada",{timeOut:4000});
-        } else {
-          this.toastr.success("El foodtruck fue modificado con exito","Modificación Exitosa");
+    if(this.imagenes.length>0){
+      this.ftService.updateFt(envio,this.imagenes).subscribe(
+        () => {
+          if (this.sinCambios) {
+            this.toastr.warning("No se detectaron cambios","Modificacion Cancelada",{timeOut:4000});
+          } else {
+            this.toastr.success("El foodtruck fue modificado con exito","Modificación Exitosa");
+          }
+          this.router.navigateByUrl('list-foodtrucks');
+        },
+        (err: HttpErrorResponse) => {
+          console.log('estado de error: ', err.status);
+          this.toastr.error("Error al modificar el foodtruck:  " + err.status,"Error");
         }
-        this.router.navigateByUrl('list-foodtrucks');
-      },
-      (err: HttpErrorResponse) => {
-        console.log('estado de error: ', err.status);
-        this.toastr.error("Error al modificar el foodtruck:  " + err.status,"Error");
-      }
-    );
+      );
+    }else{
+      this.toastr.info("Por favor agrega al menos 1 imagen", "Faltan imagenes");
+    }
   }
 
   comprobarCampos(data: NgForm): NgForm {
@@ -79,15 +91,12 @@ export class EditFoodTruckComponent implements OnInit {
     if (data.value.instagram == '') {
       data.value.instagram = this.instagram;
     }
-
     if (data.value.facebook == '') {
       data.value.facebook = this.facebook;
     }
-
     if (data.value.whatsapp == '') {
       data.value.whatsapp = this.whatsapp;
     }
-
     return data;
   }
 
@@ -99,12 +108,48 @@ export class EditFoodTruckComponent implements OnInit {
       ft.value.tipo_servicio == '' &&
       ft.value.instagram == '' &&
       ft.value.facebook == '' &&
-      ft.value.whatsapp == ''
+      ft.value.whatsapp == '' &&
+      this.comprobarImagenes()
     );
+  }
+
+  comprobarImagenes(){
+    if ((this.imagenes.length > this.imagenesBack.length) || (this.imagenes.length < this.imagenesBack.length)){
+      return false;
+    }
+    for (let i=0; i < this.imagenes.length; i++){
+      if (this.imagenes[i] != this.imagenesBack[i]){
+        return false;
+      }
+    }
+    return true;
   }
 
   cancelar() {
     this.router.navigateByUrl('list-foodtrucks');
+  }
+
+  onUploadChange(evt: any) {
+    const file = evt.target.files[0];
+  
+    if (file) {
+      const reader = new FileReader();
+  
+      reader.onload = this.handleReaderLoaded.bind(this);
+      reader.readAsBinaryString(file);
+    }
+  }
+  
+  handleReaderLoaded(e) {
+    this.imagenes.push('data:image/png;base64,' + btoa(e.target.result));
+    if (this.imagenes.length==3){
+      this.cortarImg=true;
+    }    
+  }
+
+  sacarFoto(img){
+    this.imagenes.splice(this.imagenes.indexOf(img),1);
+    this.cortarImg=false;
   }
 
   logOut() {
