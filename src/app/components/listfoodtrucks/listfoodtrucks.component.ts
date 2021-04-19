@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Foodtruck } from 'src/app/model/foodtruck';
 import { FoodtruckService } from 'src/app/services/foodtruck.service';
@@ -12,12 +12,6 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './listfoodtrucks.component.html',
   styleUrls: ['./listfoodtrucks.component.css'],
   providers: [NgbModalConfig, NgbModal],
-  encapsulation: ViewEncapsulation.None,
-  styles: [`
-    .card.disabled {
-      opacity: 0.5;
-    }
-  `]
 })
 export class ListfoodtrucksComponent implements OnInit {
   foodtrucks = [];
@@ -52,7 +46,6 @@ export class ListfoodtrucksComponent implements OnInit {
       (listaFTrucks) => {
         console.log(listaFTrucks);
         this.foodtrucks = listaFTrucks.reverse();
-        console.log(this.foodtrucks[0].imagenes.length);
       },
       (err: HttpErrorResponse) => {
         console.log('estado de error: ', err.status);

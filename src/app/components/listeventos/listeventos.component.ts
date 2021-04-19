@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UsuarioserviceService } from 'src/app/services/usuarioservice.service';
 import { FoodtruckService } from 'src/app/services/foodtruck.service';
 import { Router } from '@angular/router';
@@ -14,14 +14,10 @@ import { HttpErrorResponse } from '@angular/common/http';
   templateUrl: './listeventos.component.html',
   styleUrls: ['./listeventos.component.css'],
   providers: [NgbModalConfig, NgbModal],
-  encapsulation: ViewEncapsulation.None,
-  styles: [`
-    .card.disabled {
-      opacity: 0.5;
-    }
-  `]
 })
 export class ListeventosComponent implements OnInit {
+  foodtrucks: Foodtruck[];
+
   user_username: String;
   user_tipo: String;
   url_home: String;
@@ -73,7 +69,6 @@ export class ListeventosComponent implements OnInit {
     this.evService.recuperarEventos().subscribe(
       (listRes) => {
         this.eventos = listRes.reverse();
-        console.log("Geo fue: " +this.eventos[0].geolocalizacion);
       },
       (err: HttpErrorResponse) => {
         this.toastr.error('Error al recuperar mis eventos', 'Error');

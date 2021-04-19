@@ -28,136 +28,68 @@
           routerLink="/new-event"
           role="button">NUEVO EVENTO</a>
     </div>
-    <div style="width: 100%; display: flex;justify-content: center;">
-      <div style="overflow: auto; max-height: 400px; width: 1250px;">
-        <ngb-accordion #a="ngbAccordion" [closeOthers]="true" activeIds="0">
-          <ngb-panel  id="nombreColumnas">
-            <ng-template  ngbPanelHeader>
-              <div class="d-flex align-items-center justify-content-between">
-                <button id="nombreColumnasButton" style="width: 100%; outline: none; border: none; background-color: transparent; cursor: pointer;">
-                  <div class="row">
-                    <div class="col-4">
-                      <b>Nombre</b>
-                    </div>
-                    <div class="col-4">
-                      <b>Tipo Evento</b>
-                    </div>
-                    <div class="col-4">
-                      <b>Fecha y Hora</b>
-                    </div>
-                  </div>
-                </button>
-              </div>
-            </ng-template>
-            <ng-template ngbPanelContent></ng-template>
-          </ngb-panel>
-  
-          <ngb-panel *ngFor="let each of eventos; index as i" id="static-{{i}}">
-            <ng-template  ngbPanelHeader>
-              <div class="d-flex align-items-center justify-content-between">
-                <button ngbPanelToggle style="width: 100%; outline: none; border: none; background-color: transparent;">
-                  <div class="row">
-                    <div class="col-4">
-                      {{each.nombre}}
-                    </div>
-                    <div class="col-4">
-                      {{each.tipo_evento}}
-                    </div>
-                    <div class="col-4">
-                      {{each.fecha_hora}}
-                    </div>
-                  </div>
-                </button>
-              </div>
-            </ng-template>
-            <ng-template ngbPanelContent>
-              <div class="row">
-                <div class="col-8">
-                  <div class="row">
-                      <div class="col-4">
-                        <div style="color: rgba(65, 65, 65, 0.747); font-weight: bold;">Direccion</div>
-                        <div style="padding-left: 20px;">{{each.direccion}}</div>
-                        
-                      </div>
-                      <div class="col-4">
-                        <div style="color: rgba(65, 65, 65, 0.747); font-weight: bold;">Provincia</div>
-                        <div style="padding-left: 20px;">{{each.provincia}}</div>
-                        
-                      </div>
-                      <div class="col-4">
-                        <div style="color: rgba(65, 65, 65, 0.747); font-weight: bold;">Codigo Posta</div>
-                        <div style="padding-left: 20px;">{{each.codigo_postal}}</div>
-                        
-                      </div>
-                  </div>
-                  <hr>
-                  <div class="row">
-                      <div class="col-4">
-                        <div style="color: rgba(65, 65, 65, 0.747); font-weight: bold;">Email</div>
-                        <div style="padding-left: 20px;">{{each.email}}</div>
-                        
-                      </div>
-                      <div class="col-4">
-                        <div style="color: rgba(65, 65, 65, 0.747); font-weight: bold;">Telefono</div>
-                        <div style="padding-left: 20px;">{{each.tel_contacto}}</div>
-                        
-                      </div>
-                      <div class="col-4">
-                        <div style="color: rgba(65, 65, 65, 0.747); font-weight: bold;">Forma de Pago</div>
-                        <div style="padding-left: 20px;" *ngIf="each.forma_pago=='organizador'">Abona el Organizador</div>
-                        <div style="padding-left: 20px;" *ngIf="each.forma_pago=='clientes'">Abonan los Clientes</div>
-                        
-                      </div>
-                  </div>
-                  <hr>
-                  <div class="row">
-                    
-                    <div class="col-4">
-                      <div style="color: rgba(65, 65, 65, 0.747); font-weight: bold;">Geolocalizacion</div>
-                      <div style="padding-left: 20px;">{{each.geolocalizacion}}</div>
-                    </div>
-                    <div class="col-8">
-                      <div style="color: rgba(65, 65, 65, 0.747); font-weight: bold;">Descripcion</div>
-                      <div style="padding-left: 20px;">{{each.descripcion}}</div>
-                    </div>
+    <div style=" overflow: auto; max-height: 700px;">
+      <table class="table table-striped table-light" style="border-radius: 10px;">
+        <thead>
+          <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">Direccion</th>
+            <th scope="col">Provincia</th>
+            <th scope="col">Fecha y Hora</th>
+            <th scope="col">Email</th>
+            <th scope="col">Tel. Contacto</th>
+            <th scope="col">Descripción</th>
+            <th scope="col">Tipo</th>
+            <th scope="col">Forma de Pago</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let ev of eventos">
+            <td>​{{ ev.nombre }}​</td>
+            <td>​{{ ev.direccion }}​</td>
+            <td>​{{ ev.provincia }}​</td>
+            <td>​{{ ev.fecha_hora }}​</td>
+            <td>​{{ ev.email }}​</td>
+            <td>​{{ ev.tel_contacto }}​</td>
+            <td>​{{ ev.descripcion }}​</td>
+            <td>​{{ ev.tipo_evento }}​</td>
+            <td>​{{ ev.forma_pago }}​</td>
+            <td>
+              ​​<a
+                class="btn btn-warning btn-lg"
+                role="button"
+                (click)="modificarFoodTruck(ft.id)"
+                routerLink="/edit-evento"
+                >Modificar</a
+              >
+            </td>
+            <td>
+              <!--<a
+              class="btn btn-danger btn-lg"
+              role="button"
+              (click)="borrarFoodTruck(ft.id)"
+              onclick="return confirm('¿Esta seguro que desea eliminar este FoodTruck? Esta accion no tiene vuelta atras.')"
+              >Borrar</a>-->
+              <ng-template #content let-c="close" let-d="dismiss">
+                <div class="modal-header">
+                  <h4 class="modal-title" id="modal-basic-title"></h4>
+                </div>
+                <div class="modal-body" style="text-align: center;">
+                  <p>¿Estas seguro que deseas <b>eliminar</b> este Evento?</p>
+                  <p style="font-weight: lighter;">Esta accion no tendra vuelta atras</p>
+                  <div style="display: inline-block; text-align: center;">
+                    <button class="btn btn-secondary" (click)="d('Cross click')" style="margin-right: 20px;">CANCELAR</button>
+                    <button class="btn btn-danger" (click)="borrarEvento(ev)">BORRAR</button>
                   </div>
                 </div>
-                <div class="col-4">
-                  <div class="row" style="height: 50%;">
-                    <div class="col my-auto" style="display: flex; justify-content: center; align-content: center;">
-                      <a
-                      class="btn btn-warning btn-lg"
-                      role="button"
-                      (click)="modificarEvento(each.id)"
-                      style="width: 120px; height: 50px;"
-                      >Modificar</a>
-                    </div>
-                  </div>
-                  <div class="row" style="height: 50%;">
-                    <div class="col my-auto" style="display: flex; justify-content: center; align-content: center;">
-                      <ng-template #content let-c="close" let-d="dismiss">
-                        <div class="modal-header">
-                          <h4 class="modal-title" id="modal-basic-title"></h4>
-                        </div>
-                        <div class="modal-body" style="text-align: center;">
-                          <p>¿Estas seguro que deseas <b>eliminar</b> este Evento?</p>
-                          <p style="font-weight: lighter;">Esta accion no tendra vuelta atras</p>
-                          <div style="display: inline-block; text-align: center;">
-                            <button class="btn btn-secondary" (click)="d('Cross click')" style="margin-right: 20px;">CANCELAR</button>
-                            <button class="btn btn-danger" (click)="borrarEvento(each)">BORRAR</button>
-                          </div>
-                        </div>
-                      </ng-template>
-                      
-                      <button class="btn btn-danger" style="width: 120px; height: 50px;" (click)="open(content)">Borrar</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </ng-template>
-          </ngb-panel>
-    
-        </ngb-accordion>
-      </div>
+              </ng-template>
+              
+              <button class="btn btn-danger" (click)="open(content)">Borrar</button>​​
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-</div>
+  </div>
