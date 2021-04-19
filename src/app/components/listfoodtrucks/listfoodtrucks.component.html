@@ -55,7 +55,7 @@
   </div>
 </div>
 
-<div style="margin-left: 3%; margin-right: 3%;">
+<div style="margin-left: 3%; margin-right: 3%">
   <div style="text-align: center">
     <a
       class="btn btn-primary btn-lg"
@@ -65,125 +65,78 @@
       >NUEVO FOODTRUCK</a
     >
   </div>
-  <div style="width: 100%; display: flex;justify-content: center;">
-    <div style="overflow: auto; max-height: 400px; width: 1250px;">
-      <ngb-accordion #a="ngbAccordion" [closeOthers]="true" activeIds="0">
-        <ngb-panel  id="nombreColumnas">
-          <ng-template  ngbPanelHeader>
-            <div class="d-flex align-items-center justify-content-between">
-              <button id="nombreColumnasButton" style="width: 100%; outline: none; border: none; background-color: transparent; cursor: pointer;">
-                <div class="row">
-                  <div class="col-4">
-                    <b>Nombre</b>
-                  </div>
-                  <div class="col-4">
-                    <b>Tipo Servicio</b>
-                  </div>
-                  <div class="col-4">
-                    <b>Puntaje</b>
-                  </div>
-                </div>
-              </button>
-            </div>
-          </ng-template>
-          <ng-template ngbPanelContent></ng-template>
-        </ngb-panel>
-
-        <ngb-panel *ngFor="let each of foodtrucks; index as i" id="static-{{i}}">
-          <ng-template  ngbPanelHeader>
-            <div class="d-flex align-items-center justify-content-between">
-              <button ngbPanelToggle style="width: 100%; outline: none; border: none; background-color: transparent;">
-                <div class="row">
-                  <div class="col-4">
-                    {{each.nombre}}
-                  </div>
-                  <div class="col-4">
-                    {{each.tipo_servicio}}
-                  </div>
-                  <div class="col-4">
-                    {{each.puntaje}}
-                  </div>
-                </div>
-              </button>
-            </div>
-          </ng-template>
-          <ng-template ngbPanelContent>
-            <div class="row">
-              <div class="col-4 my-auto" style="display: flex; justify-content: center;">
-                <ngb-carousel *ngIf="each.imagenes" style="width: 300px; outline: none;">
-                  <ng-template ngbSlide *ngFor="let ftrImg of each.imagenes">
-                    <div class="picsum-img-wrapper"  >
-                      <img [src]="ftrImg" alt="Random first slide" style="height: 200px;outline: none;">
-                    </div>
-                  </ng-template>
-                </ngb-carousel>
+  <div style="overflow: auto; max-height: 400px">
+    <table class="table table-striped table-light" style="border-radius: 10px">
+      <thead>
+        <tr>
+          <th scope="col">Nombre</th>
+          <th scope="col">Tipo de servicio</th>
+          <th scope="col">Descripción</th>
+          <th scope="col">URL</th>
+          <th scope="col">Instagram</th>
+          <th scope="col">Whatsapp</th>
+          <th scope="col">Facebook</th>
+          <th scope="col">Puntaje</th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let ft of foodtrucks">
+          <td>​{{ ft.nombre }}​</td>
+          <td>​{{ ft.tipo_servicio }}​</td>
+          <td>​{{ ft.descripcion }}​</td>
+          <td>​{{ ft.url }}​</td>
+          <td>​{{ ft.instagram }}​</td>
+          <td>​{{ ft.whatsapp }}​</td>
+          <td>​{{ ft.facebook }}​</td>
+          <td>​{{ ft.puntaje }}​</td>
+          <td>
+            ​​<a
+              class="btn btn-warning btn-lg"
+              role="button"
+              (click)="modificarFoodTruck(ft.id)"
+              routerLink="edit-foodtruck"
+              >Modificar</a
+            >
+          </td>
+          <td>
+            <!--<a
+              class="btn btn-danger btn-lg"
+              role="button"
+              (click)="borrarFoodTruck(ft.id)"
+              onclick="return confirm('¿Esta seguro que desea eliminar este FoodTruck? Esta accion no tiene vuelta atras.')"
+              >Borrar</a>-->
+            <ng-template #content let-c="close" let-d="dismiss">
+              <div class="modal-header">
+                <h4 class="modal-title" id="modal-basic-title"></h4>
               </div>
-              <div class="col-8">
-                <div class="row">
-                    <div class="col-4">
-                      <div style="color: rgba(65, 65, 65, 0.747); font-weight: bold;">URL</div>
-                      <div style="padding-left: 20px;">{{each.url}}</div>
-                      <div style="background-color: rgba(165, 165, 165, 0.377); width: 100%; height: 1px; margin-top: 7.5px; margin-bottom: 7.5px;"></div>
-                    </div>
-                    <div class="col-4">
-                      <div style="color: rgba(65, 65, 65, 0.747); font-weight: bold;">Facebook</div>
-                      <div style="padding-left: 20px;">{{each.facebook}}</div>
-                      <div style="background-color: rgba(165, 165, 165, 0.377); width: 100%; height: 1px; margin-top: 7.5px; margin-bottom: 7.5px;"></div>
-                    </div>
-                    <div class="col-4 my-auto" style="display: flex; justify-content: center;">
-                      <a
-                        class="btn btn-warning btn-lg"
-                        role="button"
-                        (click)="modificarFoodTruck(each.id)"
-                        routerLink="/edit-evento"
-                        style="width: 120px; height: 50px;"
-                        >Modificar</a>
-                    </div>
-
-                </div>
-                <div class="row">
-                    <div class="col-4">
-                      <div style="color: rgba(65, 65, 65, 0.747); font-weight: bold;">WhatsApp</div>
-                      <div style="padding-left: 20px;">{{each.whatsapp}}</div>
-                      <div style="background-color: rgba(165, 165, 165, 0.377); width: 100%; height: 1px; margin-top: 7.5px; margin-bottom: 7.5px;"></div>
-                    </div>
-                    <div class="col-4">
-                      <div style="color: rgba(65, 65, 65, 0.747); font-weight: bold;">Instagram</div>
-                      <div style="padding-left: 20px;">{{each.instagram}}</div>
-                      <div style="background-color: rgba(165, 165, 165, 0.377); width: 100%; height: 1px; margin-top: 7.5px; margin-bottom: 7.5px;"></div>
-                    </div>
-                    <div class="col-4" style="display: flex; justify-content: center;">
-                    </div>
-                </div>
-                <div class="row">
-                  <div class="col-8 my-auto">
-                    <div style="color: rgba(65, 65, 65, 0.747); font-weight: bold;">Descripcion</div>
-                    <div style="padding-left: 20px;">{{each.descripcion}}</div>
-                  </div>
-                  <div class="col-4" style="display: flex; justify-content: center;">
-                    <ng-template #content let-c="close" let-d="dismiss">
-                      <div class="modal-header">
-                        <h4 class="modal-title" id="modal-basic-title"></h4>
-                      </div>
-                      <div class="modal-body" style="text-align: center;">
-                        <p>¿Estas seguro que deseas <b>eliminar</b> este Evento?</p>
-                        <p style="font-weight: lighter;">Esta accion no tendra vuelta atras</p>
-                        <div style="display: inline-block; text-align: center;">
-                          <button class="btn btn-secondary" (click)="d('Cross click')" style="margin-right: 20px;">CANCELAR</button>
-                          <button class="btn btn-danger" (click)="borrarFoodTruck(each)">BORRAR</button>
-                        </div>
-                      </div>
-                    </ng-template>
-                    
-                    <button class="btn btn-danger" style="width: 120px; height: 50px;" (click)="open(content)">Borrar</button>
-                  </div>
+              <div class="modal-body" style="text-align: center">
+                <p>¿Estas seguro que deseas <b>eliminar</b> este FoodTruck?</p>
+                <p style="font-weight: lighter">
+                  Esta accion no tendra vuelta atras
+                </p>
+                <div style="display: inline-block; text-align: center">
+                  <button
+                    class="btn btn-secondary"
+                    (click)="d('Cross click')"
+                    style="margin-right: 20px"
+                  >
+                    CANCELAR
+                  </button>
+                  <button class="btn btn-danger" (click)="borrarFoodTruck(ft)">
+                    BORRAR
+                  </button>
                 </div>
               </div>
-            </div>
-          </ng-template>
-        </ngb-panel>
-  
-      </ngb-accordion>
-    </div>
+            </ng-template>
+
+            <button class="btn btn-danger" (click)="open(content)">
+              Borrar</button
+            >​​
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>
