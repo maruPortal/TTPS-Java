@@ -75,4 +75,9 @@ export class ListeventosComponent implements OnInit {
       }
     );
   }
+
+  modificarEvento(idEvento: string) {
+    console.log('Evento: ' + idEvento);
+    sessionStorage.setItem('idEvento', idEvento);
+  }
 }

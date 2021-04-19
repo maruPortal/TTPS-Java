@@ -21,12 +21,17 @@ export class EventosService {
   }
 
   editarEvento(evento): Observable<Evento> {
-    console.log('id de evento a modificar:', evento.id);
     console.log('estado de evento a modificar:', evento.eliminado);
-
     return this.http.put<Evento>(
       `${environment.url}/eventos/${evento.id}`,
       evento
+    );
+  }
+
+  getEvento(idEvento): Observable<Evento> {
+    console.log('id evento a buscaR: ', idEvento);
+    return this.http.get<Evento>(
+      `${environment.url}/eventos/recuperarIndividual/${idEvento}`
     );
   }
 }

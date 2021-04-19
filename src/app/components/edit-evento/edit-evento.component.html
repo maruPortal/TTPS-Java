@@ -1,179 +1,336 @@
 <div style="text-align: center">
-    <div style="background: linear-gradient(180deg, rgba(255,130,0,0.7637255585828081) 10%, rgba(255,130,0,0.02) 100%);
-                width:100%;
-                display: inline-block;">
-      <div style="float: left;margin-top: 10px;">
-        <a routerLink="/home-organizador"><img style="width: 400px;" src="../assets/images/logo_app_2.png" /></a>
-      </div>
-      <div style="margin-top: 2%; ;float: right; margin-right: 40px;">
-        <div class="row">
-          <div class="col">
-            <div ngbDropdown class="d-inline-block">
-              <button class="" id="botonCuenta" style="border-radius: 100px; outline: none; background-color: transparent; border: none" id="dropdownBasic1" ngbDropdownToggle><img style=" width: 60px;" src="../assets/images/icono_account.png" /></button>
-              <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                <a *ngIf="user_tipo=='Organizador'" style="text-decoration: none;" routerLink="/list-eventos"><button ngbDropdownItem>Mis Eventos</button></a>
-                <a *ngIf="user_tipo=='FoodTrucker'" style="text-decoration: none;" routerLink="/list-foodtrucks"><button ngbDropdownItem>Mis FoodTrucks</button></a>
-                <div class="dropdown-divider"></div>
-                <a style="text-decoration: none;" routerLink="/edit-user"><button ngbDropdownItem>Mi Perfil</button></a>
-                <div class="dropdown-divider"></div>
-                <a style="text-decoration: none;" routerLink="/login" (click)="logOut()"><button ngbDropdownItem>Cerrar Sesion</button></a>
-              </div>
-            </div>
-          </div>
-       </div>
-      </div>
+  <div
+    style="
+      background: linear-gradient(
+        180deg,
+        rgba(255, 130, 0, 0.7637255585828081) 10%,
+        rgba(255, 130, 0, 0.02) 100%
+      );
+      width: 100%;
+      display: inline-block;
+    "
+  >
+    <div style="float: left; margin-top: 10px">
+      <a routerLink="/home-organizador"
+        ><img style="width: 400px" src="../assets/images/logo_app_2.png"
+      /></a>
     </div>
-  </div><br>
-  <div>
-    <div style="justify-content: center; display: flex;">
-      <div style="border-radius: 10px;margin-right: 15%; margin-left: 15%; background-color: #ffffffdd;">
-        <form *ngIf="!enviado"  style="width: 1000px;padding-top: 20px; padding-bottom: 30px; padding-right: 30px; padding-left: 30px;" #edit="ngForm" ngNativeValidate (ngSubmit)="onSubmit(edit)">
-          <div style="text-align: center; margin-bottom: 20px;">
-            <h3><b>EDITAR EVENTO</b></h3>
-          </div>
-          
-          <div class="form row">
-            <div class="form-group col-md-4" >
-              <label for=""><b>Nombre</b></label>
-              <input
-                type="text"
-                name="nombre"
-                ngModel 
-                required
-                class="form-control"
-                placeholder="Ingrese el nombre del evento"
+    <div style="margin-top: 2%; float: right; margin-right: 40px">
+      <div class="row">
+        <div class="col">
+          <div ngbDropdown class="d-inline-block">
+            <button
+              class=""
+              id="botonCuenta"
+              style="
+                border-radius: 100px;
+                outline: none;
+                background-color: transparent;
+                border: none;
+              "
+              id="dropdownBasic1"
+              ngbDropdownToggle
+            >
+              <img
+                style="width: 60px"
+                src="../assets/images/icono_account.png"
               />
+            </button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <a
+                *ngIf="user_tipo == 'Organizador'"
+                style="text-decoration: none"
+                routerLink="/list-eventos"
+                ><button ngbDropdownItem>Mis Eventos</button></a
+              >
+              <a
+                *ngIf="user_tipo == 'FoodTrucker'"
+                style="text-decoration: none"
+                routerLink="/list-foodtrucks"
+                ><button ngbDropdownItem>Mis FoodTrucks</button></a
+              >
+              <div class="dropdown-divider"></div>
+              <a style="text-decoration: none" routerLink="/edit-user"
+                ><button ngbDropdownItem>Mi Perfil</button></a
+              >
+              <div class="dropdown-divider"></div>
+              <a
+                style="text-decoration: none"
+                routerLink="/login"
+                (click)="logOut()"
+                ><button ngbDropdownItem>Cerrar Sesion</button></a
+              >
             </div>
-            
-            <div class="form-group col-md-4">
-              <label for=""><b>Direccion</b></label>
-              <input
-                type="text"
-                name="direccion"
-                ngModel
-                required
-                class="form-control"
-                placeholder="Ingrese la direccion del evento"
-              />
-            </div>
-
-            <div class="form-group col-md-4" >
-                <label for=""><b>Codigo Postal</b></label>
-                <input
-                  type="number"
-                  name="codigo_postal"
-                  ngModel 
-                  required
-                  class="form-control"
-                  placeholder="Ingrese el codigo postal"
-                />
-              </div>
           </div>
-
-          <div class="form row">
-            
-            <div class="form-group col-md-4">
-              <label for=""><b>Provincia</b></label>
-              <input
-                type="text"
-                name="provincia"
-                ngModel
-                required
-                class="form-control"
-                placeholder="Ingrese la provincia del evento"
-              />
-            </div>
-
-            <div class="form-group col-md-4" >
-                <label for=""><b>Tipo de Evento</b></label>
-                <input
-                  type="text"
-                  name="tipo_evento"
-                  ngModel 
-                  required
-                  class="form-control"
-                  placeholder="Ingrese el tipo de evento"
-                />
-              </div>
-
-              <div class="form-group col-md-4">
-                <label for=""><b>Fecha y Hora</b></label>
-                <input
-                  type="datetime"
-                  name="fecha_hora"
-                  ngModel
-                  required
-                  class="form-control"
-                  placeholder="Ingrese la fecha y hora del evento"
-                />
-              </div>
-          </div>
-
-          <div class="form row">
-            <div class="form-group col-md-4" >
-              <label for=""><b>Email</b></label>
-              <input
-                type="email"
-                name="email"
-                ngModel 
-                required
-                class="form-control"
-                placeholder="Ingrese el email"
-              />
-            </div>
-            <div class="form-group col-md-4">
-              <label for=""><b>Telefono</b></label>
-              <input
-                type="number"
-                name="telefono"
-                ngModel
-                required
-                class="form-control"
-                placeholder="Ingrese un telefono"
-              />
-            </div>
-
-            <div class="form-group col-md-4">
-                <label for=""><b>Forma de Pago</b></label>
-                <select name="forma_pago" style="width: 100%; height: 35px;"  ngModel required>
-                    <option value="clientes" selected>Abonan los Clientes</option>
-                    <option value="organizador">Abonan el Organizador</option>
-                </select>
-              </div>
-          </div>
-
-          <div class="form row">
-            <div class="form-group col-md-8" >
-                <label for=""><b>Descripción</b></label>
-                <textarea
-                  cols="15"
-                  rows="3"
-                  name="descripcion"
-                  ngModel
-                  required
-                  class="form-control"
-                  placeholder="Ingrese una breve descripción"
-                ></textarea>
-            </div>
-
-            <div class="form-group col-md-4">
-                <label for=""><b>Geolocalizacion</b></label>
-                <input
-                  type="text"
-                  name="geolocalizacion"
-                  ngModel
-                  required
-                  class="form-control"
-                  placeholder="Ingrese algo"
-                />
-              </div>
-            
-          </div>
-          <div style="text-align: center;">
-            <button type="submit" class="btn btn-primary">ENVIAR</button>
-          </div>
-        </form>
+        </div>
       </div>
     </div>
   </div>
+</div>
+<br />
+<div>
+  <div style="justify-content: center; display: flex">
+    <div
+      style="
+        border-radius: 10px;
+        margin-right: 15%;
+        margin-left: 15%;
+        background-color: #ffffffdd;
+      "
+    >
+      <form
+        style="
+          width: 1000px;
+          padding-top: 20px;
+          padding-bottom: 30px;
+          padding-right: 30px;
+          padding-left: 30px;
+        "
+        #edit="ngForm"
+        ngNativeValidate
+        (ngSubmit)="onSubmit()"
+      >
+        <div style="text-align: center; margin-bottom: 20px">
+          <h3><b>EDITAR EVENTO</b></h3>
+        </div>
 
+        <div class="form row">
+          <div class="form-group col-md-4">
+            <label for=""><b>Nombre</b></label>
+            <input
+              type="text"
+              [(ngModel)]="evento.nombre"
+              name="nombre"
+              required
+              class="form-control"
+            />
+          </div>
+
+          <div class="form-group col-md-4">
+            <label for=""><b>Direccion</b></label>
+            <input
+              type="text"
+              [(ngModel)]="evento.direccion"
+              name="direccion"
+              required
+              class="form-control"
+              placeholder="Ingrese la direccion del evento"
+            />
+          </div>
+
+          <div class="form-group col-md-4">
+            <label for=""><b>Codigo Postal</b></label>
+            <input
+              type="number"
+              [(ngModel)]="evento.codigo_postal"
+              name="codigo_postal"
+              required
+              class="form-control"
+              placeholder="Ingrese el codigo postal"
+            />
+          </div>
+        </div>
+
+        <div class="form row">
+          <div class="form-group col-md-4">
+            <label for=""><b>Provincia</b></label>
+            <input
+              type="text"
+              name="provincia"
+              [(ngModel)]="evento.provincia"
+              required
+              class="form-control"
+              placeholder="Ingrese la provincia del evento"
+            />
+          </div>
+
+          <div class="form-group col-md-4">
+            <label for=""><b>Tipo de Evento</b></label>
+            <input
+              type="text"
+              name="tipo_evento"
+              [(ngModel)]="evento.tipo_evento"
+              required
+              class="form-control"
+              placeholder="Ingrese el tipo de evento"
+            />
+          </div>
+
+          <div class="form-group col-md-4">
+            <label for=""><b>Fecha y Hora </b></label>
+
+            <div class="row">
+              <div class="col-6">
+                <div class="input-group">
+                  <input
+                    class="form-control"
+                    placeholder="Elija una fecha"
+                    (click)="d.toggle()"
+                    [(ngModel)]="fechaMostrar"
+                    name="fecha"
+                    [minDate]="fechaMinima"
+                    ngbDatepicker
+                    #d="ngbDatepicker"
+                    readonly="true"
+                  />
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="row">
+                  <select
+                    name="hora"
+                    style="width: 52px; height: 35px"
+                    [(ngModel)]="horaActual"
+                    required
+                  >
+                    <option
+                      *ngFor="let each of horas"
+                      value="{{ each }}"
+                      selected
+                    >
+                      {{ each }}
+                    </option>
+                  </select>
+                  <div
+                    style="
+                      margin-left: 10px;
+                      margin-right: 10px;
+                      padding-top: 5px;
+                    "
+                  >
+                    :
+                  </div>
+                  <select
+                    name="minuto"
+                    style="width: 52px; height: 35px"
+                    [(ngModel)]="minActual"
+                    required
+                  >
+                    <option value="00" selected>00</option>
+                    <option value="15">15</option>
+                    <option value="30">30</option>
+                    <option value="45">45</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form row">
+          <div class="form-group col-md-4">
+            <label for=""><b>Email</b></label>
+            <input
+              type="email"
+              name="email"
+              [(ngModel)]="evento.email"
+              required
+              class="form-control"
+              placeholder="Ingrese el email"
+            />
+          </div>
+          <div class="form-group col-md-4">
+            <label for=""><b>Telefono</b></label>
+            <input
+              type="number"
+              name="tel_contacto"
+              [(ngModel)]="evento.tel_contacto"
+              required
+              class="form-control"
+              placeholder="Ingrese un telefono"
+            />
+          </div>
+
+          <div class="form-group col-md-4">
+            <label for=""><b>Forma de Pago</b></label>
+            <select
+              name="forma_pago"
+              style="width: 100%; height: 35px"
+              [(ngModel)]="evento.forma_pago"
+              required
+            >
+              <option value="clientes">Abonan los Clientes</option>
+              <option value="organizador">Abonan el Organizador</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form row">
+          <div class="form-group col-md-8">
+            <label for=""><b>Descripción</b></label>
+            <textarea
+              cols="15"
+              rows="3"
+              name="descripcion"
+              [(ngModel)]="evento.descripcion"
+              required
+              class="form-control"
+              placeholder="Ingrese una breve descripción"
+            ></textarea>
+          </div>
+          <div class="form-group col-md-4">
+            <label for=""><b>Geolocalizacion</b></label
+            ><br />
+            <p style="font-weight: normal; font-size: 18px">
+              {{ dataShow }}
+            </p>
+            <button
+              id="botonMapa"
+              type="button"
+              class="btn btn-outline-primary mb-2 mr-2"
+              (click)="openXl(longContent)"
+              style="
+                background-color: transparent;
+                width: 100%;
+                height: 80px;
+                background-image: url(../assets/images/geolocalizacion.jpg);
+                box-shadow: inset 0 0 20px 10px rgba(0, 0, 0, 0.2);
+                border-radius: 8px;
+              "
+            >
+              <B style="color: white; text-shadow: 0 0 10px rgba(0, 0, 0, 1)"
+                >ABRIR MAPA</B
+              >
+            </button>
+            <ng-template #longContent let-modal>
+              <div class="modal-header">
+                <h4 style="font-weight: bold" class="modal-title">
+                  Marca la Geolocalizacion de tu Evento
+                </h4>
+                <button
+                  type="button"
+                  class="close"
+                  aria-label="Close"
+                  (click)="modal.dismiss('Cross click')"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <!--Mapa en Modal-->
+              <div class="modal-body">
+                <div
+                  style="height: 500px"
+                  leaflet
+                  (leafletMapReady)="onMapReady($event)"
+                  [leafletOptions]="options"
+                ></div>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-outline-primary mb-2 mr-2"
+                  (click)="modal.dismiss()"
+                >
+                  CONFIRMAR
+                </button>
+              </div>
+            </ng-template>
+          </div>
+        </div>
+        <div style="text-align: center">
+          <button type="submit" class="btn btn-primary">ENVIAR</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
