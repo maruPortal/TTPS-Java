@@ -158,7 +158,8 @@ export class HomefoodtruckerComponent implements OnInit {
   finalizarReserva(soli){
     this.userService.modificarSolicitud(soli.id,'Finalizada').subscribe(
       (response) => {
-        this.aceptadas.splice(this.nuevas.indexOf(soli),1);
+        this.aceptadas.splice(this.aceptadas.indexOf(soli),1);
+        this.finalizadas.push(soli);
         this.toastr.success("Se finalizo la reserva correctamente y se la habilito para Calificar","Solicitud Finalizada",{timeOut:4000});
       },
       (err: HttpErrorResponse) =>{
