@@ -100,43 +100,16 @@ export class UsuarioserviceService {
   }
 
   createFoodtrucker(register: NgForm){
-    this.http.post<Usuario>(
+    return this.http.post<Usuario>(
       `${environment.url}/usuario/foodtrucker`,
       register.value
-    ).subscribe(
-      (response) => {
-        localStorage.setItem('token', response["token"]);
-        sessionStorage.setItem('id', response["usuario_id"]);
-        sessionStorage.setItem('username', response["usuario_username"]);
-        sessionStorage.setItem('tipoUsuario', response["usuario_tipo_usuario"]);
-        this.router.navigateByUrl('home-foodtrucker');
-        this.toastr.info("Bienvenido " + response["usuario_username"]);
-      },
-      (err: HttpErrorResponse) => {
-        console.log('estado de error: ', err.status);
-        this.toastr.error("Username o Email ya existen en el sistema","Error",{timeOut:4000});
-      }
     );
   }
 
   createOrganizador(register: NgForm) {
-    this.http.post<Usuario>(
+    return this.http.post<Usuario>(
       `${environment.url}/usuario/organizador`,
-      register.value)
-      .subscribe(
-        (response) => {
-          localStorage.setItem('token', response["token"]);
-          sessionStorage.setItem('id', response["usuario_id"]);
-          sessionStorage.setItem('username', response["usuario_username"]);
-          sessionStorage.setItem('tipoUsuario', response["usuario_tipo_usuario"]);
-          this.router.navigateByUrl('home-organizador');
-          this.toastr.info("Bienvenido " + response["usuario_username"]);
-          
-        },
-        (err: HttpErrorResponse) => {
-          console.log('estado de error: ', err.status);
-        }
-      );
+      register.value);
   }
 
   editUser(usuario: NgForm): Observable<Usuario> {

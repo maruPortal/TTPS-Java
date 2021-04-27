@@ -193,11 +193,16 @@ export class HomeorganizadorComponent implements OnInit {
     return !((condZona && condComida)&&condNombre);
   }
 
-  valorarReserva(sId){
-    this.userService.getSolicitudEspecifica(sId).subscribe(
+  valorarReserva(s){
+    this.userService.getSolicitudEspecifica(s.id).subscribe(
       (solicitud) => {
         console.log("Solicitud: " + solicitud.id);
-        this.router.navigateByUrl('/valorarReserva', {state: {soli: solicitud}} );
+        if(solicitud.estado=="Rechazada"){
+          this.finalizadas.splice(this.finalizadas.indexOf(s),1);
+          this.toastr.error("La solicitud fue rechazada o el foodtruck fue eliminado","Error",{timeOut:4000})
+        }else{
+          this.router.navigateByUrl('/valorarReserva', {state: {soli: solicitud}} );
+        }
       },
       (err: HttpErrorResponse) =>{
         console.log("estado de error:   " + err.status);
