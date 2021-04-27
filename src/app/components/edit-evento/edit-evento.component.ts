@@ -25,6 +25,7 @@ import * as moment from 'moment';
 })
 export class EditEventoComponent implements OnInit {
   evento: Evento;
+  eventoBack: Evento;
   user_tipo: String = 'Organizador';
   dataShow;
   map;
@@ -104,6 +105,7 @@ export class EditEventoComponent implements OnInit {
     this.evService.getEvento(sessionStorage.getItem('idEvento')).subscribe(
       (event) => {
         this.evento = event;
+        this.copiarValores(event);
         let x = this.evento.fecha_hora.toString();
         let fecha = moment(x, 'DD-MM-YYYY  HH:mm').format('YYYY-MM-DD HH:mm');
         this.fechaActual = new Date(fecha);
@@ -150,6 +152,10 @@ export class EditEventoComponent implements OnInit {
     );
   }
 
+  copiarValores(e:Evento){
+    this.eventoBack= new Evento(null,null,e.nombre,e.direccion,e.codigo_postal,e.provincia,e.geolocalizacion,e.fecha_hora,e.email,e.tel_contacto,e.descripcion,e.tipo_evento,e.forma_pago);
+  }
+
   //chequea si hubo modificacion
   comprobarCampos(): Boolean {
     return true;
@@ -157,7 +163,21 @@ export class EditEventoComponent implements OnInit {
 
   verCambios() {
     //tarea pa casa
-    return true;
+    console.log(this.evento.codigo_postal);
+    console.log(this.eventoBack.codigo_postal);
+    let condnombre = this.evento.nombre==this.eventoBack.nombre;
+    let conddireccion = this.evento.direccion==this.eventoBack.direccion;
+    let condcodigo_postal=this.evento.codigo_postal==this.eventoBack.codigo_postal;
+    let condprovincia=this.evento.provincia==this.eventoBack.provincia;
+    let condgeolocalizacion=this.evento.geolocalizacion==this.eventoBack.geolocalizacion;
+    let condfecha_hora=this.evento.fecha_hora==this.eventoBack.fecha_hora;
+    let condemail=this.evento.email==this.eventoBack.email;
+    let condtelcontacto=this.evento.tel_contacto==this.eventoBack.tel_contacto; 
+    let conddescripcion=this.evento.descripcion==this.eventoBack.descripcion;
+    let condtipo=this.evento.tipo_evento==this.eventoBack.tipo_evento;
+    let condforma_pago=this.evento.forma_pago==this.eventoBack.forma_pago;
+    return ((((((((((condnombre && conddireccion) && condcodigo_postal) && condprovincia) && condgeolocalizacion) 
+                  && condfecha_hora) && condemail) && condtelcontacto) && conddescripcion) && condtipo) && condforma_pago);
   }
 
   onSubmit() {
@@ -179,7 +199,7 @@ export class EditEventoComponent implements OnInit {
       this.marcador.getLatLng().lng.toString();
     this.evService.editarEvento(this.evento).subscribe(
       () => {
-        if (!this.verCambios()) {
+        if (this.verCambios()) {
           //hacer
           this.toastr.warning(
             'No se detectaron cambios',
@@ -231,7 +251,7 @@ export class EditEventoComponent implements OnInit {
   }
 
   cancelar() {
-    this.router.navigateByUrl('list-foodtrucks');
+    this.router.navigateByUrl('list-eventos');
   }
 
   logOut() {
