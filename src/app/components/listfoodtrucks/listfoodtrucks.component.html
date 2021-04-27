@@ -66,7 +66,7 @@
     >
   </div>
   <div style="width: 100%; display: flex;justify-content: center;">
-    <div style="overflow: auto; max-height: 400px; width: 1250px;">
+    <div style="overflow: auto; max-height: 650px; width: 1250px;">
       <ngb-accordion #a="ngbAccordion" [closeOthers]="true" activeIds="0">
         <ngb-panel  id="nombreColumnas">
           <ng-template  ngbPanelHeader>
@@ -101,7 +101,7 @@
                     {{each.tipo_servicio}}
                   </div>
                   <div class="col-4">
-                    {{each.puntaje}}
+                    {{each.puntaje * 1000}}
                   </div>
                 </div>
               </button>

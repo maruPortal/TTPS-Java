@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { FoodtruckService } from 'src/app/services/foodtruck.service';
 import { UsuarioserviceService } from 'src/app/services/usuarioservice.service';
 
@@ -28,7 +29,8 @@ export class NewfoodtruckComponent implements OnInit {
   constructor(
     private ftservice: FoodtruckService,
     private userService: UsuarioserviceService,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -46,9 +48,11 @@ export class NewfoodtruckComponent implements OnInit {
         this.ftservice.createFoodtruck(ft,this.imgFoodTruck);
       }else{
         console.log("Completa todo")
+        this.toastr.warning("Por favor completa todos los campos","Datos faltantes");
       }
     }else{
       console.log("Subi alguna foto")
+      this.toastr.warning("Por favor agrega al menos 1 foto","Fotos faltantes");
     } 
     
   }
