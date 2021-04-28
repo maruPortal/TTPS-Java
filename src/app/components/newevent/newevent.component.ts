@@ -7,6 +7,7 @@ import { EventosService } from 'src/app/services/eventos.service';
 import { UsuarioserviceService } from 'src/app/services/usuarioservice.service';
 import {NgbModal, NgbTimepickerConfig} from '@ng-bootstrap/ng-bootstrap';
 import {latLng, Map, marker, tileLayer, LeafletMouseEvent, Marker, icon, LatLng } from 'leaflet';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-newevent, ngb-timepicker, ngb-datepicker',
@@ -42,7 +43,8 @@ export class NeweventComponent implements OnInit{
     private eventoService: EventosService,
     private router: Router,
     config: NgbTimepickerConfig,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private toastr: ToastrService
   ) {config.spinners=false;}
 
   ngOnInit(): void {
@@ -105,24 +107,29 @@ export class NeweventComponent implements OnInit{
     this.evento.fecha_hora=fecha;
     this.evento.geolocalizacion=this.marcador.getLatLng().lat.toString()+", "+this.marcador.getLatLng().lng.toString();
     console.log(this.evento);
-    this.userService.recuperarData().subscribe((user) => {
-      this.evento.organizador = user;
-      this.evento.tel_contacto = evento.value.telefono;
-      this.evento.geolocalizacion = evento.value.geolocalizacion;
-      this.eventoService.crearEvento(this.evento).subscribe(
-        () => {
-          this.enviado = true;
-          this.error = false;
-          this.router.navigateByUrl('list-eventos');
-        },
-        (err: HttpErrorResponse) => {
-          console.log('estado de error: ', err.status, typeof err.status);
-          this.enviado = false;
-          this.error = true;
-        }
-      );
-    });
-    console.log(this.evento.organizador);
+    if (!this.verificarCampos(evento)){
+      this.userService.recuperarData().subscribe((user) => {
+        this.evento.organizador = user;
+        this.evento.tel_contacto = evento.value.telefono;
+        this.evento.geolocalizacion = evento.value.geolocalizacion;
+        this.eventoService.crearEvento(this.evento).subscribe(
+          () => {
+            this.enviado = true;
+            this.error = false;
+            this.toastr.success("Evento agregado con exito","Evento Agregado");
+            this.router.navigateByUrl('list-eventos');
+          },
+          (err: HttpErrorResponse) => {
+            console.log('estado de error: ', err.status, typeof err.status);
+            this.enviado = false;
+            this.error = true;
+          }
+        );
+      });
+      console.log(this.evento.organizador);
+    }else{
+      this.toastr.warning("Por favor, completa todos los campos","Datos Incompletos")
+    }
   }
 
   openXl(content) {
@@ -131,5 +138,11 @@ export class NeweventComponent implements OnInit{
 
   logOut() {
     this.userService.logOut();
+  }
+
+  verificarCampos(ev: NgForm){
+    return (ev.value.nombre.trim()=="") || (ev.value.direccion.trim()=="") || (ev.value.codigo_postal.trim()=="") || 
+    (ev.value.provincia.trim()=="") || (ev.value.tipo_evento.trim()=="") || (ev.value.fecha_hora.trim()=="") || (ev.value.email.trim()=="") || 
+    (ev.value.telefono.trim()=="") || (ev.value.forma_pago.trim()=="") || (ev.value.descripcion.trim()=="") || (ev.value.geolocalizacion.trim()=="");
   }
 }
