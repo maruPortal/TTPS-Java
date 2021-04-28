@@ -30,6 +30,10 @@ export class EdituserComponent implements OnInit {
     this.enviado=false;
     this.tipoPass="password";
     this.user_tipo = sessionStorage.getItem('tipoUsuario');
+    this.getUsuario();
+  }
+
+  getUsuario(){
     this.userService.recuperarData()
     .subscribe(
       (usuario) => {
@@ -43,42 +47,51 @@ export class EdituserComponent implements OnInit {
   }
 
   onSubmit(usuario: NgForm) {
-    let envio= this.comprobarCampos(usuario);
-
-    this.userService.editUser(envio).subscribe(
-      () => {
-        //actualiza los datos
-        this.toastr.success("Perfil actualizado con exito","Perfil Actualizado");
-
-      },
-      (err: HttpErrorResponse) => {
-        console.log('estado de error: ', err.status, typeof err.status);
-        if(err.status==400){
-          this.toastr.error("El username o email ya existen en el sistema","Error",{timeOut:4000});
-        }else{
-          this.toastr.error("Error al actualizar el perfil","Error");
+    
+    if (!this.comprobarCampos(usuario)){
+      this.userService.editUser(usuario).subscribe(
+        () => {
+          //actualiza los datos
+          this.toastr.success("Perfil actualizado con exito","Perfil Actualizado");
+  
+        },
+        (err: HttpErrorResponse) => {
+          console.log('estado de error: ', err.status, typeof err.status);
+          if(err.status==400){
+            this.toastr.error("El username o email ya existen en el sistema","Error",{timeOut:4000});
+          }else{
+            this.toastr.error("Error al actualizar el perfil","Error");
+          }
         }
-      }
-    );
+      );
+    }else{
+      this.toastr.warning("Por favor complete todos los campos","Datos Incompletos");
+    }
+
   }
 
-  comprobarCampos(data: NgForm): NgForm{
-    if (data.value.apellido==""){
+  /*comprobarCampos(data: NgForm): NgForm{
+    if (data.value.apellido.trim()==""){
       data.value.apellido= this.apellido;
     }
-    if (data.value.nombre==""){
+    if (data.value.nombre.trim()==""){
       data.value.nombre= this.nombre;
     }
-    if (data.value.username==""){
+    if (data.value.username.trim()==""){
       data.value.username= this.username;
     }
-    if (data.value.password==""){
+    if (data.value.password.trim()==""){
       data.value.password= this.password;
     }
-    if (data.value.email==""){
+    if (data.value.email.trim()==""){
       data.value.email= this.email;
     }
     return data;
+  }*/
+
+  comprobarCampos(data: NgForm){
+    return (data.value.apellido.trim()=="") || (data.value.nombre.trim()=="") || (data.value.username.trim()=="") || (data.value.password.trim()=="") || (data.value.email.trim()=="");
+    
   }
 
   redireccionar(){
