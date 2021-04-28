@@ -31,38 +31,14 @@ export class EditEventoComponent implements OnInit {
   map;
   options;
   marcador: Marker;
+  marcadorBack: Marker;
   minDate: Date;
   fechaMinima;
   fechaActual: Date;
   fechaMostrar;
   horaActual: String;
   minActual: String;
-  horas: String[] = [
-    '00',
-    '01',
-    '02',
-    '03',
-    '04',
-    '05',
-    '06',
-    '07',
-    '08',
-    '09',
-    '10',
-    '11',
-    '12',
-    '13',
-    '14',
-    '15',
-    '16',
-    '17',
-    '18',
-    '19',
-    '20',
-    '21',
-    '22',
-    '23',
-  ];
+  horas: String[] = ['00','01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16','17','18','19','20','21','22','23',];
 
   // enviado: Boolean;
   // sinCambios: Boolean;
@@ -135,12 +111,19 @@ export class EditEventoComponent implements OnInit {
           latlngStr[0].toString().substring(0, 10) +
           ', ' +
           latlngStr[1].toString().substring(0, 10);
+
         //marco mapa
         this.marcador = marker([
           parseFloat(latlngStr[0]),
           parseFloat(latlngStr[1]),
         ]);
-        this.marcador.addTo(this.map);
+        this.marcadorBack = marker([
+          parseFloat(latlngStr[0]),
+          parseFloat(latlngStr[1]),
+        ]);
+//        this.marcadorBack.addTo(this.map);
+
+        
       }, //getEvento
       (err: HttpErrorResponse) => {
         console.log('estado de error: ', err.status, typeof err.status);
@@ -194,9 +177,9 @@ export class EditEventoComponent implements OnInit {
       ':' +
       this.minActual;
     this.evento.geolocalizacion =
-      this.marcador.getLatLng().lat.toString() +
+      this.marcadorBack.getLatLng().lat.toString() +
       ', ' +
-      this.marcador.getLatLng().lng.toString();
+      this.marcadorBack.getLatLng().lng.toString();
     this.evService.editarEvento(this.evento).subscribe(
       () => {
         if (this.verCambios()) {
@@ -231,23 +214,34 @@ export class EditEventoComponent implements OnInit {
   onMapReady(map: Map) {
     this.map = map;
     map.on('click', (e: LeafletMouseEvent) => this.marcar(e));
-    if (this.marcador != null) {
-      this.marcador.addTo(this.map);
+    if (this.marcadorBack != null) {
+      this.marcadorBack.addTo(this.map);
     }
   }
 
   marcar(e: LeafletMouseEvent) {
     let lan = e.latlng.lat;
     let lng = e.latlng.lng;
+    if (this.marcadorBack != null) {
+      this.marcadorBack.removeFrom(this.map);
+    }
     if (this.marcador != null) {
       this.marcador.removeFrom(this.map);
     }
+    
     this.marcador = marker([lan, lng]).addTo(this.map);
-    this.dataShow =
-      this.marcador.getLatLng().lat.toString().substring(0, 10) +
-      ', ' +
-      this.marcador.getLatLng().lng.toString().substring(0, 10);
     // this.habilitarButton = true;
+  }
+
+  confirmarMapa(){
+    this.modalService.dismissAll();
+    this.marcadorBack = new Marker(this.marcador.getLatLng());
+    this.dataShow =
+          this.marcador.getLatLng().lat.toString().substring(0, 10) +
+          ', ' +
+          this.marcador.getLatLng().lng.toString().substring(0, 10);
+    this.options.center=this.marcadorBack.getLatLng();
+    console.log(this.dataShow);
   }
 
   cancelar() {
