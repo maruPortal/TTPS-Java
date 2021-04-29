@@ -47,30 +47,27 @@ export class EdituserComponent implements OnInit {
   }
 
   onSubmit(usuario: NgForm) {
+    let envio = this.comprobarCampos(usuario);
     
-    if (!this.comprobarCampos(usuario)){
-      this.userService.editUser(usuario).subscribe(
-        () => {
-          //actualiza los datos
-          this.toastr.success("Perfil actualizado con exito","Perfil Actualizado");
-  
-        },
-        (err: HttpErrorResponse) => {
-          console.log('estado de error: ', err.status, typeof err.status);
-          if(err.status==400){
-            this.toastr.error("El username o email ya existen en el sistema","Error",{timeOut:4000});
-          }else{
-            this.toastr.error("Error al actualizar el perfil","Error");
-          }
-        }
-      );
-    }else{
-      this.toastr.warning("Por favor complete todos los campos","Datos Incompletos");
-    }
+    this.userService.editUser(envio).subscribe(
+      () => {
+        //actualiza los datos
+        this.toastr.success("Perfil actualizado con exito","Perfil Actualizado");
 
+      },
+      (err: HttpErrorResponse) => {
+        console.log('estado de error: ', err.status, typeof err.status);
+        if(err.status==400){
+          this.toastr.error("El username o email ya existen en el sistema","Error",{timeOut:4000});
+        }else{
+          this.toastr.error("Error al actualizar el perfil","Error");
+        }
+      }
+    );
+    
   }
 
-  /*comprobarCampos(data: NgForm): NgForm{
+  comprobarCampos(data: NgForm): NgForm{
     if (data.value.apellido.trim()==""){
       data.value.apellido= this.apellido;
     }
@@ -87,12 +84,12 @@ export class EdituserComponent implements OnInit {
       data.value.email= this.email;
     }
     return data;
-  }*/
+  }
 
-  comprobarCampos(data: NgForm){
+  /*comprobarCampos(data: NgForm){
     return (data.value.apellido.trim()=="") || (data.value.nombre.trim()=="") || (data.value.username.trim()=="") || (data.value.password.trim()=="") || (data.value.email.trim()=="");
     
-  }
+  }*/
 
   redireccionar(){
     let tipo = sessionStorage.getItem('tipoUsuario');

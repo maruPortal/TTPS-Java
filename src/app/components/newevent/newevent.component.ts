@@ -141,8 +141,8 @@ export class NeweventComponent implements OnInit{
   }
 
   verificarCampos(ev: NgForm){
-    return (ev.value.nombre.trim()=="") || (ev.value.direccion.trim()=="") || (ev.value.codigo_postal.trim()=="") || 
+    return (ev.value.nombre.trim()=="") || (ev.value.direccion.trim()=="") || (ev.value.codigo_postal=="") || 
     (ev.value.provincia.trim()=="") || (ev.value.tipo_evento.trim()=="") || (ev.value.fecha_hora.trim()=="") || (ev.value.email.trim()=="") || 
-    (ev.value.telefono.trim()=="") || (ev.value.forma_pago.trim()=="") || (ev.value.descripcion.trim()=="") || (ev.value.geolocalizacion.trim()=="");
+    (ev.value.telefono=="") || (ev.value.forma_pago.trim()=="") || (ev.value.descripcion.trim()=="") || (ev.value.geolocalizacion.trim()=="");
   }
 }
