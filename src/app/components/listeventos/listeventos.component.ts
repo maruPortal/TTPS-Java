@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { UsuarioserviceService } from 'src/app/services/usuarioservice.service';
-import { FoodtruckService } from 'src/app/services/foodtruck.service';
 import { Router } from '@angular/router';
 import { Evento } from 'src/app/model/evento';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -23,7 +22,6 @@ export class ListeventosComponent implements OnInit {
   url_home: String;
   eventos = [];
   constructor(
-    private router: Router,
     private userService: UsuarioserviceService,
     private evService: EventosService,
     private toastr: ToastrService,
@@ -57,7 +55,8 @@ export class ListeventosComponent implements OnInit {
     console.log('eliminado?: ', evento.eliminado);
     this.evService.editarEvento(evento).subscribe(() => {
       this.toastr.success('Evento eliminado con exito', 'Evento Eliminado');
-      this.eventos.splice(this.eventos.indexOf(evento),1);
+      // this.eventos.splice(this.eventos.indexOf(evento), 1);
+      this.getEventos();
     }),
       (err: HttpErrorResponse) => {
         console.log('estado de error: ', err.status, typeof err.status);
@@ -68,7 +67,7 @@ export class ListeventosComponent implements OnInit {
   getEventos() {
     this.evService.recuperarEventos().subscribe(
       (listRes) => {
-        this.eventos = listRes.reverse();
+        if (listRes) this.eventos = listRes.reverse();
       },
       (err: HttpErrorResponse) => {
         this.toastr.error('Error al recuperar mis eventos', 'Error');

@@ -21,10 +21,11 @@ export class EditFoodTruckComponent implements OnInit {
   facebook: String;
   whatsapp: String;
   imagenes: String[];
-  imagenesBack= [];
+  imagenesBack = [];
   error: Boolean;
   sinCambios: Boolean;
-  cortarImg: Boolean =false;
+  cortarImg: Boolean = false;
+
   constructor(
     private ftService: FoodtruckService,
     private router: Router,
@@ -43,7 +44,7 @@ export class EditFoodTruckComponent implements OnInit {
       this.facebook = ft.facebook;
       this.whatsapp = ft.whatsapp;
       this.imagenes = ft.imagenes;
-      for (let each of ft.imagenes){
+      for (let each of ft.imagenes) {
         this.imagenesBack.push(each);
       }
     });
@@ -54,24 +55,34 @@ export class EditFoodTruckComponent implements OnInit {
     console.log(this.sinCambios);
 
     let envio = this.comprobarCampos(ft);
-
-    if(this.imagenes.length>0){
-      this.ftService.updateFt(envio,this.imagenes).subscribe(
+    console.log('campos con al menos una letra? -> ', this.validarTextos(ft));
+    if (this.imagenes.length > 0) {
+      this.ftService.updateFt(envio, this.imagenes).subscribe(
         () => {
           if (this.sinCambios) {
-            this.toastr.warning("No se detectaron cambios","Modificacion Cancelada",{timeOut:4000});
+            this.toastr.warning(
+              'No se detectaron cambios',
+              'Modificacion Cancelada',
+              { timeOut: 4000 }
+            );
           } else {
-            this.toastr.success("El foodtruck fue modificado con exito","Modificación Exitosa");
+            this.toastr.success(
+              'El foodtruck fue modificado con exito',
+              'Modificación Exitosa'
+            );
           }
           this.router.navigateByUrl('list-foodtrucks');
         },
         (err: HttpErrorResponse) => {
           console.log('estado de error: ', err.status);
-          this.toastr.error("Error al modificar el foodtruck:  " + err.status,"Error");
+          this.toastr.error(
+            'Error al modificar el foodtruck:  ' + err.status,
+            'Error'
+          );
         }
       );
-    }else{
-      this.toastr.info("Por favor agrega al menos 1 imagen", "Faltan imagenes");
+    } else {
+      this.toastr.info('Por favor agrega al menos 1 imagen', 'Faltan imagenes');
     }
   }
 
@@ -113,12 +124,28 @@ export class EditFoodTruckComponent implements OnInit {
     );
   }
 
-  comprobarImagenes(){
-    if ((this.imagenes.length > this.imagenesBack.length) || (this.imagenes.length < this.imagenesBack.length)){
+  //valida que los campos de texto no sean solo números
+  validarTextos(ft: NgForm): Boolean {
+    let soloNumeros = /^[0-9]+$/i;
+    return (
+      !soloNumeros.test(ft.value.descripcion) &&
+      !soloNumeros.test(ft.value.nombre) &&
+      !soloNumeros.test(ft.value.tipo_servicio) &&
+      !soloNumeros.test(ft.value.url) &&
+      !soloNumeros.test(ft.value.instagram) &&
+      !soloNumeros.test(ft.value.facebook)
+    );
+  }
+
+  comprobarImagenes() {
+    if (
+      this.imagenes.length > this.imagenesBack.length ||
+      this.imagenes.length < this.imagenesBack.length
+    ) {
       return false;
     }
-    for (let i=0; i < this.imagenes.length; i++){
-      if (this.imagenes[i] != this.imagenesBack[i]){
+    for (let i = 0; i < this.imagenes.length; i++) {
+      if (this.imagenes[i] != this.imagenesBack[i]) {
         return false;
       }
     }
@@ -131,29 +158,28 @@ export class EditFoodTruckComponent implements OnInit {
 
   onUploadChange(evt: any) {
     const file = evt.target.files[0];
-  
+
     if (file) {
       const reader = new FileReader();
-  
+
       reader.onload = this.handleReaderLoaded.bind(this);
       reader.readAsBinaryString(file);
     }
   }
-  
+
   handleReaderLoaded(e) {
     this.imagenes.push('data:image/png;base64,' + btoa(e.target.result));
-    if (this.imagenes.length==3){
-      this.cortarImg=true;
-    }    
+    if (this.imagenes.length == 3) {
+      this.cortarImg = true;
+    }
   }
 
-  sacarFoto(img){
-    this.imagenes.splice(this.imagenes.indexOf(img),1);
-    this.cortarImg=false;
+  sacarFoto(img) {
+    this.imagenes.splice(this.imagenes.indexOf(img), 1);
+    this.cortarImg = false;
   }
 
   logOut() {
     this.userService.logOut();
   }
-
 }

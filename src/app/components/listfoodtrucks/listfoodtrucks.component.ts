@@ -44,8 +44,10 @@ export class ListfoodtrucksComponent implements OnInit {
   getFoodTrucks() {
     this.ftService.getFoodtrucks().subscribe(
       (listaFTrucks) => {
-        console.log(listaFTrucks);
-        this.foodtrucks = listaFTrucks.reverse();
+        if (listaFTrucks) {
+          console.log(listaFTrucks);
+          this.foodtrucks = listaFTrucks.reverse();
+        }
       },
       (err: HttpErrorResponse) => {
         console.log('estado de error: ', err.status);
@@ -68,7 +70,7 @@ export class ListfoodtrucksComponent implements OnInit {
           'Foodtruck elimando con exito',
           'Foodtruck Eliminado'
         );
-        this.foodtrucks.splice(this.foodtrucks.indexOf(ft),1);
+        this.foodtrucks.splice(this.foodtrucks.indexOf(ft), 1);
       },
       (err: HttpErrorResponse) => {
         console.log('estado de error: ', err.status);

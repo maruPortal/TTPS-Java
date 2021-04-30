@@ -25,6 +25,7 @@ export class NewfoodtruckComponent implements OnInit {
   user_tipo="FoodTrucker";
   imgFoodTruck = [];
   corteImg: Boolean;
+  condBoton: Boolean = false;
 
   constructor(
     private ftservice: FoodtruckService,
@@ -42,7 +43,9 @@ export class NewfoodtruckComponent implements OnInit {
 
   // {"dueño":{ "id":1} }
   onSubmit(ft: NgForm) {
+
     this.corteImg = false;
+    this.condBoton = true; //deshabilito boton
     if(this.checkImg()){
       if (this.checkFt(ft)){
         this.ftservice.createFoodtruck(ft,this.imgFoodTruck);
@@ -51,6 +54,7 @@ export class NewfoodtruckComponent implements OnInit {
         this.toastr.warning("Por favor completa todos los campos","Datos faltantes");
       }
     }else{
+      this.condBoton = false;
       console.log("Subi alguna foto")
       this.toastr.warning("Por favor agrega al menos 1 foto","Fotos faltantes");
     } 

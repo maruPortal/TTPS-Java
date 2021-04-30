@@ -90,23 +90,25 @@ export class HomeorganizadorComponent implements OnInit {
         let estPen = [];
         let estAct = [];
         let estCal = [];
-        listaRes.forEach(function(value){
-          if (value.estado == "Finalizada"){
-            estFin.push(value);
-          }else{
-            if (value.estado == "Enviada"){
-              estPen.push(value);
-            }else{
-              if(value.estado == "Calificada" || value.estado == "Rechazada"){
-                estCal.push(value);
-              }else{
-                if(value.estado!= "Cancelada"){
-                  estAct.push(value)
-                }
-              }
-            }
-          }
-        });
+        if(listaRes){
+                listaRes.forEach(function(value){
+                  if (value.estado == "Finalizada"){
+                    estFin.push(value);
+                  }else{
+                    if (value.estado == "Enviada"){
+                      estPen.push(value);
+                    }else{
+                      if(value.estado == "Calificada" || value.estado == "Rechazada"){
+                        estCal.push(value);
+                      }else{
+                        if(value.estado!= "Cancelada"){
+                          estAct.push(value)
+                        }
+                      }
+                    }
+                  }
+                });
+        }
         this.activas = estAct.reverse();
         this.calificadas = estCal.reverse();
         this.pendientes = estPen.reverse();

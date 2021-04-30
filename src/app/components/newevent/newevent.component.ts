@@ -108,6 +108,7 @@ export class NeweventComponent implements OnInit{
     this.evento.geolocalizacion=this.marcador.getLatLng().lat.toString()+", "+this.marcador.getLatLng().lng.toString();
     console.log(this.evento);
     if (!this.verificarCampos(evento)){
+      this.habilitarButton=false;
       this.userService.recuperarData().subscribe((user) => {
         this.evento.organizador = user;
         this.evento.tel_contacto = evento.value.telefono;

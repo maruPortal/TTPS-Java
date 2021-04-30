@@ -90,9 +90,8 @@ export class EditEventoComponent implements OnInit {
           month: this.fechaActual.getMonth() + 1,
           day: this.fechaActual.getDate(),
         };
-        // this.minActual = this.fechaActual.getMinutes().toString(); // 0
-        // this.horaActual = this.fechaActual.getHours().toString();
-        this.minActual = this.evento.fecha_hora.substr(-2); //00
+
+        this.minActual = this.evento.fecha_hora.substr(-2);
         this.horaActual = this.evento.fecha_hora.substr(-5, 2);
         //centro mapa con geolocalizacion de evento
         let latlngStr = this.evento.geolocalizacion.split(',', 2);
@@ -139,13 +138,17 @@ export class EditEventoComponent implements OnInit {
     this.eventoBack= new Evento(null,null,e.nombre,e.direccion,e.codigo_postal,e.provincia,e.geolocalizacion,e.fecha_hora,e.email,e.tel_contacto,e.descripcion,e.tipo_evento,e.forma_pago);
   }
 
-  //chequea si hubo modificacion
+  //chequea campos vacios
   comprobarCampos(): Boolean {
-    return true;
+    return !((this.evento.nombre.trim()=="") || (this.evento.direccion.trim()=="") || 
+      (this.evento.provincia.trim()=="") || (this.evento.email.trim()=="") || 
+      (this.evento.tipo_evento.trim()=="") || (this.evento.fecha_hora.trim()=="") || 
+      (this.evento.forma_pago.trim()=="") || (this.evento.descripcion.trim()=="") ||
+      (this.evento.geolocalizacion.trim()==""));
   }
 
   verCambios() {
-    //tarea pa casa
+    //chequea si se modificaron los campos
     console.log(this.evento.codigo_postal);
     console.log(this.eventoBack.codigo_postal);
     let condnombre = this.evento.nombre==this.eventoBack.nombre;
@@ -165,7 +168,7 @@ export class EditEventoComponent implements OnInit {
 
   onSubmit() {
     // this.sinCambios = this.verCambios(ft);
-    // this.comprobarCampos();
+    
     this.evento.fecha_hora =
       this.fechaMostrar.day +
       '/' +
@@ -180,31 +183,39 @@ export class EditEventoComponent implements OnInit {
       this.marcadorBack.getLatLng().lat.toString() +
       ', ' +
       this.marcadorBack.getLatLng().lng.toString();
-    this.evService.editarEvento(this.evento).subscribe(
-      () => {
-        if (this.verCambios()) {
-          //hacer
-          this.toastr.warning(
-            'No se detectaron cambios',
-            'Modificacion Cancelada',
-            { timeOut: 4000 }
-          );
-        } else {
-          this.toastr.success(
-            'El foodtruck fue modificado con exito',
-            'Modificación Exitosa'
+    console.log("campos vacios?: ", this.comprobarCampos());
+    if(this.comprobarCampos()){
+      this.evService.editarEvento(this.evento).subscribe(
+        () => {
+          if (this.verCambios()) {
+            this.toastr.warning(
+              'No se detectaron cambios',
+              'Modificacion Cancelada',
+              { timeOut: 4000 }
+            );
+          } else {
+            this.toastr.success(
+              'El foodtruck fue modificado con exito',
+              'Modificación Exitosa'
+            );
+          }
+          this.router.navigateByUrl('list-eventos');
+        },
+        (err: HttpErrorResponse) => {
+          console.log('estado de error: ', err.status);
+          this.toastr.error(
+            'Error al modificar el evento:  ' + err.status,
+            'Error'
           );
         }
-        this.router.navigateByUrl('list-eventos');
-      },
-      (err: HttpErrorResponse) => {
-        console.log('estado de error: ', err.status);
-        this.toastr.error(
-          'Error al modificar el evento:  ' + err.status,
-          'Error'
-        );
-      }
-    );
+      );
+    }else {
+      console.log('campos vacios');
+          this.toastr.error(
+            'los campos no pueden estar vacios',
+            'Error'
+          );
+    }
   }
 
   openXl(content) {

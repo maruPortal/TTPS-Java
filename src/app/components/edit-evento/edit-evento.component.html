@@ -103,6 +103,7 @@
               name="nombre"
               required
               class="form-control"
+              placeholder="Ingrese el nombre del evento"
             />
           </div>
 
@@ -328,7 +329,13 @@
           </div>
         </div>
         <div style="text-align: center">
-          <button (click)="cancelar()" style="margin-right: 15px;" class="btn btn-danger">CANCELAR</button>
+          <button
+            (click)="cancelar()"
+            style="margin-right: 15px"
+            class="btn btn-danger"
+          >
+            CANCELAR
+          </button>
           <button type="submit" class="btn btn-primary">ENVIAR</button>
         </div>
       </form>
