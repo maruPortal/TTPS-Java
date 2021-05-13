@@ -56,14 +56,14 @@ export class ReservarComponent implements OnInit {
     if (this.foodtruck == null) {
       this.router.navigateByUrl('/');
     }
-    this.userService
-      .getMisEventos(sessionStorage.getItem('id'))
-      .subscribe((eventos) => {
+    this.userService.getMisEventos(sessionStorage.getItem('id')).subscribe(
+      (eventos) => {
         this.eventos = eventos;
       },
-      (err: HttpErrorResponse)=>{
-        this.toastr.error("Error al recuperar mis eventos","Error");
-      });
+      (err: HttpErrorResponse) => {
+        this.toastr.error('Error al recuperar mis eventos', 'Error');
+      }
+    );
 
     this.user_username = sessionStorage.getItem('username');
     this.user_tipo = sessionStorage.getItem('tipoUsuario');
@@ -88,23 +88,35 @@ export class ReservarComponent implements OnInit {
   }
 
   confirmarReserva() {
-    this.userService.recuperarData().subscribe((user) => {
-      this.solicitud.foodtruck = this.foodtruck;
-      this.solicitud.evento = this.eventoSeleccionado;
-      this.solicitud.solicitado = this.foodtruck.dueno;
-      this.solicitud.creador = user;
-      this.userService.createSolicitud(this.solicitud).subscribe(
-        (exito) => {
-          this.router.navigateByUrl('/');
-          this.toastr.success("Solicitud enviada con exito y agregada al panel 'Pendientes'","Solicitu Enviada");
-        },
-        (err: HttpErrorResponse)=>{
-          this.toastr.error("Error al enviar la solicitud","Error");
-        }
-      );
-    },
-    (err: HttpErrorResponse)=>{
-      this.toastr.error("Error al recuperar la informacion del usuario","Error");
-    });
+    this.userService.recuperarData().subscribe(
+      (user) => {
+        this.solicitud.foodtruck = this.foodtruck;
+        this.solicitud.evento = this.eventoSeleccionado;
+        this.solicitud.solicitado = this.foodtruck.dueno;
+        this.solicitud.creador = user;
+        this.userService.createSolicitud(this.solicitud).subscribe(
+          (exito) => {
+            this.router.navigateByUrl('/');
+            this.toastr.success(
+              "Solicitud enviada con exito y agregada al panel 'Pendientes'",
+              'Solicitud Enviada'
+            );
+          },
+          (err: HttpErrorResponse) => {
+            if (err.status == 400) {
+              this.toastr.error('Solicitud repetida', 'Error');
+            } else {
+              this.toastr.error('Error al enviar la solicitud', 'Error');
+            }
+          }
+        );
+      },
+      (err: HttpErrorResponse) => {
+        this.toastr.error(
+          'Error al recuperar la informacion del usuario',
+          'Error'
+        );
+      }
+    );
   }
 }

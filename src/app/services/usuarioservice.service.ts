@@ -21,10 +21,12 @@ import { AuthenticationService } from './authentication.service';
 })
 export class UsuarioserviceService {
   usuario: Usuario;
-  constructor(private http: HttpClient, 
-              private router: Router,
-              private authenticationService: AuthenticationService,
-              private toastr: ToastrService) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private authenticationService: AuthenticationService,
+    private toastr: ToastrService
+  ) {}
 
   getUsuario() {
     let id = sessionStorage.getItem('id');
@@ -92,14 +94,14 @@ export class UsuarioserviceService {
     );
   }*/
 
-  autenticacion(login: NgForm){
-    let usuario= `${login.value.usuario}`;
-    let clave= `${login.value.clave}`;
-    
-    return this.authenticationService.login(usuario,clave);
+  autenticacion(login: NgForm) {
+    let usuario = `${login.value.usuario}`;
+    let clave = `${login.value.clave}`;
+
+    return this.authenticationService.login(usuario, clave);
   }
 
-  createFoodtrucker(register: NgForm){
+  createFoodtrucker(register: NgForm) {
     return this.http.post<Usuario>(
       `${environment.url}/usuario/foodtrucker`,
       register.value
@@ -109,7 +111,8 @@ export class UsuarioserviceService {
   createOrganizador(register: NgForm) {
     return this.http.post<Usuario>(
       `${environment.url}/usuario/organizador`,
-      register.value);
+      register.value
+    );
   }
 
   editUser(usuario: NgForm): Observable<Usuario> {
@@ -182,7 +185,9 @@ export class UsuarioserviceService {
 
   cancelarSolicitud(sId): Observable<Solicitud> {
     return this.http.put<Solicitud>(
-      `${environment.url}/usuario/cancelarSolicitud/${sId}`,'');
+      `${environment.url}/usuario/cancelarSolicitud/${sId}`,
+      ''
+    );
   }
 
   getMisEventos(idUser): Observable<Evento[]> {
@@ -192,10 +197,7 @@ export class UsuarioserviceService {
   createSolicitud(solicitud): Observable<Solicitud> {
     return this.http.post<Solicitud>(
       `${environment.url}/usuario/nuevaSolicitud`,
-      solicitud,
-      {
-        headers: { token: '1123456' },
-      }
+      solicitud
     );
   }
   modificarSolicitud(sId, estado): Observable<Solicitud> {
