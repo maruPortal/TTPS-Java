@@ -104,7 +104,7 @@ export class ReservarComponent implements OnInit {
           },
           (err: HttpErrorResponse) => {
             if (err.status == 400) {
-              this.toastr.error('Solicitud repetida', 'Error');
+              this.toastr.error('Ya existe una solicitud para este Foodtruck y este Evento', 'Error');
             } else {
               this.toastr.error('Error al enviar la solicitud', 'Error');
             }

@@ -35,7 +35,8 @@ export class NeweventComponent implements OnInit{
   dataShow;
   map;
   options;
-  marcador: Marker;
+  first= false;
+  marcador: Marker = marker([-34.919654, -57.919169]);
   horas: String[] =["00","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23"];
   
   constructor(
@@ -70,7 +71,7 @@ export class NeweventComponent implements OnInit{
         tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18, attribution: '...' })
       ],
       zoom: 13,
-      center: latLng(-34.919654, -57.919169)
+      center: this.marcador.getLatLng()
     };
     let today = new Date();
     this.fechaMinima={year:today.getFullYear(),month:today.getMonth()+1,day:today.getDate()};
@@ -84,7 +85,7 @@ export class NeweventComponent implements OnInit{
   onMapReady(map: Map) {
     this.map=map;
     map.on('click', (e: LeafletMouseEvent) => this.marcar(e));
-    if(this.marcador!=null){
+    if(this.marcador!=null && this.first){
       this.marcador.addTo(this.map);
     }
   }
@@ -92,12 +93,16 @@ export class NeweventComponent implements OnInit{
   marcar(e: LeafletMouseEvent){
         let lan=e.latlng.lat;
         let lng=e.latlng.lng;
+        if (!this.first){
+          this.first=true;
+        }
         if (this.marcador!= null){
           this.marcador.removeFrom(this.map);
         }
         this.marcador=marker([lan, lng]).addTo(this.map);
         this.dataShow=this.marcador.getLatLng().lat.toString().substring(0,10)+", "+this.marcador.getLatLng().lng.toString().substring(0,10);
         this.habilitarButton=true;
+        this.options.center=this.marcador.getLatLng();
   }
   onSubmit(evento: NgForm) {
     // let estado =

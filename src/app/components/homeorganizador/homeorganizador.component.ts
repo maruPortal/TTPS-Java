@@ -183,6 +183,7 @@ export class HomeorganizadorComponent implements OnInit {
       );
     }else{
       console.log("Pone algo para buscar")
+      this.toastr.info("Ingrese al menos 1 campo para realizar una busqueda", "Faltan filtros");
     }
 
   }
