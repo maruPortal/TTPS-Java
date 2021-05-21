@@ -55,8 +55,8 @@ export class ListeventosComponent implements OnInit {
     console.log('eliminado?: ', evento.eliminado);
     this.evService.editarEvento(evento).subscribe(() => {
       this.toastr.success('Evento eliminado con exito', 'Evento Eliminado');
-      // this.eventos.splice(this.eventos.indexOf(evento), 1);
-      this.getEventos();
+       this.eventos.splice(this.eventos.indexOf(evento), 1);
+      //this.getEventos();
     }),
       (err: HttpErrorResponse) => {
         console.log('estado de error: ', err.status, typeof err.status);
